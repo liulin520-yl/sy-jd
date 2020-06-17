@@ -1,5 +1,5 @@
 <template>
-  <div class="box">
+  <div class="box-l">
     <div class="frist-page-head-l">
       <div class="header-left-l">
         <div class="head-icon-l"></div>
@@ -25,16 +25,16 @@
       <div class="switch-btn-item-l">
         <img src="../assets/home/s1.png" alt  />
       </div>
-      <div class="switch-btn-item-l" >
+      <div class="switch-btn-item-l"  @click="changeBtn(2)">
         <img src="../assets/home/s7.png" alt  >
       </div>
       <div class="switch-btn-item-l" >
         <img src="../assets/home/s4.png" alt />
       </div>
-      <div class="switch-btn-item-l" >
+      <div class="switch-btn-item-l" @click="changeBtn(4)">
         <img src="../assets/home/s5.png" alt  />
       </div>
-      <div class="switch-btn-item-l" >
+      <div class="switch-btn-item-l" @click="changeBtn(5)">
         <img src="../assets/home/s8.png" alt />
       </div>
     </div>
@@ -43,7 +43,28 @@
 
 <script>
 export default {
- 
+     data(){
+        return{
+            page:1
+        }
+    },
+    methods:{
+        changeBtn(index){
+            this.page=index;
+            if(index==2){
+                // alert("HAHA ")
+                 this.$router.push("classify-page")
+            }
+            if(index==4){
+                 this.$router.push("shopping-page")
+            }
+            if(index==5){
+                this.$router.push("noload-page")
+            }
+        }
+    }
+
+    
  
 };
 </script>

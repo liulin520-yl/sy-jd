@@ -18,59 +18,55 @@
         <div class="navigation-item" v-for="item in list" :key="item">{{item}}</div>
       </div>
       <div class="mian-content">
+        <div class="product-item">
+          <p>当季主推</p>
+          <div class="product-box">
+            <div class="product-y">
+              <img src="../assets/classify-img/01.jpg" alt />
+              <p>图书专区</p>
+            </div>
+            <div class="product-y">
+              <img src="../assets/classify-img/01.jpg" alt />
+              <p>图书专区</p>
+            </div>
+          </div>
+        </div>
 
         <div class="product-item">
           <p>当季主推</p>
           <div class="product-box">
-                <div class="product-y">
-                  <img src="../assets/classify-img/01.jpg" alt />
-                  <p>图书专区</p>
-                </div>
-                <div class="product-y">
-                  <img src="../assets/classify-img/01.jpg" alt />
-                  <p>图书专区</p>
-                </div>
-                
+            <div class="product-y">
+              <img src="../assets/classify-img/01.jpg" alt />
+              <p>图书专区</p>
+            </div>
+            <div class="product-y">
+              <img src="../assets/classify-img/01.jpg" alt />
+              <p>图书专区</p>
+            </div>
+            <div class="product-y">
+              <img src="../assets/classify-img/01.jpg" alt />
+              <p>图书专区</p>
+            </div>
           </div>
         </div>
-
-         <div class="product-item">
-          <p>当季主推</p>
-          <div class="product-box">
-                <div class="product-y">
-                  <img src="../assets/classify-img/01.jpg" alt />
-                  <p>图书专区</p>
-                </div>
-                <div class="product-y">
-                  <img src="../assets/classify-img/01.jpg" alt />
-                  <p>图书专区</p>
-                </div>
-                <div class="product-y">
-                  <img src="../assets/classify-img/01.jpg" alt />
-                  <p>图书专区</p>
-                </div>
-          </div>
-        </div>
-
-
       </div>
     </div>
     <!-- 页脚 -->
-    <div class="switch-btn">
-      <div class="switch-btn-item">
-        <img src alt />1
+    <div class="switch-btn-y">
+      <div class="switch-btn-item-y" @click="changeBtn(1)">
+        <img src="../assets/home/s2.png" alt />
       </div>
-      <div class="switch-btn-item">
-        <img src alt />2
+      <div class="switch-btn-item-y">
+        <img src="../assets/home/s3.png" alt />
       </div>
-      <div class="switch-btn-item">
-        <img src alt />6
+      <div class="switch-btn-item-y">
+        <img src="../assets/home/s4.png" alt />
       </div>
-      <div class="switch-btn-item">
-        <img src alt />5
+      <div class="switch-btn-item-y" @click="changeBtn(4)">
+        <img src="../assets/home/s5.png" alt />
       </div>
-      <div class="switch-btn-item">
-        <img src alt />7
+      <div class="switch-btn-item-y" @click="changeBtn(5)">
+        <img src="../assets/home/s8.png" alt />
       </div>
     </div>
   </div>
@@ -78,28 +74,43 @@
 
 <script>
 export default {
-    data(){
-        return{
-            list:[
-                   "热门推荐",
-                   "手机数码",
-                   "电脑办公",
-                   "家用电器",
-                   "计生情趣",
-                   "美妆护肤",
-                   "个护清洁",
-                   "汽车生活",
-                   "京东超市",
-                   "男装",
-                   "男鞋",
-                   "女装",
-                   "女鞋",
-                   "母婴童装",
-                   "图书音像",
-                   "运动户外",
-                   ]
-        }
+  data() {
+    return {
+      list: [
+        "热门推荐",
+        "手机数码",
+        "电脑办公",
+        "家用电器",
+        "计生情趣",
+        "美妆护肤",
+        "个护清洁",
+        "汽车生活",
+        "京东超市",
+        "男装",
+        "男鞋",
+        "女装",
+        "女鞋",
+        "母婴童装",
+        "图书音像",
+        "运动户外"
+      ]
+    };
+  },
+  methods: {
+    changeBtn(index) {
+      this.page = index;
+      if (index == 1) {
+        // alert("HAHA ")
+        this.$router.push("/");
+      }
+      if (index == 4) {
+        this.$router.push("shopping-page");
+      }
+      if (index == 5) {
+        this.$router.push("noload-page");
+      }
     }
+  }
 };
 </script>
 
@@ -210,14 +221,19 @@ export default {
   font-size: 12px;
 }
 /* 分页的底部 */
-.switch-btn {
+.switch-btn-y {
   display: flex;
   align-items: center;
   text-align: center;
-  background-color: rgb(255, 0, 212);
+  background-color: rgb(255, 255, 255);
 }
-.switch-btn .switch-btn-item {
+.switch-btn-y .switch-btn-item-y {
   width: 20%;
-  padding: 10px 0;
+}
+.switch-btn-item-y img {
+  width: 60px;
+  height: 46px;
+  display: inline-block;
+  margin-top: 2px;
 }
 </style>
