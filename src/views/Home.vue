@@ -71,6 +71,9 @@ export default {
             if(index==1){
                  this.$router.push("first-page")
             }
+            if(index==4){
+                 this.$router.push("shopping-page")
+            }
         }
     }
 }
