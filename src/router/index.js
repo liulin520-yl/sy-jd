@@ -7,15 +7,18 @@ Vue.use(VueRouter)
 
 const routes = [
   {
+
     path: '/',
     name: 'Home',
-    component: Home
+    component: Home,
+
   },
   {
     path: '/first-page',
     name: 'First-page',
     component: FirstPage
   },
+  
 ]
 
 const router = new VueRouter({

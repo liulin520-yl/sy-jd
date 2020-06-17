@@ -1,7 +1,7 @@
 <template>
   <div class="box">
     <div class="main-content">
-        <router-view  ></router-view>
+        <router-view></router-view>
     </div>
     <div class="switch-btn">
         <div class="switch-btn-item" @click="changeBtn(1)">
@@ -28,9 +28,6 @@
   </div>
 </template>
 
-<script>
-export default {};
-</script>
 
 <style>
 .box{
@@ -71,9 +68,9 @@ export default {
     methods:{
         changeBtn(index){
             this.page=index;
-            // if(index==1){
-            //      this.$router.push("first-page")
-            // }
+            if(index==1){
+                 this.$router.push("first-page")
+            }
         }
     }
 }
