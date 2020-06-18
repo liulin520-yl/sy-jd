@@ -1,25 +1,30 @@
 <template>
   <div class="box-m">
     <div class="wx-wrap-m">
+      <!-- 购物车 -->
       <div class="header-bar">
         <div class="header-bar-back"></div>
         <div class="header-bar-title">购物车</div>
         <div class="header-bar-menu"></div>
       </div>
+      <!-- 免费赢京豆 -->
       <div class="top-banner" v-show="get">
         <img src="../assets/cart/jies.png" alt />
         <i class="close" @click="deltopbanner"></i>
       </div>
+      <!-- 登录 -->
       <div class="shopcart-login-bar">
         登录后可同步账户购物车中的商品
         <div class="shopcart-login-bar-btn">登录</div>
       </div>
+      <!-- 登录后可同步购物车中的商品 -->
       <div class="empty-cart">
         <div class="empty-warp">
           <div class="empty-icon"></div>
           <p>登录后可同步购物车中商品</p>
         </div>
       </div>
+      <!-- 京东秒杀 -->
       <div class="shopchat-mod">
         <div class="shopchat-mod-title">
           <span>京东秒杀</span>
@@ -29,17 +34,13 @@
             <div class="title">京东秒杀</div>
             <div class="header-countdown">
               <span class="time">16点场</span>
-              <div class="countdown-detali">
-                <div class="item">
-                  <i class="inner">01</i>
-                </div>
-                <div class="item">
-                  <i class="inner">01</i>
-                </div>
-                <div class="item">
-                  <i class="inner">01</i>
-                </div>
-              </div>
+              <van-count-down :time="time" class="countdown-detali">
+                <template v-slot="timeData">
+                  <span class="item">0{{ timeData.hours }}</span>
+                  <span class="item">{{ timeData.minutes }}</span>
+                  <span class="item">{{ timeData.seconds }}</span>
+                </template>
+              </van-count-down>
             </div>
             <div class="header-link">查看更多</div>
           </div>
@@ -92,6 +93,7 @@
           </div>
         </div>
       </div>
+      <!-- 新用户福利领劵 -->
       <div class="coupon">
         <div class="coupon-head">
           <div class="title">
@@ -115,19 +117,206 @@
           </div>
         </div>
       </div>
+      <!-- 可能还想要 -->
+      <div class="shopchat-mod">
+        <div class="shopchat-mod-title">
+          <span>可能还想要</span>
+        </div>
+        <div class="mod-recommend2">
+          <ul class="list">
+            <li class="li">
+              <div class="cover">
+                <img src="../assets/cart/luyouqi.webp" alt />
+              </div>
+              <div class="info">
+                <div class="rec-name">
+                  <i class="mod-tag">
+                    <img src="../assets/cart/jdcs.webp" alt />
+                  </i>
+                  友讯(D-Link)dlink DIR-822+ 11AC 1200M 双频百兆智能无线路由器 WIFI无线穿墙
+                </div>
+                <div class="flex-wrap">
+                  <div class="price-info">
+                    <div class="price">
+                      ¥
+                      <em>99</em>
+                    </div>
+                  </div>
+                  <div class="rec-cart"></div>
+                </div>
+              </div>
+            </li>
+            <li class="li">
+              <div class="cover">
+                <img src="../assets/cart/luyouqi.webp" alt />
+              </div>
+              <div class="info">
+                <div class="rec-name">
+                  <i class="mod-tag">
+                    <img src="../assets/cart/jdcs.webp" alt />
+                  </i>
+                  友讯(D-Link)dlink DIR-822+ 11AC 1200M 双频百兆智能无线路由器 WIFI无线穿墙
+                </div>
+                <div class="flex-wrap">
+                  <div class="price-info">
+                    <div class="price">
+                      ¥
+                      <em>99</em>
+                    </div>
+                  </div>
+                  <div class="rec-cart"></div>
+                </div>
+              </div>
+            </li>
+            <li class="li">
+              <div class="cover">
+                <img src="../assets/cart/luyouqi.webp" alt />
+              </div>
+              <div class="info">
+                <div class="rec-name">
+                  <i class="mod-tag">
+                    <img src="../assets/cart/jdcs.webp" alt />
+                  </i>
+                  友讯(D-Link)dlink DIR-822+ 11AC 1200M 双频百兆智能无线路由器 WIFI无线穿墙
+                </div>
+                <div class="flex-wrap">
+                  <div class="price-info">
+                    <div class="price">
+                      ¥
+                      <em>99</em>
+                    </div>
+                  </div>
+                  <div class="rec-cart"></div>
+                </div>
+              </div>
+            </li>
+            <li class="li">
+              <div class="cover">
+                <img src="../assets/cart/luyouqi.webp" alt />
+              </div>
+              <div class="info">
+                <div class="rec-name">
+                  <i class="mod-tag">
+                    <img src="../assets/cart/jdcs.webp" alt />
+                  </i>
+                  友讯(D-Link)dlink DIR-822+ 11AC 1200M 双频百兆智能无线路由器 WIFI无线穿墙
+                </div>
+                <div class="flex-wrap">
+                  <div class="price-info">
+                    <div class="price">
+                      ¥
+                      <em>99</em>
+                    </div>
+                  </div>
+                  <div class="rec-cart"></div>
+                </div>
+              </div>
+            </li>
+            <li class="li">
+              <div class="cover">
+                <img src="../assets/cart/luyouqi.webp" alt />
+              </div>
+              <div class="info">
+                <div class="rec-name">
+                  <i class="mod-tag">
+                    <img src="../assets/cart/jdcs.webp" alt />
+                  </i>
+                  友讯(D-Link)dlink DIR-822+ 11AC 1200M 双频百兆智能无线路由器 WIFI无线穿墙
+                </div>
+                <div class="flex-wrap">
+                  <div class="price-info">
+                    <div class="price">
+                      ¥
+                      <em>99</em>
+                    </div>
+                  </div>
+                  <div class="rec-cart"></div>
+                </div>
+              </div>
+            </li>
+            <li class="li">
+              <div class="cover">
+                <img src="../assets/cart/luyouqi.webp" alt />
+              </div>
+              <div class="info">
+                <div class="rec-name">
+                  <i class="mod-tag">
+                    <img src="../assets/cart/jdcs.webp" alt />
+                  </i>
+                  友讯(D-Link)dlink DIR-822+ 11AC 1200M 双频百兆智能无线路由器 WIFI无线穿墙
+                </div>
+                <div class="flex-wrap">
+                  <div class="price-info">
+                    <div class="price">
+                      ¥
+                      <em>99</em>
+                    </div>
+                  </div>
+                  <div class="rec-cart"></div>
+                </div>
+              </div>
+            </li>
+            <li class="li">
+              <div class="cover">
+                <img src="../assets/cart/luyouqi.webp" alt />
+              </div>
+              <div class="info">
+                <div class="rec-name">
+                  <i class="mod-tag">
+                    <img src="../assets/cart/jdcs.webp" alt />
+                  </i>
+                  友讯(D-Link)dlink DIR-822+ 11AC 1200M 双频百兆智能无线路由器 WIFI无线穿墙
+                </div>
+                <div class="flex-wrap">
+                  <div class="price-info">
+                    <div class="price">
+                      ¥
+                      <em>99</em>
+                    </div>
+                  </div>
+                  <div class="rec-cart"></div>
+                </div>
+              </div>
+            </li>
+            <li class="li">
+              <div class="cover">
+                <img src="../assets/cart/luyouqi.webp" alt />
+              </div>
+              <div class="info">
+                <div class="rec-name">
+                  <i class="mod-tag">
+                    <img src="../assets/cart/jdcs.webp" alt />
+                  </i>
+                  友讯(D-Link)dlink DIR-822+ 11AC 1200M 双频百兆智能无线路由器 WIFI无线穿墙
+                </div>
+                <div class="flex-wrap">
+                  <div class="price-info">
+                    <div class="price">
+                      ¥
+                      <em>99</em>
+                    </div>
+                  </div>
+                  <div class="rec-cart"></div>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+    <!-- 底部导航 -->
     <div class="switch-btn-m">
       <div class="switch-btn-item-m" @click="changeBtn(1)">
         <img src="../assets/home/s2.png" alt />
       </div>
       <div class="switch-btn-item-m" @click="changeBtn(2)">
-        <img src="../assets/home/s7.png" alt  >
+        <img src="../assets/home/s7.png" alt />
       </div>
-      <div class="switch-btn-item-m" >
+      <div class="switch-btn-item-m">
         <img src="../assets/home/s4.png" alt />
       </div>
-      <div class="switch-btn-item-m" >
-        <img src="../assets/home/s6.png" alt  />
+      <div class="switch-btn-item-m">
+        <img src="../assets/home/s6.png" alt />
       </div>
       <div class="switch-btn-item-m" @click="changeBtn(5)">
         <img src="../assets/home/s8.png" alt />
@@ -141,46 +330,49 @@ export default {
   data() {
     return {
       get: true,
-      page:1
+      page: 1,
+      time: 30 * 60 * 60 * 1000
     };
   },
   methods: {
     deltopbanner() {
       this.get = false;
-    }, changeBtn(index){
-            this.page=index;
-            if(index==2){
-                // alert("HAHA ")
-                 this.$router.push("classify-page")
-            }
-            if(index==1){
-                 this.$router.push("/")
-            }
-            if(index==5){
-                this.$router.push("noload-page")
-            }
-        }
+    },
+    changeBtn(index) {
+      this.page = index;
+      if (index == 2) {
+        // alert("HAHA ")
+        this.$router.push("classify-page");
+      }
+      if (index == 1) {
+        this.$router.push("/");
+      }
+      if (index == 5) {
+        this.$router.push("noload-page");
+      }
+    }
   }
 };
 </script>
 
 <style>
-
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-.box-m{
+ol,
+ul {
+  list-style: none;
+}
+.box-m {
   width: 100%;
   height: 100%;
-  
+  background-color: rgb(247, 247, 247);
 }
 .wx-wrap-m {
-  margin-bottom: 46px;
-  /* flex-shrink: 0; */
+  padding-bottom: calc(70px + 13.33333vw);
   overflow: auto;
-  /* height: 80%; */
   font-size: 12px;
   color: #333;
   width: 100%;
@@ -458,6 +650,103 @@ export default {
   line-height: 1;
   text-decoration: line-through;
 }
+.wx-wrap-m .shopchat-mod .mod-recommend2 {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+.mod-recommend2 .list {
+  padding-right: 1px;
+  overflow: hidden;
+  background: #f7f7f7;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.mod-recommend2 .list .li {
+  background: #fff;
+  position: relative;
+  float: left;
+  width: 50%;
+  margin-bottom: 1px;
+  padding: 15px 15px 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+.mod-recommend2 .list .li::after {
+  position: absolute;
+  content: "";
+  width: 1px;
+  height: 1px;
+  background: #999;
+  opacity: 0.5;
+  right: 2px;
+  bottom: 2px;
+}
+.mod-recommend2 .list .li .cover {
+  position: relative;
+  overflow: hidden;
+  padding-top: 100%;
+  height: 0;
+}
+.mod-recommend2 .list .li .cover img {
+  position: absolute;
+  max-width: 100%;
+  max-height: 100%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+.mod-recommend2 .list .li .info .rec-name {
+  margin: 12px 0 4px;
+  font-size: 12px;
+  color: #333;
+  line-height: 18px;
+  height: 36px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.mod-recommend2 .list .li .info .rec-name i.mod-tag {
+  display: inline-block;
+  vertical-align: middle;
+  height: 14px;
+}
+.mod-recommend2 .list .li .info .rec-name i.mod-tag img {
+  display: block;
+  height: 100%;
+}
+.mod-recommend2 .list .li .info .flex-wrap {
+  display: flex;
+}
+.mod-recommend2 .list .li .info .flex-wrap .price-info {
+  width: 100%;
+  overflow: hidden;
+  flex: 1;
+  -webkit-box-flex: 1;
+}
+.mod-recommend2 .list .li .info .flex-wrap .price-info .price {
+  display: inline-block;
+  font-size: 12px;
+  color: #e93b3d;
+  margin-right: 3px;
+  line-height: 20px;
+}
+.mod-recommend2 .list .li .info .flex-wrap .price-info .price em {
+  font-size: 16px;
+  font-style: normal;
+}
+.mod-recommend2 .list .li .info .flex-wrap .rec-cart {
+  width: 30px;
+  height: 24px;
+  background: url(../assets/cart/gwc-ifont.png) no-repeat 50%;
+  position: relative;
+  background-size: 15px;
+}
+
 .wx-wrap-m .coupon {
   padding: 15px 10px;
   background: #fff;
@@ -627,7 +916,6 @@ export default {
   color: #fff;
 }
 
-
 /* 底部 */
 .switch-btn-m {
   z-index: 5;
@@ -639,6 +927,7 @@ export default {
   align-items: center;
   text-align: center;
   background-color: rgb(255, 255, 255);
+  box-shadow: 0 0 10px 0 hsla(0,6%,58%,.6);
 }
 .switch-btn-m .switch-btn-item-m {
   width: 20%;
