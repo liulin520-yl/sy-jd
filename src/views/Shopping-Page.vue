@@ -152,16 +152,16 @@ export default {
 </script>
 
 <style>
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 .box-m{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  /* align-items: stretch; */
+  width: 100%;
+  height: 100%;
+  
 }
 .wx-wrap-m {
   /* flex-shrink: 0; */
@@ -616,6 +616,7 @@ export default {
 
 /* 底部 */
 .switch-btn-m {
+  z-index: 5;
   width: 100%;
   position: fixed;
   bottom: 0;
