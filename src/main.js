@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import { CountDown } from 'vant';
+Vue.use(CountDown);
 
 Vue.config.productionTip = false
 
