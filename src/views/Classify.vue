@@ -15,7 +15,9 @@
     <!-- 内容 -->
     <div class="classify-main-y">
       <div class="navigation">
-        <div class="navigation-item" v-for="item in list" :key="item">{{item}}</div>
+        <div class="navigation-box-y">
+            <div class="navigation-item" v-for="(item,index) in list" :key="index">{{item}}</div>
+        </div>
       </div>
       <div class="mian-content">
         <div class="product-item">
@@ -92,7 +94,30 @@ export default {
         "女鞋",
         "母婴童装",
         "图书音像",
-        "运动户外"
+        "运动户外",
+        "内衣配饰",
+        "食物生鲜",
+        "酒水饮料",
+        "家具家装",
+        "家居厨具",
+        "箱包手袋",
+        "钟表珠宝",
+        "玩具乐器",
+        "医药保健",
+        "宠物生活",
+        "礼品鲜花",
+        "农资绿植",
+        "生活旅行",
+        "奢侈品",
+        "京东国际",
+        "艺术邮币",
+        "二手商品",
+        "特产馆",
+        "京东金融",
+        "国际名牌",
+        "拍卖",
+        "房产",
+        "工业品",
       ]
     };
   },
@@ -100,7 +125,6 @@ export default {
     changeBtn(index) {
       this.page = index;
       if (index == 1) {
-        // alert("HAHA ")
         this.$router.push("/");
       }
       if (index == 4) {
@@ -114,7 +138,7 @@ export default {
 };
 </script>
 
-<style>
+<style  scoped>
 .box-y {
   width: 100%;
   height: 100%;
@@ -178,7 +202,15 @@ export default {
 /* 导航 */
 .navigation {
   width: 20%;
+  align-items: stretch;
   background-color: rgb(248, 248, 248);
+  /* overflow: auto; */
+  overflow: hidden;
+}
+.navigation-box-y{
+  width: 110%;
+  height: 100%;
+  /* background-color: rgb(14, 144, 177); */
   overflow: auto;
 }
 .navigation-item {

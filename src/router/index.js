@@ -4,6 +4,7 @@ import FirstPage from '../views/First-Page.vue'
 import ShoppingPage from '../views/Shopping-Page.vue'
 import ClassifyPage from '../views/Classify.vue'
 import NoloadPage from '../views/No-Load.vue'
+import Personage from '../views/Personage.vue'
 console.log(ClassifyPage)
 console.log(ShoppingPage)
 
@@ -30,6 +31,12 @@ const routes = [
     path:'/noload-page',
     name:'Noload-page',
     component:NoloadPage
+  },
+  // 登录的路由
+  {
+    path:'/personage-page',
+    name:'Personage-page',
+    component:Personage
   }
 
 ]
