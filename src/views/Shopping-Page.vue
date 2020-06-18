@@ -117,10 +117,10 @@
       </div>
     </div>
     <div class="switch-btn-m">
-      <div class="switch-btn-item-m" >
+      <div class="switch-btn-item-m" @click="changeBtn(1)">
         <img src="../assets/home/s2.png" alt />
       </div>
-      <div class="switch-btn-item-m" >
+      <div class="switch-btn-item-m" @click="changeBtn(2)">
         <img src="../assets/home/s7.png" alt  >
       </div>
       <div class="switch-btn-item-m" >
@@ -129,7 +129,7 @@
       <div class="switch-btn-item-m" >
         <img src="../assets/home/s6.png" alt  />
       </div>
-      <div class="switch-btn-item-m" >
+      <div class="switch-btn-item-m" @click="changeBtn(5)">
         <img src="../assets/home/s8.png" alt />
       </div>
     </div>
@@ -140,13 +140,26 @@
 export default {
   data() {
     return {
-      get: true
+      get: true,
+      page:1
     };
   },
   methods: {
     deltopbanner() {
       this.get = false;
-    }
+    }, changeBtn(index){
+            this.page=index;
+            if(index==2){
+                // alert("HAHA ")
+                 this.$router.push("classify-page")
+            }
+            if(index==1){
+                 this.$router.push("/")
+            }
+            if(index==5){
+                this.$router.push("noload-page")
+            }
+        }
   }
 };
 </script>
@@ -164,6 +177,7 @@ export default {
   
 }
 .wx-wrap-m {
+  margin-bottom: 46px;
   /* flex-shrink: 0; */
   overflow: auto;
   /* height: 80%; */
