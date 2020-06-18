@@ -241,6 +241,7 @@ export default {
   color: #848689;
   font-size: 14px;
   text-align: center;
+  border-left: 1px solid #ccc;
 }
 .numcolor{
   color: #f10000;
