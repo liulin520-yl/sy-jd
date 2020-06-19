@@ -16,12 +16,23 @@
     <div class="classify-main-y">
       <div class="navigation">
         <div class="navigation-box-y">
-            <div class="navigation-item" v-for="(item,index) in list" :key="index">{{item}}</div>
+            <div class="navigation-item" ref="items" :class="{active:num==index}" v-for="(item,index) in list" :key="index" @click="clickPro(index)">{{item}}</div>
         </div>
       </div>
       <div class="mian-content">
+
         <div class="product-item">
-          <p>当季主推</p>
+          <div class="pro-title">
+              <div class="title">
+                 <strong>
+                  当季主推
+                 </strong>
+              </div>
+              <div class="pro-title-img">
+                <img src="../assets/classify-img/qing.png" alt="">
+              </div>
+              <div class="pro-title-img-y">清空</div>
+          </div>
           <div class="product-box">
             <div class="product-y">
               <img src="../assets/classify-img/01.jpg" alt />
@@ -34,23 +45,6 @@
           </div>
         </div>
 
-        <div class="product-item">
-          <p>当季主推</p>
-          <div class="product-box">
-            <div class="product-y">
-              <img src="../assets/classify-img/01.jpg" alt />
-              <p>图书专区</p>
-            </div>
-            <div class="product-y">
-              <img src="../assets/classify-img/01.jpg" alt />
-              <p>图书专区</p>
-            </div>
-            <div class="product-y">
-              <img src="../assets/classify-img/01.jpg" alt />
-              <p>图书专区</p>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
     <!-- 页脚 -->
@@ -118,7 +112,8 @@ export default {
         "拍卖",
         "房产",
         "工业品",
-      ]
+      ],
+      num:0
     };
   },
   methods: {
@@ -133,6 +128,14 @@ export default {
       if (index == 5) {
         this.$router.push("noload-page");
       }
+    },
+    clickPro(index){
+      this.num=index;
+      // let height=this.$refs.items[0].clientHeight;
+      // this.$refs.left.scrollTo({
+      //   top:50*index,
+      //   behavior:"smooth"
+      // })
     }
   }
 };
@@ -221,6 +224,10 @@ export default {
   color: #333;
   font-size: 14px;
 }
+.active{
+  background-color: rgb(255, 255, 255);
+  color: #E93B3D;
+}
 /* 产品 */
 .mian-content {
   width: 80%;
@@ -231,8 +238,30 @@ export default {
 .product-item {
   margin: 19px 7px 0px 7px;
 }
-.product-item > p {
-  font-style: 14px;
+.pro-title{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.pro-title-img{
+  width: 15px;
+  height: 15px;
+}
+.pro-title-img img{
+   width: 15px;
+  height: 15px;
+}
+.pro-title-img-y{
+  width: 45px;
+  height: 15px;
+  color: #848689;
+  font-size: 12px;
+  text-align: center;
+  line-height: 15px;
+}
+.pro-title .title{
+  font-size: 14px;
+  flex-grow: 1;
 }
 .product-box {
   margin: 16px 0px 0px 10px;
