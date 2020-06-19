@@ -124,7 +124,7 @@
         </div>
         <div class="mod-recommend2">
           <ul class="list">
-            <li class="li">
+            <li class="li" @click="enterPartmain">
               <div class="cover">
                 <img src="../assets/cart/luyouqi.webp" alt />
               </div>
@@ -350,6 +350,9 @@ export default {
       if (index == 5) {
         this.$router.push("noload-page");
       }
+    },
+    enterPartmain(){
+      this.$router.push("part-main");
     }
   }
 };
