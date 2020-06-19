@@ -5,6 +5,7 @@ import ShoppingPage from '../views/Shopping-Page.vue'
 import ClassifyPage from '../views/Classify.vue'
 import NoloadPage from '../views/No-Load.vue'
 import Personage from '../views/Personage.vue'
+import PartMain from '../components/PartMain.vue'
 console.log(ClassifyPage)
 console.log(ShoppingPage)
 
@@ -37,6 +38,11 @@ const routes = [
     path:'/personage-page',
     name:'Personage-page',
     component:Personage
+  },
+  {
+    path:'/part-main',
+    name:'part-main',
+    component:PartMain
   }
 
 ]
