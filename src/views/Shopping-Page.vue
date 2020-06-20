@@ -12,6 +12,15 @@
         <img src="../assets/cart/jies.png" alt />
         <i class="close" @click="deltopbanner"></i>
       </div>
+      <!-- 编辑商品 -->
+      <div class="redact">
+        <div class="redact-box">
+          <div class="address">
+            <div class="text">朝阳区三环到四环之间</div>
+          </div>
+          <div class="btn">编辑商品</div>
+        </div>
+      </div>
       <!-- 登录 -->
       <div class="shopcart-login-bar">
         登录后可同步账户购物车中的商品
@@ -22,6 +31,57 @@
         <div class="empty-warp">
           <div class="empty-icon"></div>
           <p>登录后可同步购物车中商品</p>
+        </div>
+      </div>
+      <!-- 商品详情 -->
+      <div id="jdtab-m" class="section-list">
+        <div class="section">
+          <div class="head-wrap">
+            <div class="head-fixbar">
+              <van-checkbox-group v-model="result" ref="checkboxGroup" checked-color="red">
+                <van-checkbox name="a" icon-size="20px"></van-checkbox>
+              </van-checkbox-group>
+              <!-- <i class="icon-select"></i> -->
+              <i class="icon-shop"></i>
+              <div class="title">
+                巴朗旗舰店
+                <i class="icon-arrow-right"></i>
+              </div>
+            </div>
+          </div>
+          <div class="item">
+            <div class="goods">
+              <van-checkbox-group v-model="result" ref="checkboxGroup" checked-color="red">
+                <van-checkbox name="b" icon-size="20px"></van-checkbox>
+              </van-checkbox-group>
+              <img src="../assets/cart/pack.webp" alt />
+
+              <div class="content">
+                <div class="name">巴朗男士双肩包新款大容量背包时尚潮休闲17寸笔记本电脑包高中大学生书包商务旅行出差包运动USB充电包 黑色 标准版</div>
+                <div class="sku">
+                  <div class="skuu">黑色，标准版</div>
+                  <div class="service">选服务</div>
+                </div>
+                <div class="price-line">
+                  <div class="price">
+                    ¥
+                    <em class="int">69</em>
+                    .00
+                  </div>
+                  <div class="num">
+                    <span class="minus"></span>
+                    <div class="input">
+                      <input type="tel" class="nums" />
+                    </div>
+                    <span class="plus"></span>
+                  </div>
+                </div>
+                <div class="action">
+                  <span class="delt">删除</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <!-- 京东秒杀 -->
@@ -124,7 +184,7 @@
         </div>
         <div class="mod-recommend2">
           <ul class="list">
-            <li class="li" @click="enterPartmain">
+            <li class="li">
               <div class="cover">
                 <img src="../assets/cart/luyouqi.webp" alt />
               </div>
@@ -142,7 +202,7 @@
                       <em>99</em>
                     </div>
                   </div>
-                  <div class="rec-cart"></div>
+                  <div class="rec-cart" @click="bottomPopup"></div>
                 </div>
               </div>
             </li>
@@ -304,6 +364,17 @@
         </div>
       </div>
     </div>
+    <!-- 加入购物车弹框 -->
+    <van-popup v-model="show" round position="bottom" :style="{ height: '60%' }" closeable>
+      <div class="mod-sku-switch">
+        <div class="switch-header">
+          <img src="" alt="">
+          <div class="switch-header-content"></div>
+        </div>
+        <div class="switch-body"></div>
+        <div class="switch-footer"></div>
+      </div>
+    </van-popup>
     <!-- 底部导航 -->
     <div class="switch-btn-m">
       <div class="switch-btn-item-m" @click="changeBtn(1)">
@@ -331,7 +402,9 @@ export default {
     return {
       get: true,
       page: 1,
-      time: 30 * 60 * 60 * 1000
+      time: 30 * 60 * 60 * 1000,
+      result: [],
+      show: false
     };
   },
   methods: {
@@ -351,8 +424,14 @@ export default {
         this.$router.push("noload-page");
       }
     },
-    enterPartmain(){
-      this.$router.push("part-main");
+    checkAll() {
+      this.$refs.checkboxGroup.toggleAll(true);
+    },
+    toggleAll() {
+      this.$refs.checkboxGroup.toggleAll();
+    },
+    bottomPopup() {
+      this.show = true;
     }
   }
 };
@@ -918,7 +997,361 @@ ul {
   line-height: 24px;
   color: #fff;
 }
+/*  编辑商品*/
+.wx-wrap-m .redact {
+  position: relative;
+  height: 45px;
+}
+.redact .redact-box {
+  overflow: hidden;
+  position: relative;
+  padding: 0 10px;
+  height: 45px;
+  line-height: 45px;
+  background: #fff;
+  display: flex;
+}
+.redact .redact-box .address {
+  position: relative;
+  -webkit-box-flex: 1;
+  flex: 1;
+  color: #999;
+  margin-right: 10px;
+  padding-left: 18px;
+  white-space: nowrap;
+  overflow: hidden;
+  font-size: 14px;
+}
+.redact .redact-box .address::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -8px;
+  background-image: url(../assets/cart/zong.png);
+  background-position: -118px -45px;
+  background-size: 133px 112px;
+  width: 13px;
+  height: 15px;
+}
+.redact .redact-box .address .text {
+  max-width: 100%;
+  display: inline-block;
+  vertical-align: top;
+}
+.redact .redact-box .btn {
+  display: block;
+  position: relative;
+  flex-shrink: 0;
+  padding-left: 10px;
+  font-size: 14px;
+  color: #333;
+}
+/* 商品详情 */
+.wx-wrap-m .section-list {
+  width: 100%;
+  font-size: 12px;
+  color: #333;
+}
+.wx-wrap-m .section-list .section {
+  position: relative;
+  margin: 15px 0;
+  border-radius: 10px;
+  background: #fff;
+  overflow: hidden;
+}
+.wx-wrap-m.section-list .section .head-wrap {
+  min-height: 46px;
+}
+.section .head-wrap .head-fixbar {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 5px 10px 5px 42px;
+  min-height: 46px;
+  z-index: 1;
+}
+.van-checkbox__icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 42px;
+  height: 100%;
+  height: 100%;
+}
+.van-icon-success {
+  position: absolute;
+  left: 33%;
+  top: 28%;
+  width: 42px;
+  height: 100%;
+  z-index: 1;
+  display: block;
+  font-style: normal;
+}
+.section .head-wrap .head-fixbar .icon-shop {
+  background-image: url(../assets/cart/zong.png);
+  background-size: 133px 112px;
+  width: 20px;
+  height: 20px;
+  background-position: -78px 0;
+}
+.section .head-wrap .head-fixbar .title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  box-sizing: border-box;
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 10px;
+  width: 100%;
+  font-style: normal;
+}
+.section .head-wrap .head-fixbar .title i.icon-arrow-right {
+  margin-left: 5px;
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -2px;
+  width: 6px;
+  height: 10px;
+  background-image: url(../assets/cart/arrow-right.svg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  font-style: normal;
+}
+.section .item {
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}
+.section .item .goods {
+  padding-top: 0;
+  z-index: 1;
+  position: relative;
+  min-height: 100px;
+  padding: 20px 0 20px 150px;
+  background: #fff;
+  transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+.section .item .goods img {
+  position: absolute;
+  left: 40px;
+  display: block;
+  width: 100px;
+  height: 100px;
+  box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  border: 0;
+  vertical-align: top;
+}
+.section .item .content .name {
+  font-size: 14px;
+  padding-right: 10px;
+  margin-bottom: 3px;
+  word-break: break-all;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+.section .item .content .sku {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin: 5px 10px 0 0;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  font-size: 10px;
+}
 
+.section .item .content .sku .skuu {
+  position: relative;
+  background: #f7f7f7;
+  padding: 0 15px 0 5px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 10px;
+  color: #666;
+  -webkit-box-flex: 1;
+  flex: 1;
+  border-radius: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.section .item .content .sku .skuu::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  margin-top: -5px;
+  background-image: url(../assets/cart/zong.png);
+  background-position: -118px -94px;
+  background-size: 133px 112px;
+  width: 10px;
+  height: 10px;
+}
+.section .item .content .service {
+  margin-left: 10px;
+  height: 20px;
+  line-height: 20px;
+  padding: 0 17px 0 5px;
+  background: #f7f7f7;
+  color: #666;
+  border-radius: 2px;
+  position: relative;
+  font-size: 10px;
+}
+.section .item .content .service::before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 100%;
+  margin-top: 1px;
+}
+.section .item .content .service::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  margin-top: -5px;
+  background-image: url(../assets/cart/zong.png);
+  background-position: -118px -94px;
+  background-size: 133px 112px;
+  width: 10px;
+  height: 10px;
+}
+.section .item .content .price-line {
+  position: relative;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin: 5px 10px 0 0;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  font-size: 10px;
+}
+.section .item .content .price-line .price {
+  font-family: JDZH-Regular;
+  -webkit-box-flex: 1;
+  flex: 1;
+  line-height: 16px;
+  color: #f2270c;
+  font-size: 10px;
+}
+.section .item .content .price-line .price em.int {
+  font-size: 16px;
+  font-style: normal;
+}
+.section .item .content .price-line .num {
+  position: relative;
+  display: block;
+  width: 72px;
+  border-radius: 2px;
+  overflow: hidden;
+  background-color: #f7f7f7;
+  font-weight: 400;
+  font-size: 10px;
+}
+.section .item .content .price-line .num .minus {
+  position: relative;
+  float: left;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+}
+.section .item .content .price-line .num .minus::after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  content: "";
+  display: block;
+  width: 10px;
+  height: 2px;
+  margin: -1px 0 0 -5px;
+  background: #333;
+  border-radius: 1px;
+}
+.section .item .content .price-line .num .plus {
+  position: relative;
+  float: right;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+}
+.section .item .content .price-line .num .plus::after {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  content: "";
+  display: block;
+  width: 10px;
+  height: 2px;
+  margin: -1px 0 0 -5px;
+  background: #333;
+  border-radius: 1px;
+}
+.section .item .content .price-line .num .plus::before {
+  width: 2px;
+  height: 10px;
+  margin: -5px 0 0 -1px;
+  border-radius: 1px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  content: "";
+  display: block;
+  background: #333;
+}
+.section .item .content .price-line .input {
+  float: left;
+  position: relative;
+  border-left: 1px solid #fff;
+  border-right: 1px solid #fff;
+}
+.section .item .content .price-line .input input {
+  color: #333;
+  font-size: 14px;
+  font-family: JDZH-Regular;
+  -webkit-appearance: none;
+  border: none;
+  width: 30px;
+  text-align: center;
+  position: relative;
+  float: left;
+  height: 20px;
+  line-height: 20px;
+}
+.section .item .content .price-line .input input::before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 100%;
+  margin-top: 1px;
+}
+.section .item .content .action {
+  margin: 10px 10px 0 0;
+  height: 15px;
+  color: #999;
+  font-size: 0;
+  text-align: right;
+}
+.section .item .content .action .delt {
+  position: relative;
+  padding: 0 10px;
+  line-height: 15px;
+  font-size: 10px;
+}
 /* 底部 */
 .switch-btn-m {
   z-index: 5;
@@ -930,7 +1363,7 @@ ul {
   align-items: center;
   text-align: center;
   background-color: rgb(255, 255, 255);
-  box-shadow: 0 0 10px 0 hsla(0,6%,58%,.6);
+  box-shadow: 0 0 10px 0 hsla(0, 6%, 58%, 0.6);
 }
 .switch-btn-m .switch-btn-item-m {
   width: 20%;
@@ -941,4 +1374,6 @@ ul {
   display: inline-block;
   margin-top: 2px;
 }
+
+
 </style>
