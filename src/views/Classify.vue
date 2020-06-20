@@ -2,11 +2,11 @@
   <div class="box-y">
     <!-- 头部 -->
     <div class="classify-head-y">
-      <div class="classify-head-return-y">
+      <div class="classify-head-return-y" @click="classReturn">
         <img src="../assets/classify-img/left-y.png" alt />
       </div>
       <div class="classify-head-input-y">
-        <input type="text" placeholder="oppo手机" />
+        <input type="text" placeholder="oppo手机" @focus="focu" />
       </div>
       <div class="classify-head-dot-y">
         <img src="../assets/classify-img/dot.png" alt />
@@ -16,35 +16,34 @@
     <div class="classify-main-y">
       <div class="navigation">
         <div class="navigation-box-y">
-            <div class="navigation-item" ref="items" :class="{active:num==index}" v-for="(item,index) in list" :key="index" @click="clickPro(index)">{{item}}</div>
+          <div
+            class="navigation-item"
+            ref="items"
+            :class="{active:num==index}"
+            v-for="(item,index) in list"
+            :key="index"
+            @click="clickPro(index)"
+          >{{item}}</div>
         </div>
       </div>
       <div class="mian-content">
-
-        <div class="product-item">
+        <div class="product-item" v-for="(item,index) in prolist" :key="index">
           <div class="pro-title">
-              <div class="title">
-                 <strong>
-                  当季主推
-                 </strong>
-              </div>
-              <div class="pro-title-img">
-                <img src="../assets/classify-img/qing.png" alt="">
-              </div>
-              <div class="pro-title-img-y">清空</div>
+            <div class="title">
+              <strong>{{item.name}}</strong>
+            </div>
+            <div class="pro-title-img">
+              <img :src="item.imga" alt />
+            </div>
+            <div class="pro-title-img-y">{{item.text}}</div>
           </div>
           <div class="product-box">
-            <div class="product-y">
-              <img src="../assets/classify-img/01.jpg" alt />
-              <p>图书专区</p>
-            </div>
-            <div class="product-y">
-              <img src="../assets/classify-img/01.jpg" alt />
-              <p>图书专区</p>
+            <div class="product-y" v-for="(item,index) in item.pro" :key="index">
+              <img :src="item.img" alt />
+              <p>{{item.proname}}</p>
             </div>
           </div>
         </div>
-
       </div>
     </div>
     <!-- 页脚 -->
@@ -69,6 +68,14 @@
 </template>
 
 <script>
+import { pro1 } from "../components/data";
+import { pro2 } from "../components/data";
+import { pro3 } from "../components/data";
+import { pro4 } from "../components/data";
+import { pro5 } from "../components/data";
+import { pro6 } from "../components/data";
+import { pro7 } from "../components/data";
+
 export default {
   data() {
     return {
@@ -77,7 +84,6 @@ export default {
         "手机数码",
         "电脑办公",
         "家用电器",
-        "计生情趣",
         "美妆护肤",
         "个护清洁",
         "汽车生活",
@@ -111,12 +117,19 @@ export default {
         "国际名牌",
         "拍卖",
         "房产",
-        "工业品",
+        "工业品"
       ],
-      num:0
+      num: 0,
+      prolist: pro1
     };
   },
   methods: {
+    focu() {
+      this.$router.push("focus-page");
+    },
+    classReturn() {
+      this.$router.go(-1);
+    },
     changeBtn(index) {
       this.page = index;
       if (index == 1) {
@@ -129,8 +142,23 @@ export default {
         this.$router.push("noload-page");
       }
     },
-    clickPro(index){
-      this.num=index;
+    clickPro(index) {
+      this.num = index;
+      if (index == 0) {
+        this.prolist = pro1;
+      } else if (index == 1) {
+        this.prolist = pro2;
+      } else if (index == 2) {
+        this.prolist = pro3;
+      } else if (index == 3) {
+        this.prolist = pro4;
+      } else if (index == 4) {
+        this.prolist = pro5;
+      } else if (index == 5) {
+        this.prolist = pro6;
+      } else if (index == 6) {
+        this.prolist = pro7;
+      }
       // let height=this.$refs.items[0].clientHeight;
       // this.$refs.left.scrollTo({
       //   top:50*index,
@@ -210,7 +238,7 @@ export default {
   /* overflow: auto; */
   overflow: hidden;
 }
-.navigation-box-y{
+.navigation-box-y {
   width: 110%;
   height: 100%;
   /* background-color: rgb(14, 144, 177); */
@@ -224,9 +252,9 @@ export default {
   color: #333;
   font-size: 14px;
 }
-.active{
+.active {
   background-color: rgb(255, 255, 255);
-  color: #E93B3D;
+  color: #e93b3d;
 }
 /* 产品 */
 .mian-content {
@@ -238,20 +266,20 @@ export default {
 .product-item {
   margin: 19px 7px 0px 7px;
 }
-.pro-title{
+.pro-title {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.pro-title-img{
+.pro-title-img {
   width: 15px;
   height: 15px;
 }
-.pro-title-img img{
-   width: 15px;
+.pro-title-img img {
+  width: 15px;
   height: 15px;
 }
-.pro-title-img-y{
+.pro-title-img-y {
   width: 45px;
   height: 15px;
   color: #848689;
@@ -259,7 +287,7 @@ export default {
   text-align: center;
   line-height: 15px;
 }
-.pro-title .title{
+.pro-title .title {
   font-size: 14px;
   flex-grow: 1;
 }
@@ -270,7 +298,7 @@ export default {
   justify-content: left;
 }
 .product-y {
-  width: 33.3%;
+  width: 33%;
   height: 100px;
   flex-shrink: 0;
   text-align: center;

@@ -6,6 +6,8 @@ import ClassifyPage from '../views/Classify.vue'
 import NoloadPage from '../views/No-Load.vue'
 import Personage from '../views/Personage.vue'
 import PartMain from '../components/PartMain.vue'
+import Focus from '../views/Focus.vue'
+
 console.log(ClassifyPage)
 console.log(ShoppingPage)
 
@@ -39,6 +41,13 @@ const routes = [
     name:'Personage-page',
     component:Personage
   },
+  // 聚焦的路由
+  {
+    path:'/focus-page',
+    name:'Focus-page',
+    component:Focus
+  },
+  // 商品详情
   {
     path:'/part-main',
     name:'part-main',
