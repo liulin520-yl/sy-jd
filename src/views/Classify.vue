@@ -2,11 +2,11 @@
   <div class="box-y">
     <!-- 头部 -->
     <div class="classify-head-y">
-      <div class="classify-head-return-y">
+      <div class="classify-head-return-y" @click="classReturn">
         <img src="../assets/classify-img/left-y.png" alt />
       </div>
       <div class="classify-head-input-y">
-        <input type="text" placeholder="oppo手机" />
+        <input type="text" placeholder="oppo手机" @focus="focu" />
       </div>
       <div class="classify-head-dot-y">
         <img src="../assets/classify-img/dot.png" alt />
@@ -16,31 +16,34 @@
     <div class="classify-main-y">
       <div class="navigation">
         <div class="navigation-box-y">
-            <div class="navigation-item" ref="items" :class="{active:num==index}" v-for="(item,index) in list" :key="index" @click="clickPro(index)">{{item}}</div>
+          <div
+            class="navigation-item"
+            ref="items"
+            :class="{active:num==index}"
+            v-for="(item,index) in list"
+            :key="index"
+            @click="clickPro(index)"
+          >{{item}}</div>
         </div>
       </div>
       <div class="mian-content">
-
         <div class="product-item" v-for="(item,index) in prolist" :key="index">
           <div class="pro-title">
-              <div class="title">
-                 <strong>
-                  {{item.name}}
-                 </strong>
-              </div>
-              <div class="pro-title-img">
-                <img :src="item.imga" alt="">
-              </div>
-              <div class="pro-title-img-y">{{item.text}}</div>
+            <div class="title">
+              <strong>{{item.name}}</strong>
+            </div>
+            <div class="pro-title-img">
+              <img :src="item.imga" alt />
+            </div>
+            <div class="pro-title-img-y">{{item.text}}</div>
           </div>
           <div class="product-box">
             <div class="product-y" v-for="(item,index) in item.pro" :key="index">
-              <img :src=item.img alt="">
+              <img :src="item.img" alt />
               <p>{{item.proname}}</p>
             </div>
           </div>
         </div>
-
       </div>
     </div>
     <!-- 页脚 -->
@@ -65,8 +68,14 @@
 </template>
 
 <script>
-import pro1 from "../components/data.js"
-console.log(pro1)
+import { pro1 } from "../components/data";
+import { pro2 } from "../components/data";
+import { pro3 } from "../components/data";
+import { pro4 } from "../components/data";
+import { pro5 } from "../components/data";
+import { pro6 } from "../components/data";
+import { pro7 } from "../components/data";
+
 export default {
   data() {
     return {
@@ -75,7 +84,6 @@ export default {
         "手机数码",
         "电脑办公",
         "家用电器",
-        "计生情趣",
         "美妆护肤",
         "个护清洁",
         "汽车生活",
@@ -109,139 +117,19 @@ export default {
         "国际名牌",
         "拍卖",
         "房产",
-        "工业品",
+        "工业品"
       ],
-      num:0,
-      prolist:[
-        {
-          name:"浏览足迹",
-          imga:require("../assets/classify-img/qing.png"),
-          text:"清空",
-          pro:[
-            {
-              proname:"图书专区",
-              img:require("../assets/classify-img/01.jpg")
-            },
-             {
-              proname:"米面调料",
-              img:require("../assets/classify-img/09.jpg")
-            },
-          ]
-        },
-         {
-          name:"618大促",
-          text:"",
-          imga:require("../assets/classify-img/26.png"),
-          pro:[
-            {
-              proname:"尖货手机",
-              img:require("../assets/classify-img/11.png")
-            },
-             {
-              proname:"潮流小电",
-              img:require("../assets/classify-img/12.png")
-            },
-             {
-              proname:"超嗨预售",
-              img:require("../assets/classify-img/13.jpg")
-            },
-             {
-              proname:"5G盛典",
-              img:require("../assets/classify-img/14.jpg")
-            },
-             {
-              proname:"健康爆款",
-              img:require("../assets/classify-img/15.jpg")
-            },
-             {
-              proname:"空调",
-              img:require("../assets/classify-img/16.jpg")
-            },
-          ]
-        },
-        {
-          name:"热门分类",
-          text:"排行榜>",
-          imga:require("../assets/classify-img/08.png"),
-          pro:[
-            {
-              proname:"5G",
-              img:require("../assets/classify-img/17.jpg")
-            },
-             {
-              proname:"电脑",
-              img:require("../assets/classify-img/18.png")
-            },
-             {
-              proname:"全面屏手机",
-              img:require("../assets/classify-img/19.jpg")
-            },
-             {
-              proname:"保健品",
-              img:require("../assets/classify-img/20.jpg")
-            },
-             {
-              proname:"口罩",
-              img:require("../assets/classify-img/21.jpg")
-            },
-             {
-              proname:"驱蚊用品",
-              img:require("../assets/classify-img/22.jpg")
-            },
-             {
-              proname:"电磁炉",
-              img:require("../assets/classify-img/23.jpg")
-            }, 
-            {
-              proname:"电热水壶",
-              img:require("../assets/classify-img/24.jpg")
-            },
-             {
-              proname:"数据线",
-              img:require("../assets/classify-img/25.jpg")
-            }, 
-            {
-              proname:"图书",
-              img:require("../assets/classify-img/01.jpg")
-            }, 
-            {
-              proname:"美妆护肤",
-              img:require("../assets/classify-img/27.jpg")
-            }, 
-            {
-              proname:"除菌液",
-              img:require("../assets/classify-img/28.jpg")
-            },
-             {
-              proname:"休闲零食",
-              img:require("../assets/classify-img/29.jpg")
-            },
-             {
-              proname:"充电宝",
-              img:require("../assets/classify-img/30.jpg")
-            },
-             {
-              proname:"游戏手机",
-              img:require("../assets/classify-img/31.jpg")
-            },
-             {
-              proname:"温度计",
-              img:require("../assets/classify-img/32.jpg")
-            },
-             {
-              proname:"摄影机",
-              img:require("../assets/classify-img/33.jpg")
-            },
-             {
-              proname:"游戏机",
-              img:require("../assets/classify-img/34.jpg")
-            },
-          ]
-        },
-      ]
+      num: 0,
+      prolist: pro1
     };
   },
   methods: {
+    focu() {
+      this.$router.push("focus-page");
+    },
+    classReturn() {
+      this.$router.go(-1);
+    },
     changeBtn(index) {
       this.page = index;
       if (index == 1) {
@@ -254,8 +142,23 @@ export default {
         this.$router.push("noload-page");
       }
     },
-    clickPro(index){
-      this.num=index;
+    clickPro(index) {
+      this.num = index;
+      if (index == 0) {
+        this.prolist = pro1;
+      } else if (index == 1) {
+        this.prolist = pro2;
+      } else if (index == 2) {
+        this.prolist = pro3;
+      } else if (index == 3) {
+        this.prolist = pro4;
+      } else if (index == 4) {
+        this.prolist = pro5;
+      } else if (index == 5) {
+        this.prolist = pro6;
+      } else if (index == 6) {
+        this.prolist = pro7;
+      }
       // let height=this.$refs.items[0].clientHeight;
       // this.$refs.left.scrollTo({
       //   top:50*index,
@@ -335,7 +238,7 @@ export default {
   /* overflow: auto; */
   overflow: hidden;
 }
-.navigation-box-y{
+.navigation-box-y {
   width: 110%;
   height: 100%;
   /* background-color: rgb(14, 144, 177); */
@@ -349,9 +252,9 @@ export default {
   color: #333;
   font-size: 14px;
 }
-.active{
+.active {
   background-color: rgb(255, 255, 255);
-  color: #E93B3D;
+  color: #e93b3d;
 }
 /* 产品 */
 .mian-content {
@@ -363,20 +266,20 @@ export default {
 .product-item {
   margin: 19px 7px 0px 7px;
 }
-.pro-title{
+.pro-title {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
-.pro-title-img{
+.pro-title-img {
   width: 15px;
   height: 15px;
 }
-.pro-title-img img{
-   width: 15px;
+.pro-title-img img {
+  width: 15px;
   height: 15px;
 }
-.pro-title-img-y{
+.pro-title-img-y {
   width: 45px;
   height: 15px;
   color: #848689;
@@ -384,7 +287,7 @@ export default {
   text-align: center;
   line-height: 15px;
 }
-.pro-title .title{
+.pro-title .title {
   font-size: 14px;
   flex-grow: 1;
 }
