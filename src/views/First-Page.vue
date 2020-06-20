@@ -312,7 +312,7 @@
         </div>
         <div class="last-floor-love-l">
           <div class="last-floor-item-l">
-            <div class="last-floor-page-l">
+            <div class="last-floor-page-l" @click="goodpage()">
               <div class="last-floor-page-img">
                 <img src="../assets/page-first/foryou/f1.jpg" alt />
               </div>
@@ -586,6 +586,9 @@ export default {
     },
     onChange(index) {
       this.current = index;
+    },
+    goodpage(){
+      this.$router.push("part-main")
     }
   }
 };

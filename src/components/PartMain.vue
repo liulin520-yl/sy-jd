@@ -69,8 +69,8 @@
             </h1>
             <div class="part-pro-bru-l">
               【华为官方直供，官网直降400元】现货当天发！
-               【赠】两年保修+运费险退换货无忧【华为P40】 
-               <span>查看></span>
+              【赠】两年保修+运费险退换货无忧【华为P40】
+              <span>查看></span>
             </div>
           </div>
           <!-- 放心购 -->
@@ -83,6 +83,51 @@
           </div>
         </div>
       </div>
+      <!-- 优惠 favourable -->
+      <div class="part-pro-favour-l">
+        <div class="mod_discount" style id="discountFloor" ptag="7001.1.180">
+          <span class="title-l">优惠</span>
+          <div class="content">
+            <div class="dicount_plus-l" style="display:none;">
+              <i class="dicount_plus_icon-l"></i>
+              <span></span>
+            </div>
+            <div class="dicount_coupon-l" style>
+              <span class="coupon-l">满25减8</span>
+              <span class="coupon-l">满20减5</span>
+              <span class="coupon-l bg_red-l">新用户专享</span>
+            </div>
+            <div class="detail_prom" style>
+              <div class="de_row prom_item">
+                <div class="de_tag" tag="7">
+                  <em class="hl_red_bg">赠京豆</em>
+                </div>
+                <div class="de_span line1">
+                  <span>赠1京豆，且购买1-5件时可享受优惠</span>
+                </div>
+              </div>
+              <div class="de_row prom_item">
+                <div class="de_tag" tag="17">
+                  <em class="hl_red_bg">加价购</em>
+                </div>
+                <div class="de_span line1">
+                  <span>满1200元以折扣价在购物车换购热销商品</span>
+                </div>
+              </div>
+              <div class="de_row prom_item">
+                <div class="de_tag" tag="3">
+                  <em class="hl_red_bg">限购</em>
+                </div>
+                <div class="de_tag" tag>
+                  <em class="hl_red_bg">免费领</em>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 配送地址 -->
+      <div class="part-pro-adress-l"></div>
     </div>
     <!-- 底部 -->
     <van-goods-action>
@@ -304,13 +349,13 @@ export default {
   font-size: 12px;
   color: #666;
 }
-.part-pro-bru-l span{
+.part-pro-bru-l span {
   color: #e4393c;
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 /* 放心购 */
-.part-pro-show-l{
+.part-pro-show-l {
   width: 100%;
   height: 37px;
   padding: 12px 48px 12px 10px;
@@ -318,7 +363,7 @@ export default {
   font-size: 13px;
   background-color: rgb(251, 240, 253);
 }
-.part-pro-show-l>span{
+.part-pro-show-l > span {
   display: inline-block;
   width: 70px;
   height: 13px;
@@ -327,24 +372,185 @@ export default {
   background-size: 100%;
   margin-right: 4px;
 }
-.part-pro-show-l p{
+.part-pro-show-l p {
   height: 13px;
   display: inline-block;
   line-height: 15px;
 }
-.part-pro-show-dis-l{
+.part-pro-show-dis-l {
   width: 20px;
   height: 13px;
   float: right;
   line-height: 13px;
   font-size: 30px;
 }
-.part-pro-show-dis-l span{
+.part-pro-show-dis-l span {
   display: inline-block;
   width: 100%;
-   height: 13px;
+  height: 13px;
   background-image: url("../assets/partmain/r-icon.png");
   background-repeat: no-repeat;
   background-size: 100%;
+}
+/* 优惠 favourable */
+.part-pro-favour-l {
+  width: 100%;
+  height: 151px;
+  margin: 12px 0 0;
+  padding: 0 18px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+}
+.part-pro-adress-l {
+  width: 100%;
+  height: 260px;
+  margin: 12px 0 0;
+  padding: 0 18px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+}
+.part-pro-favour-l .mod_discount {
+  position: relative;
+  padding: 18px 20px 5px 38px;
+  /* font-size: 0; */
+  color: #333;
+  word-break: break-word;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 18px;
+}
+.part-pro-favour-l .mod_discount .title-l {
+  position: absolute;
+  left: 0;
+  top: 18px;
+  color: #262626;
+  font-weight: 700;
+}
+.dicount_plus-l {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dicount_plus_icon-l {
+  display: inline-block;
+  width: 53px;
+  height: 14px;
+  margin-right: 5px;
+  vertical-align: text-bottom;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("../assets/partmain/95.png");
+}
+.dicount_coupon-l {
+  height: 18px;
+  line-height: 0;
+  overflow: hidden;
+  word-break: break-word;
+}
+.dicount_coupon-l::after{
+  position: absolute;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url("../assets/partmain/load-icon.png");
+    background-repeat: no-repeat;
+    background-size: 20px;
+    top: 12px;
+    right: 0;
+    content: "";
+}
+.coupon-l {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+  padding: 0 9px 0 12px;
+  border-top: 1px solid #f2270c;
+  border-bottom: 1px solid #f2270c;
+  height: 18px;
+  line-height: 18px;
+  color: #f2270c;
+  font-size: 10px;
+}
+.coupon-l::before {
+  width: 7px;
+  content: "";
+  left: 0;
+  width: 7px;
+  position: absolute;
+  top: -1px;
+  height: 18px;
+  background-image: url("../assets/partmain/cop-before.png");
+  background-size: 15px 18px;
+  background-repeat: no-repeat;
+}
+.coupon-l::after {
+  right: 0;
+  width: 4px;
+  background-position: -11px 0;
+  /* width: 7px; */
+  content: "";
+  position: absolute;
+  top: -1px;
+  height: 18px;
+  background-size: 15px 18px;
+  background-repeat: no-repeat;
+  background-image: url("../assets/partmain/cop-before.png");
+}
+.bg_red-l {
+  color: #fff;
+  margin: 0 8.5px 0 9px;
+  padding: 0 5.5px 0 3px;
+  background-color: #f2270c;
+}
+.bg_red-l::before{
+  content: "";
+    position: absolute;
+    top: -1px;
+    left: -9px;
+    height: 18px;
+    background-image: url("../assets/partmain/l-icon.png");
+    background-size: 15px 18px;
+    background-repeat: no-repeat;
+    width: 9px;
+}
+.bg_red-l::after{
+  content: "";
+    position: absolute;
+    top: -1px;
+    right: -3.5px;
+    height: 18px;
+    background-image: url("../assets/partmain/l-icon.png");
+    background-size: 15px 18px;
+    background-repeat: no-repeat;
+    width: 4.5px;
+    background-position: -11px 0;
+}
+.de_row.prom_item {
+    margin: 18px 0 12px;
+}
+.de_row.prom_item:first-child {
+    margin-top: 0;
+}
+.detail_prom .de_tag {
+    margin-right: 5px;
+    padding-top: 1px;
+}
+.detail_prom .de_tag .hl_red_bg {
+    display: block;
+    margin: 0;
+}
+.detail_prom .hl_red_bg {
+    position: relative;
+    padding: 0 3px;
+    margin-right: 0;
+    height: 13px;
+    line-height: 13px;
+    font-size: 9px;
+    color: #e4393c;
+    background: #fff;
+}
+.detail_prom .hl_red_bg:before {
+    border-color: #e4393c;
+    border-radius: 2px;
 }
 </style>

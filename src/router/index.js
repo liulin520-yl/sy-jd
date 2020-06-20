@@ -39,6 +39,7 @@ const routes = [
     name:'Personage-page',
     component:Personage
   },
+  // 商品详情
   {
     path:'/part-main',
     name:'part-main',
