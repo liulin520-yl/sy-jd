@@ -21,26 +21,22 @@
       </div>
       <div class="mian-content">
 
-        <div class="product-item">
+        <div class="product-item" v-for="(item,index) in prolist" :key="index">
           <div class="pro-title">
               <div class="title">
                  <strong>
-                  当季主推
+                  {{item.name}}
                  </strong>
               </div>
               <div class="pro-title-img">
-                <img src="../assets/classify-img/qing.png" alt="">
+                <img :src="item.imga" alt="">
               </div>
-              <div class="pro-title-img-y">清空</div>
+              <div class="pro-title-img-y">{{item.text}}</div>
           </div>
           <div class="product-box">
-            <div class="product-y">
-              <img src="../assets/classify-img/01.jpg" alt />
-              <p>图书专区</p>
-            </div>
-            <div class="product-y">
-              <img src="../assets/classify-img/01.jpg" alt />
-              <p>图书专区</p>
+            <div class="product-y" v-for="(item,index) in item.pro" :key="index">
+              <img :src=item.img alt="">
+              <p>{{item.proname}}</p>
             </div>
           </div>
         </div>
@@ -69,6 +65,8 @@
 </template>
 
 <script>
+import pro1 from "../components/data.js"
+console.log(pro1)
 export default {
   data() {
     return {
@@ -113,7 +111,134 @@ export default {
         "房产",
         "工业品",
       ],
-      num:0
+      num:0,
+      prolist:[
+        {
+          name:"浏览足迹",
+          imga:require("../assets/classify-img/qing.png"),
+          text:"清空",
+          pro:[
+            {
+              proname:"图书专区",
+              img:require("../assets/classify-img/01.jpg")
+            },
+             {
+              proname:"米面调料",
+              img:require("../assets/classify-img/09.jpg")
+            },
+          ]
+        },
+         {
+          name:"618大促",
+          text:"",
+          imga:require("../assets/classify-img/26.png"),
+          pro:[
+            {
+              proname:"尖货手机",
+              img:require("../assets/classify-img/11.png")
+            },
+             {
+              proname:"潮流小电",
+              img:require("../assets/classify-img/12.png")
+            },
+             {
+              proname:"超嗨预售",
+              img:require("../assets/classify-img/13.jpg")
+            },
+             {
+              proname:"5G盛典",
+              img:require("../assets/classify-img/14.jpg")
+            },
+             {
+              proname:"健康爆款",
+              img:require("../assets/classify-img/15.jpg")
+            },
+             {
+              proname:"空调",
+              img:require("../assets/classify-img/16.jpg")
+            },
+          ]
+        },
+        {
+          name:"热门分类",
+          text:"排行榜>",
+          imga:require("../assets/classify-img/08.png"),
+          pro:[
+            {
+              proname:"5G",
+              img:require("../assets/classify-img/17.jpg")
+            },
+             {
+              proname:"电脑",
+              img:require("../assets/classify-img/18.png")
+            },
+             {
+              proname:"全面屏手机",
+              img:require("../assets/classify-img/19.jpg")
+            },
+             {
+              proname:"保健品",
+              img:require("../assets/classify-img/20.jpg")
+            },
+             {
+              proname:"口罩",
+              img:require("../assets/classify-img/21.jpg")
+            },
+             {
+              proname:"驱蚊用品",
+              img:require("../assets/classify-img/22.jpg")
+            },
+             {
+              proname:"电磁炉",
+              img:require("../assets/classify-img/23.jpg")
+            }, 
+            {
+              proname:"电热水壶",
+              img:require("../assets/classify-img/24.jpg")
+            },
+             {
+              proname:"数据线",
+              img:require("../assets/classify-img/25.jpg")
+            }, 
+            {
+              proname:"图书",
+              img:require("../assets/classify-img/01.jpg")
+            }, 
+            {
+              proname:"美妆护肤",
+              img:require("../assets/classify-img/27.jpg")
+            }, 
+            {
+              proname:"除菌液",
+              img:require("../assets/classify-img/28.jpg")
+            },
+             {
+              proname:"休闲零食",
+              img:require("../assets/classify-img/29.jpg")
+            },
+             {
+              proname:"充电宝",
+              img:require("../assets/classify-img/30.jpg")
+            },
+             {
+              proname:"游戏手机",
+              img:require("../assets/classify-img/31.jpg")
+            },
+             {
+              proname:"温度计",
+              img:require("../assets/classify-img/32.jpg")
+            },
+             {
+              proname:"摄影机",
+              img:require("../assets/classify-img/33.jpg")
+            },
+             {
+              proname:"游戏机",
+              img:require("../assets/classify-img/34.jpg")
+            },
+          ]
+        },
+      ]
     };
   },
   methods: {
@@ -270,7 +395,7 @@ export default {
   justify-content: left;
 }
 .product-y {
-  width: 33.3%;
+  width: 33%;
   height: 100px;
   flex-shrink: 0;
   text-align: center;
