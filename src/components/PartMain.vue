@@ -14,17 +14,120 @@
       </div>
       <div class="swipe-m">
         <van-swipe @change="onChange" class="swipe-img">
-          <van-swipe-item class="child"><img src="../assets/partmain/1.webp" alt=""></van-swipe-item>
-          <van-swipe-item class="child"><img src="../assets/partmain/2.webp" alt=""></van-swipe-item>
-          <van-swipe-item class="child"><img src="../assets/partmain/3.webp" alt=""></van-swipe-item>
-          <van-swipe-item class="child"><img src="../assets/partmain/4.webp" alt=""></van-swipe-item>
-          <van-swipe-item class="child"><img src="../assets/partmain/5.webp" alt=""></van-swipe-item>
-          <van-swipe-item class="child"><img src="../assets/partmain/6.webp" alt=""></van-swipe-item>
+          <van-swipe-item class="child" style="width: 414px;">
+            <img src="../assets/partmain/1.webp" alt />
+          </van-swipe-item>
+          <van-swipe-item class="child">
+            <img src="../assets/partmain/2.webp" alt />
+          </van-swipe-item>
+          <van-swipe-item class="child">
+            <img src="../assets/partmain/3.webp" alt />
+          </van-swipe-item>
+          <van-swipe-item class="child">
+            <img src="../assets/partmain/4.webp" alt />
+          </van-swipe-item>
+          <van-swipe-item class="child">
+            <img src="../assets/partmain/5.webp" alt />
+          </van-swipe-item>
+          <van-swipe-item class="child">
+            <img src="../assets/partmain/6.webp" alt />
+          </van-swipe-item>
           <template #indicator>
-            <div class="custom-indicator">{{ current + 1 }}/4</div>
+            <div class="custom-indicator">{{ current + 1 }}/6</div>
           </template>
         </van-swipe>
       </div>
+      <div class="middle-content-l">
+        <div class="middle-ban-l">
+          <img src="../assets/partmain/banner.png" alt />
+        </div>
+        <div class="part-data-l">
+          <div class="part-price-l">
+            <div class="part-pro-price-l">
+              <span>￥</span>
+              <span>{{partlist.price}}</span>
+              <span>.00</span>
+            </div>
+            <div class="part-pro-icon-l">
+              <span>
+                <img src="../assets/partmain/price-icon1.png" alt />
+                <div>降价提</div>
+              </span>
+              <span>
+                <img src="../assets/partmain/price-icon2.png" alt />
+                <div>收藏</div>
+              </span>
+              <span></span>
+            </div>
+          </div>
+          <div class="part-pro-wrap-l">
+            <h1>
+              <i>
+                <img src="../assets/partmain/618.png" alt />
+              </i>
+              华为p30 手机 赤茶橘 8GB+128GB 全网通
+            </h1>
+            <div class="part-pro-bru-l">
+              【华为官方直供，官网直降400元】现货当天发！
+              【赠】两年保修+运费险退换货无忧【华为P40】
+              <span>查看></span>
+            </div>
+          </div>
+          <!-- 放心购 -->
+          <div class="part-pro-show-l">
+            <span></span>
+            <p>送运费险 . 一年质保.全国联保.7天保价</p>
+            <div class="part-pro-show-dis-l">
+              <span></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 优惠 favourable -->
+      <div class="part-pro-favour-l">
+        <div class="mod_discount" style id="discountFloor" ptag="7001.1.180">
+          <span class="title-l">优惠</span>
+          <div class="content">
+            <div class="dicount_plus-l" style="display:none;">
+              <i class="dicount_plus_icon-l"></i>
+              <span></span>
+            </div>
+            <div class="dicount_coupon-l" style>
+              <span class="coupon-l">满25减8</span>
+              <span class="coupon-l">满20减5</span>
+              <span class="coupon-l bg_red-l">新用户专享</span>
+            </div>
+            <div class="detail_prom" style>
+              <div class="de_row prom_item">
+                <div class="de_tag" tag="7">
+                  <em class="hl_red_bg">赠京豆</em>
+                </div>
+                <div class="de_span line1">
+                  <span>赠1京豆，且购买1-5件时可享受优惠</span>
+                </div>
+              </div>
+              <div class="de_row prom_item">
+                <div class="de_tag" tag="17">
+                  <em class="hl_red_bg">加价购</em>
+                </div>
+                <div class="de_span line1">
+                  <span>满1200元以折扣价在购物车换购热销商品</span>
+                </div>
+              </div>
+              <div class="de_row prom_item">
+                <div class="de_tag" tag="3">
+                  <em class="hl_red_bg">限购</em>
+                </div>
+                <div class="de_tag" tag>
+                  <em class="hl_red_bg">免费领</em>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 配送地址 -->
+      <div class="part-pro-adress-l"></div>
     </div>
     <!-- 底部 -->
     <van-goods-action>
@@ -42,7 +145,10 @@ export default {
   data() {
     return {
       scrollTop: "",
-       current: 0,
+      current: 0,
+      partlist: {
+        price: 2999
+      }
     };
   },
   methods: {
@@ -50,9 +156,9 @@ export default {
       this.scrollTop = event.target.scrollTop;
       console.log(event.target.scrollTop);
     },
-     onChange(index) {
+    onChange(index) {
       this.current = index;
-    },
+    }
   }
 };
 </script>
@@ -75,7 +181,7 @@ export default {
   height: 1000px;
 }
 .partmain-content .header {
-    z-index: 10;
+  z-index: 10;
   position: fixed;
   width: 100%;
   font-size: 16px;
@@ -128,33 +234,323 @@ export default {
   width: 20px;
   height: 20px;
 }
-.partmain-content .swipe-m{
-    background: rgb(255, 255, 255);
-    height: 375px;
-    width: 375px;
-    max-width: 640px;
-    max-height: 640px;
-    margin: 0 auto;
-    position: relative;
-    overflow: hidden;
+.partmain-content .swipe-m {
+  background: rgb(255, 255, 255);
+  height: 375px;
+  width: 375px;
+  max-width: 640px;
+  max-height: 640px;
+  margin: 0 auto;
+  position: relative;
+  overflow: hidden;
 }
-.partmain-content .swipe-m .swipe-img{
-    height: 100%;
-    width: 100%;
-    position: relative;
+.partmain-content .swipe-m .swipe-img {
+  height: 100%;
+  width: 100%;
+  position: relative;
 }
-.partmain-content .swipe-m .swipe-img .child img{
-    width: 375px;
-    height: 375px;
+.partmain-content .swipe-m .swipe-img .child img {
+  width: 375px;
+  height: 375px;
 }
 
-
+/* 轮播图 */
+.swipe-img .child {
+  width: 100%;
+}
 .custom-indicator {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  padding: 2px 5px;
+  font-size: 12px;
+  background: rgba(0, 0, 0, 0.1);
+}
+.custom-indicator {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: #fff;
+  font-size: 9px;
+  border-bottom-left-radius: 10px;
+  border-top-left-radius: 10px;
+  width: 40px;
+  text-align: center;
+}
+/* 轮播图下面的广告 */
+.middle-ban-l {
+  width: 100%;
+  height: 55px;
+}
+.middle-ban-l img {
+  width: 100%;
+}
+.middle-content-l {
+  background-color: rgb(255, 255, 255);
+}
+.part-data-l {
+  width: 100%;
+}
+.part-price-l {
+  width: 100%;
+  height: 35px;
+  margin-top: 12px;
+  padding: 0 18px;
+  display: flex;
+  justify-content: space-between;
+}
+.part-pro-price-l {
+  width: 100px;
+  height: 100%;
+  font-family: JDZH-Regular;
+  font-size: 14px;
+  line-height: 30px;
+  color: #f2270c;
+  display: inline-block;
+  font-weight: bold;
+}
+.part-pro-icon-l {
+  width: 80px;
+  height: 100%;
+}
+.part-pro-price-l span {
+  font-size: 28px;
+}
+.part-pro-icon-l span {
+  display: inline-block;
+  width: 50%;
+  height: 100%;
+  font-size: 9px;
+  text-align: center;
+}
+.part-pro-icon-l span img {
+  width: 50%;
+  height: 50%;
+}
+/* 产品介绍 */
+.part-pro-wrap-l {
+  width: 100%;
+  height: 108px;
+  padding: 12px 18px;
+  color: #262626;
+}
+.part-pro-wrap-l h1 {
+  width: 100%;
+  height: 36px;
+  font-size: 16px;
+  line-height: 36px;
+}
+.part-pro-wrap-l h1 img {
+  width: 31.56px;
+  height: 13px;
+}
+.part-pro-bru-l {
+  width: 378px;
+  height: 48px;
+  padding: 18px 0 0;
+  font-size: 12px;
+  color: #666;
+}
+.part-pro-bru-l span {
+  color: #e4393c;
+  text-decoration: underline;
+}
+
+/* 放心购 */
+.part-pro-show-l {
+  width: 100%;
+  height: 37px;
+  padding: 12px 48px 12px 10px;
+  color: #e93b3d;
+  font-size: 13px;
+  background-color: rgb(251, 240, 253);
+}
+.part-pro-show-l > span {
+  display: inline-block;
+  width: 70px;
+  height: 13px;
+  background-image: url("../assets/partmain/buy.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin-right: 4px;
+}
+.part-pro-show-l p {
+  height: 13px;
+  display: inline-block;
+  line-height: 15px;
+}
+.part-pro-show-dis-l {
+  width: 20px;
+  height: 13px;
+  float: right;
+  line-height: 13px;
+  font-size: 30px;
+}
+.part-pro-show-dis-l span {
+  display: inline-block;
+  width: 100%;
+  height: 13px;
+  background-image: url("../assets/partmain/r-icon.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+/* 优惠 favourable */
+.part-pro-favour-l {
+  width: 100%;
+  height: 151px;
+  margin: 12px 0 0;
+  padding: 0 18px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+}
+.part-pro-adress-l {
+  width: 100%;
+  height: 260px;
+  margin: 12px 0 0;
+  padding: 0 18px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+}
+.part-pro-favour-l .mod_discount {
+  position: relative;
+  padding: 18px 20px 5px 38px;
+  /* font-size: 0; */
+  color: #333;
+  word-break: break-word;
+  overflow: hidden;
+  font-size: 13px;
+  line-height: 18px;
+}
+.part-pro-favour-l .mod_discount .title-l {
+  position: absolute;
+  left: 0;
+  top: 18px;
+  color: #262626;
+  font-weight: 700;
+}
+.dicount_plus-l {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.dicount_plus_icon-l {
+  display: inline-block;
+  width: 53px;
+  height: 14px;
+  margin-right: 5px;
+  vertical-align: text-bottom;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url("../assets/partmain/95.png");
+}
+.dicount_coupon-l {
+  height: 18px;
+  line-height: 0;
+  overflow: hidden;
+  word-break: break-word;
+}
+.dicount_coupon-l::after{
+  position: absolute;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-image: url("../assets/partmain/load-icon.png");
+    background-repeat: no-repeat;
+    background-size: 20px;
+    top: 12px;
+    right: 0;
+    content: "";
+}
+.coupon-l {
+  position: relative;
+  display: inline-block;
+  margin-right: 5px;
+  padding: 0 9px 0 12px;
+  border-top: 1px solid #f2270c;
+  border-bottom: 1px solid #f2270c;
+  height: 18px;
+  line-height: 18px;
+  color: #f2270c;
+  font-size: 10px;
+}
+.coupon-l::before {
+  width: 7px;
+  content: "";
+  left: 0;
+  width: 7px;
+  position: absolute;
+  top: -1px;
+  height: 18px;
+  background-image: url("../assets/partmain/cop-before.png");
+  background-size: 15px 18px;
+  background-repeat: no-repeat;
+}
+.coupon-l::after {
+  right: 0;
+  width: 4px;
+  background-position: -11px 0;
+  /* width: 7px; */
+  content: "";
+  position: absolute;
+  top: -1px;
+  height: 18px;
+  background-size: 15px 18px;
+  background-repeat: no-repeat;
+  background-image: url("../assets/partmain/cop-before.png");
+}
+.bg_red-l {
+  color: #fff;
+  margin: 0 8.5px 0 9px;
+  padding: 0 5.5px 0 3px;
+  background-color: #f2270c;
+}
+.bg_red-l::before{
+  content: "";
     position: absolute;
-    right: 5px;
-    bottom: 5px;
-    padding: 2px 5px;
-    font-size: 12px;
-    background: rgba(0, 0, 0, 0.1);
-  }
+    top: -1px;
+    left: -9px;
+    height: 18px;
+    background-image: url("../assets/partmain/l-icon.png");
+    background-size: 15px 18px;
+    background-repeat: no-repeat;
+    width: 9px;
+}
+.bg_red-l::after{
+  content: "";
+    position: absolute;
+    top: -1px;
+    right: -3.5px;
+    height: 18px;
+    background-image: url("../assets/partmain/l-icon.png");
+    background-size: 15px 18px;
+    background-repeat: no-repeat;
+    width: 4.5px;
+    background-position: -11px 0;
+}
+.de_row.prom_item {
+    margin: 18px 0 12px;
+}
+.de_row.prom_item:first-child {
+    margin-top: 0;
+}
+.detail_prom .de_tag {
+    margin-right: 5px;
+    padding-top: 1px;
+}
+.detail_prom .de_tag .hl_red_bg {
+    display: block;
+    margin: 0;
+}
+.detail_prom .hl_red_bg {
+    position: relative;
+    padding: 0 3px;
+    margin-right: 0;
+    height: 13px;
+    line-height: 13px;
+    font-size: 9px;
+    color: #e4393c;
+    background: #fff;
+}
+.detail_prom .hl_red_bg:before {
+    border-color: #e4393c;
+    border-radius: 2px;
+}
 </style>

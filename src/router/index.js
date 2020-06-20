@@ -47,6 +47,7 @@ const routes = [
     name:'Focus-page',
     component:Focus
   },
+  // 商品详情
   {
     path:'/part-main',
     name:'part-main',
