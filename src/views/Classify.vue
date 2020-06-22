@@ -14,8 +14,9 @@
     </div>
     <!-- 内容 -->
     <div class="classify-main-y">
+
       <div class="navigation">
-        <div class="navigation-box-y">
+        <div class="navigation-box-y" ref="left">
           <div
             class="navigation-item"
             ref="items"
@@ -26,6 +27,7 @@
           >{{item}}</div>
         </div>
       </div>
+
       <div class="mian-content">
         <div class="product-item" v-for="(item,index) in prolist" :key="index">
           <div class="pro-title">
@@ -52,7 +54,7 @@
         <img src="../assets/home/s2.png" alt />
       </div>
       <div class="switch-btn-item-y">
-        <img src="../assets/home/s3.png" alt />
+        <img src="../assets/home/s3.png" @click="changeBtn(2)">
       </div>
       <div class="switch-btn-item-y">
         <img src="../assets/home/s4.png" alt />
@@ -61,7 +63,8 @@
         <img src="../assets/home/s5.png" alt />
       </div>
       <div class="switch-btn-item-y" @click="changeBtn(5)">
-        <img src="../assets/home/s8.png" alt />
+        <img src="../assets/home/s10.png" v-if="landing">
+        <img src="../assets/home/s8.png" v-else>
       </div>
     </div>
   </div>
@@ -77,6 +80,11 @@ import { pro6 } from "../components/data";
 import { pro7 } from "../components/data";
 
 export default {
+  computed: {
+        landing() {
+            return this.$store.state.landing
+        },
+    },
   data() {
     return {
       list: [
@@ -139,32 +147,37 @@ export default {
         this.$router.push("shopping-page");
       }
       if (index == 5) {
-        this.$router.push("noload-page");
+        if(this.landing==false){
+         this.$router.push("noload-page");
+        }else{
+          this.$router.push("personage-page");
+        }
       }
     },
     clickPro(index) {
       this.num = index;
       if (index == 0) {
         this.prolist = pro1;
-      } else if (index == 1) {
+      } else if (index == 1){
         this.prolist = pro2;
-      } else if (index == 2) {
+      } else if (index == 2){
         this.prolist = pro3;
-      } else if (index == 3) {
+      } else if (index == 3){
         this.prolist = pro4;
-      } else if (index == 4) {
+      } else if (index == 4){
         this.prolist = pro5;
-      } else if (index == 5) {
+      } else if (index == 5){
         this.prolist = pro6;
-      } else if (index == 6) {
+      } else if (index == 6){
         this.prolist = pro7;
       }
-      // let height=this.$refs.items[0].clientHeight;
-      // this.$refs.left.scrollTo({
-      //   top:50*index,
-      //   behavior:"smooth"
-      // })
+      let height=this.$refs.items[0].clientHeight;
+      this.$refs.left.scrollTo({
+        top:height*index,
+        behavior:"smooth"
+      })
     }
+    
   }
 };
 </script>

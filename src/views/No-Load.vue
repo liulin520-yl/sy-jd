@@ -96,11 +96,11 @@
         </div>
       </div>
       <p class="protocol">
-        未注册的手机号验证后将自动创建京东账号,
-        登录即代表您已同意
+       {{text}}
         <span>京东隐私政策</span>
       </p>
     </div>
+    <div class="shade" v-show="shade">请获取短信验证码</div>
   </div>
 </template>
 
@@ -121,8 +121,11 @@ export default {
       timer: null,
       loginway:"账户密码登录",
       showfour:true,
-      textname:"18655600250",
-      textpass:"0000"
+      textname:/^1\d{10}$/,
+      textpass:/^\d{4}$/,
+      shade:false,
+      text:"未注册的手机号验证后将自动创建京东账号,登录即代表您已同意"
+  
     };
   },
     computed: {
@@ -171,11 +174,13 @@ export default {
     btn() {
       if (this.tel.length == 11) {
         let that = this;
+        this.see=false
         this.timer = setInterval(function() {
           that.num--;
           that.authCode = "重新获取(" + that.num + "s)";
         if (that.num == 0) {
-          clearInterval(that.timer);
+          clearInterval(that.timer)
+          this.timer=null;
           that.authCode="获取验证码"
           that.num =60
         }
@@ -191,6 +196,11 @@ export default {
         this.loginway="账户密码登录"
         this.showthree=!this.showthree
         this.showfour=!this.showfour
+      };
+      if(this.text=="未注册的手机号验证后将自动创建京东账号,登录即代表您已同意"){
+        this.text="登录及代表你已同意"
+      }else{
+        this.text="未注册的手机号验证后将自动创建京东账号,登录即代表您已同意"
       }
     },
     // 登录
@@ -198,10 +208,16 @@ export default {
       clearInterval(this.timer);
       this.authCode="获取验证码"
       this.num =60
-      if(this.tel==this.textname){
-        if(this.pass==this.textpass){
+      if(this.textname.test(this.tel)==true){
+        if(this.textpass.test(this.pass)==true){
           this.$router.push("personage-page");
           this.$store.state.landing=true
+        }else{
+          this.shade=true
+          let that=this
+          setTimeout(function(){
+              that.shade=false
+          },2000)
         }
       }
     },
@@ -240,10 +256,11 @@ export default {
 .no-load-return {
   width: 25px;
   height: 25px;
+  padding: 2.5px;
 }
 .no-load-return img {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
 }
 .no-load-title {
   flex-grow: 1;
@@ -507,6 +524,21 @@ export default {
   font-size: 14px;
   text-align: center;
   border-left: 1px solid #ccc;
+}
+.shade{
+  width: 140px;
+  height: 50px;
+  background-color: rgb(56, 55, 55);
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -25px;
+  margin-left: -70px;
+  line-height: 50px;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  border-radius: 10PX;
 }
 </style>>
 
