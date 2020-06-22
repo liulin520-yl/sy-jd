@@ -27,15 +27,15 @@
         <div class="shopcart-login-bar-btn">登录</div>
       </div>
       <!-- 登录后可同步购物车中的商品 -->
-      <div class="empty-cart">
+      <div class="empty-cart" v-if="showEmptyCart">
         <div class="empty-warp">
           <div class="empty-icon"></div>
           <p>登录后可同步购物车中商品</p>
         </div>
       </div>
       <!-- 商品详情 -->
-      <div id="jdtab-m" class="section-list">
-        <div class="section">
+      <div id="jdtab-m" class="section-list" v-if="showCartList" >
+        <div class="section" v-for="(item,index) in number" :key="index">
           <div class="head-wrap">
             <div class="head-fixbar">
               <van-checkbox-group v-model="result" ref="checkboxGroup" checked-color="red">
@@ -44,7 +44,7 @@
               <!-- <i class="icon-select"></i> -->
               <i class="icon-shop"></i>
               <div class="title">
-                巴朗旗舰店
+                {{number.storename}}
                 <i class="icon-arrow-right"></i>
               </div>
             </div>
@@ -54,10 +54,10 @@
               <van-checkbox-group v-model="result" ref="checkboxGroup" checked-color="red">
                 <van-checkbox name="b" icon-size="20px"></van-checkbox>
               </van-checkbox-group>
-              <img src="../assets/cart/pack.webp" alt />
+              <img :src="number.img1" alt />
 
               <div class="content">
-                <div class="name">巴朗男士双肩包新款大容量背包时尚潮休闲17寸笔记本电脑包高中大学生书包商务旅行出差包运动USB充电包 黑色 标准版</div>
+                <div class="name">{{number.title}}</div>
                 <div class="sku">
                   <div class="skuu">黑色，标准版</div>
                   <div class="service">选服务</div>
@@ -65,15 +65,15 @@
                 <div class="price-line">
                   <div class="price">
                     ¥
-                    <em class="int">69</em>
+                    <em class="int">{{number.price}}</em>
                     .00
                   </div>
                   <div class="num">
-                    <span class="minus"></span>
+                    <span class="minus" @click="btnMinute(number)"></span>
                     <div class="input">
-                      <input type="tel" class="nums" />
+                      <input type="tel" class="nums" v-model="number.count" />
                     </div>
-                    <span class="plus"></span>
+                    <span class="plus" @click="btnAdd(number)"></span>
                   </div>
                 </div>
                 <div class="action">
@@ -212,9 +212,9 @@
     </div>
     <!-- 加入购物车弹框 -->
     <van-popup v-model="show" round position="bottom" :style="{ height: '60%' }" closeable>
-      <div class="mod-sku-switch"  >
+      <div class="mod-sku-switch">
         <div class="switch-header">
-          <img :src='number.img1' alt />
+          <img :src="number.img1" alt />
           <div class="switch-header-content">
             <p class="price">
               ¥
@@ -234,7 +234,7 @@
         </div>
         <div class="switch-footer">
           <div class="btnshow">
-            <div class="btn">加入购物车</div>
+            <div class="btn" @click="enterGwc(number)">加入购物车</div>
           </div>
         </div>
       </div>
@@ -257,6 +257,8 @@
         <img src="../assets/home/s8.png" alt />
       </div>
     </div>
+    <!-- 该商品一件起售 -->
+    <!-- <div class="asale" v-if="showSale">该商品1件起售</div> -->
   </div>
 </template>
 
@@ -269,14 +271,22 @@ export default {
       time: 30 * 60 * 60 * 1000,
       result: [],
       show: false,
-      number:""
+      number: "",
+      showEmptyCart: true,
+      showCartList: false,
+      showSale: false
     };
   },
+
   computed: {
     orderList() {
       return this.$store.state.orderList;
+      return this.$store.state.gwcList;
     }
   },
+  //  mounted() {
+  //   this.$toast('提示文案');
+  // },
   methods: {
     deltopbanner() {
       this.get = false;
@@ -302,8 +312,28 @@ export default {
     },
     bottomPopup(item) {
       this.show = true;
-      this.number=item
+      this.number = item;
+    },
+    enterGwc(number) {
+      this.show = false;
+      this.showEmptyCart = false;
+      this.showCartList = true;
+    },
+    btnMinute(number) {
+      if (this.number.count > 0) {
+        this.number.count--;
+        if (this.number.count == 0) {
+          this.number.count = 1;
+          this.$toast("该商品1件起售", 100);
+        }
+      }
 
+      // if(this.number.count==0){
+      //   this.showSale=true
+      // }
+    },
+    btnAdd(number) {
+      this.number.count++;
     }
   }
 };
@@ -1286,66 +1316,66 @@ ul {
 }
 .mod-sku-switch .switch-body {
   height: 320px;
-    font-size: 14px;
-    padding-bottom: 40px;
-    overflow: hidden;
-    overflow-y: auto;
-    -webkit-box-flex: 1;
-    flex: 1;
+  font-size: 14px;
+  padding-bottom: 40px;
+  overflow: hidden;
+  overflow-y: auto;
+  -webkit-box-flex: 1;
+  flex: 1;
 }
-.mod-sku-switch .switch-body .kind{
+.mod-sku-switch .switch-body .kind {
   color: #333;
-    font-weight: 500;
-    margin: 15px 10px 0;
-    height: 25px;
-    line-height: 25px;
+  font-weight: 500;
+  margin: 15px 10px 0;
+  height: 25px;
+  line-height: 25px;
 }
-.mod-sku-switch .switch-body .choose{
+.mod-sku-switch .switch-body .choose {
   overflow: hidden;
 }
-.mod-sku-switch .switch-body .choose .choice{
+.mod-sku-switch .switch-body .choose .choice {
   background-color: #f2270c;
-    color: #fff;
-    padding: 0 15px;
-    min-width: 20px;
-    max-width: 270px;
-    overflow: hidden;
-    height: 30px;
-    line-height: 30px;
-    float: left;
-    text-align: center;
-    margin: 5px 0 5px 10px;
-    border-radius: 15px;
+  color: #fff;
+  padding: 0 15px;
+  min-width: 20px;
+  max-width: 270px;
+  overflow: hidden;
+  height: 30px;
+  line-height: 30px;
+  float: left;
+  text-align: center;
+  margin: 5px 0 5px 10px;
+  border-radius: 15px;
 }
-.mod-sku-switch .switch-footer{
+.mod-sku-switch .switch-footer {
   position: relative;
-    height: 70px;
-    flex-shrink: 0;
+  height: 70px;
+  flex-shrink: 0;
 }
-.mod-sku-switch .switch-footer .btnshow{
+.mod-sku-switch .switch-footer .btnshow {
   display: flex;
-    overflow: hidden;
-    width: 100%;
-    height: 70px;
-    padding: 0 10px;
-    box-sizing: border-box;
-    -webkit-box-align: center;
-    align-items: center;
-    background: #fff;
+  overflow: hidden;
+  width: 100%;
+  height: 70px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  -webkit-box-align: center;
+  align-items: center;
+  background: #fff;
 }
-.mod-sku-switch .switch-footer .btnshow .btn{
+.mod-sku-switch .switch-footer .btnshow .btn {
   display: block;
-    width: 100%;
-    -webkit-box-flex: 1;
-    flex: 1;
-    height: 40px;
-    line-height: 40px;
-    color: #fff;
-    font-size: 16px;
-    text-align: center;
-    border-radius: 20px;
-    background-color: #f2270c;
-    box-shadow: 0 3px 6px 0 rgba(255,65,66,.2);
+  width: 100%;
+  -webkit-box-flex: 1;
+  flex: 1;
+  height: 40px;
+  line-height: 40px;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  border-radius: 20px;
+  background-color: #f2270c;
+  box-shadow: 0 3px 6px 0 rgba(255, 65, 66, 0.2);
 }
 /* 底部 */
 .switch-btn-m {
@@ -1368,5 +1398,22 @@ ul {
   height: 46px;
   display: inline-block;
   margin-top: 2px;
+}
+.asale {
+  z-index: 999;
+  white-space: normal;
+  width: auto;
+  overflow: hidden;
+  max-width: 270px;
+  padding: 10px 15px;
+  color: #fff;
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  top: 50%;
+  left: 35%;
+  margin: auto;
+  text-align: center;
+  border-radius: 10px;
 }
 </style>

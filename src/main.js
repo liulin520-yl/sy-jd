@@ -6,6 +6,7 @@ import { CountDown,SwipeItem,Swipe } from 'vant';
 import { GoodsAction, GoodsActionIcon, GoodsActionButton } from 'vant';
 import { Checkbox, CheckboxGroup } from 'vant';
 import { Popup } from 'vant';
+import { Toast } from 'vant';
 Vue.use(CountDown);
 Vue.use(SwipeItem);
 Vue.use(Swipe);
@@ -15,6 +16,7 @@ Vue.use(GoodsActionIcon);
 Vue.use(Checkbox);
 Vue.use(CheckboxGroup);
 Vue.use(Popup);
+Vue.use(Toast);
 
 
 
