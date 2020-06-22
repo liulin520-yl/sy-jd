@@ -78,22 +78,25 @@ export default new Vuex.Store({
   },
   mutations: {
     enterGwc(state, goods) {
-      let flag = false;
+      let x = -1;
       for (let i = 0; i < state.gwcList.length; i++) {
         if (goods.title == state.gwcList[i].title) {
-          state.gwcList[i].count++;
-          flag = true;
-        }
-        if (!flag) {
-          state.gwcList.push({
-            title: goods.title,
-            count: 1,
-            price: goods.price,
-            img1: goods.img1,
-            storename: goods.storename,
-          });
+
+          x = i
         }
       }
+      if (x > -1) {
+        state.gwcList[x].count++;
+      } else {
+        state.gwcList.push({
+          title: goods.title,
+          count: 1,
+          price: goods.price,
+          img1: goods.img1,
+          storename: goods.storename,
+        });
+      }
+
     },
     btnMinute(state, index) {
       if (state.gwcList[index].count > 0) {
@@ -106,9 +109,15 @@ export default new Vuex.Store({
     },
     btnAdd(state, index) {
       state.gwcList[index].count++;
-    }
+    },
+    delCart(state,index){
+      state.gwcList.splice(index, 1);
+    },
 
   },
+
+
+
   actions: {
   },
   modules: {
