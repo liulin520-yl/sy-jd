@@ -20,6 +20,8 @@ export default new Vuex.Store({
         specification:["（2级定型）OSIS发胶2号300ml","（3级定型）OSIS发胶3号300ml","（明星搭档）发胶300ml+发蜡85ml","（4级定型）丝露华发胶500ml","（反复塑型）型格强力发胶300ml","（3级定型）OSIS发胶3号100ml"],
         shorter:"【每满300减40，限量300减30】施华蔻专业钜惠续航60小时，1次下单至高减70元，带走8件！星品继续8折抢！至高满赠134元礼包！详情速戳 ",
         weight:'0.28kg',
+        storename:"京东自营",
+        count:1,
       },
       {
         img1:require("../assets/com-store/pk1.webp"),
@@ -34,6 +36,8 @@ export default new Vuex.Store({
         specification:["黑色","灰色","蓝色","黑配灰色","黑配蓝色","黑配红色"],
         shorter:"【顺丰包邮】【好店认证放心购】【送运费险、支持七天无理由退换货】 ",
         weight:'1.5kg',
+        storename:"巴朗旗舰店",
+        count:1,
       },
       {
         img1:require("../assets/com-store/ly1.webp"),
@@ -48,6 +52,8 @@ export default new Vuex.Store({
         specification:["DIR-822+ 11AC 1200M双频百兆","DIR-823G 全千兆家用性价比之选","COVR-C1203 1200M分布式Mesh路由","DIR-867 1750M 全千兆双核处理","COVR-3902 2600M分布式Mesh路由","DES-1008A 8口交换机"],
         shorter:"【顺丰包邮】【好店认证放心购】【送运费险、支持七天无理由退换货】 ",
         weight:'0.73kg',
+        storename:"京东自营",
+        count:1,
       },
       {
         img1:require("../assets/com-store/sj1.webp"),
@@ -62,10 +68,15 @@ export default new Vuex.Store({
         specification:["12GB+256GB","白条分期 12GB+256GB"],
         shorter:"【少量现货，下单速发顺丰包邮，高端产品出库发货后不接受退款】【白条分期套餐0首付6期免息】 ",
         weight:'0.35kg',
+        storename:"三星旗舰店",
+        count:1,
       },
-    ]
+    ],
+    gwcList:[],
+
   },
   mutations: {
+
   },
   actions: {
   },
