@@ -34,8 +34,8 @@
         </div>
       </div>
       <!-- 商品详情 -->
-      <div id="jdtab-m" class="section-list" v-if="showCartList" >
-        <div class="section" v-for="(item,index) in number" :key="index">
+      <div id="jdtab-m" class="section-list" v-if="showCartList">
+        <div class="section" v-for="(item,index) in gwcList" :key="index">
           <div class="head-wrap">
             <div class="head-fixbar">
               <van-checkbox-group v-model="result" ref="checkboxGroup" checked-color="red">
@@ -44,7 +44,7 @@
               <!-- <i class="icon-select"></i> -->
               <i class="icon-shop"></i>
               <div class="title">
-                {{number.storename}}
+                {{item.storename}}
                 <i class="icon-arrow-right"></i>
               </div>
             </div>
@@ -54,10 +54,10 @@
               <van-checkbox-group v-model="result" ref="checkboxGroup" checked-color="red">
                 <van-checkbox name="b" icon-size="20px"></van-checkbox>
               </van-checkbox-group>
-              <img :src="number.img1" alt />
+              <img :src="item.img1" alt />
 
               <div class="content">
-                <div class="name">{{number.title}}</div>
+                <div class="name">{{item.title}}</div>
                 <div class="sku">
                   <div class="skuu">黑色，标准版</div>
                   <div class="service">选服务</div>
@@ -65,15 +65,15 @@
                 <div class="price-line">
                   <div class="price">
                     ¥
-                    <em class="int">{{number.price}}</em>
+                    <em class="int">{{item.price}}</em>
                     .00
                   </div>
                   <div class="num">
-                    <span class="minus" @click="btnMinute(number)"></span>
+                    <span class="minus" @click="btnMinute(index)"></span>
                     <div class="input">
-                      <input type="tel" class="nums" v-model="number.count" />
+                      <input type="tel" class="nums" v-model="item.count" />
                     </div>
-                    <span class="plus" @click="btnAdd(number)"></span>
+                    <span class="plus" @click="btnAdd(index)"></span>
                   </div>
                 </div>
                 <div class="action">
@@ -202,7 +202,7 @@
                       <em>99</em>
                     </div>
                   </div>
-                  <div class="rec-cart" @click="bottomPopup(item)"></div>
+                  <div class="rec-cart" @click="bottomPopup(item,index)"></div>
                 </div>
               </div>
             </li>
@@ -281,6 +281,8 @@ export default {
   computed: {
     orderList() {
       return this.$store.state.orderList;
+    },
+    gwcList() {
       return this.$store.state.gwcList;
     }
   },
@@ -310,30 +312,27 @@ export default {
     toggleAll() {
       this.$refs.checkboxGroup.toggleAll();
     },
-    bottomPopup(item) {
+    bottomPopup(item, index) {
       this.show = true;
       this.number = item;
     },
     enterGwc(number) {
+      this.$store.commit("enterGwc", {
+        title: number.title,
+        count: number.count,
+        price: number.price,
+        img1: number.img1,
+        storename: number.storename
+      });
       this.show = false;
       this.showEmptyCart = false;
       this.showCartList = true;
     },
-    btnMinute(number) {
-      if (this.number.count > 0) {
-        this.number.count--;
-        if (this.number.count == 0) {
-          this.number.count = 1;
-          this.$toast("该商品1件起售", 100);
-        }
-      }
-
-      // if(this.number.count==0){
-      //   this.showSale=true
-      // }
+    btnMinute(index) {
+       this.$store.commit("btnMinute",index)
     },
-    btnAdd(number) {
-      this.number.count++;
+    btnAdd(index) {
+      this.$store.commit("btnAdd",index)
     }
   }
 };
