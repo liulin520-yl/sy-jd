@@ -311,106 +311,25 @@
           <img src="../assets/page-first/foryou.png" alt />
         </div>
         <div class="last-floor-love-l">
-          <div class="last-floor-item-l">
-            <div class="last-floor-page-l" @click="goodpage()">
-              <div class="last-floor-page-img">
-                <img src="../assets/page-first/foryou/f1.jpg" alt />
-              </div>
-              <div class="last-floor-product-l">
-                <img src="../assets/page-first/foryou/618.png" alt />
-                <img src="../assets/page-first/foryou/sup.png" alt />独角兽厨房鸡胸肉即食健身餐开袋速食鸡胸肉丸代餐轻食低脂低卡增肌鸡胸脯肉食品零食 100g鸡胸肉20袋+5袋鸡肉丸
-              </div>
-              <div class="last-floor-price-l">
-                <span class="last-floor-pro-l">
-                  ￥
-                  <span>129</span>
-                </span>
-                <span class="last-floor-mon-l">看相似</span>
-              </div>
+          <div class="last-floor-page-l"
+            v-for="(item,index) in orderList"
+            :key="index"
+            @click="goodpage(index)"
+          >
+            <div class="last-floor-page-img">
+              <img :src="item.img1" alt />
             </div>
-            <div class="last-floor-page-l">
-              <div class="last-floor-page-img">
-                <img src="../assets/page-first/foryou/f2.png" alt />
-              </div>
-              <div class="last-floor-product-l">
-                <img src="../assets/page-first/foryou/618.png" alt />
-                <img src="../assets/page-first/foryou/sup.png" alt />华为nova5 pro 手机 绮境森林 全网通8G+128G 100g鸡胸肉20袋+5袋鸡肉丸
-              </div>
-              <div class="last-floor-price-l">
-                <span class="last-floor-pro-l">
-                  ￥
-                  <span>1888</span>
-                </span>
-                <span class="last-floor-mon-l">看相似</span>
-              </div>
+            <div class="last-floor-product-l">
+              <img src="../assets/page-first/foryou/618.png" alt />
+              <img src="../assets/page-first/foryou/sup.png" alt />
+              {{item.title}}
             </div>
-          </div>
-          <div class="last-floor-item-l">
-            <div class="last-floor-page-l">
-              <div class="last-floor-page-img">
-                <img src="../assets/page-first/foryou/f5.jpg" alt />
-              </div>
-              <div class="last-floor-product-l">
-                <img src="../assets/page-first/foryou/618.png" alt />
-                <img src="../assets/page-first/foryou/sup.png" alt />苹果（Apple）2020年新款 iPadPro 11英寸轻薄办公学习二合一平板电脑 【20新款】深空灰色 - 标配 128G WLAN版
-              </div>
-              <div class="last-floor-price-l">
-                <span class="last-floor-pro-l">
-                  ￥
-                  <span>129</span>
-                </span>
-                <span class="last-floor-mon-l">看相似</span>
-              </div>
-            </div>
-            <div class="last-floor-page-l">
-              <div class="last-floor-page-img">
-                <img src="../assets/page-first/foryou/f6.jpg" alt />
-              </div>
-              <div class="last-floor-product-l">
-                <img src="../assets/page-first/foryou/618.png" alt />
-                <img src="../assets/page-first/foryou/sup.png" alt />芭步仕小白鞋 新款秋鞋旅游运动百搭平底高帮潮流百搭休闲女鞋 灰色-限量版 35
-              </div>
-              <div class="last-floor-price-l">
-                <span class="last-floor-pro-l">
-                  ￥
-                  <span>158</span>
-                </span>
-                <span class="last-floor-mon-l">看相似</span>
-              </div>
-            </div>
-          </div>
-          <div class="last-floor-item-l">
-            <div class="last-floor-page-l">
-              <div class="last-floor-page-img">
-                <img src="../assets/page-first/foryou/f3.jpg" alt />
-              </div>
-              <div class="last-floor-product-l">
-                <img src="../assets/page-first/foryou/618.png" alt />
-                <img src="../assets/page-first/foryou/sup.png" alt />茵曼2020夏装新款短袖衬衣翻领趣味复古港风印花落肩宽松休闲衬衫【1802336】 浅水绿 M
-              </div>
-              <div class="last-floor-price-l">
-                <span class="last-floor-pro-l">
-                  ￥
-                  <span>189</span>
-                </span>
-                <span class="last-floor-mon-l">看相似</span>
-              </div>
-            </div>
-            <div class="last-floor-page-l">
-              <div class="last-floor-page-img">
-                <img src="../assets/page-first/foryou/f4.jpg" alt />
-              </div>
-              <div class="last-floor-product-l">
-                <img src="../assets/page-first/foryou/618.png" alt />
-                <img src="../assets/page-first/foryou/sup.png" alt />【12期免息】华为 nova7 5G 手机（华为直供 全国多仓 现货速发）现在下单尊享豪礼 亮黑色 全网通5G版（8G+128G）
-              </div>
-              <div class="last-floor-price-l">
-                <span class="last-floor-pro-l">
-                  ￥
-                  <span>2999</span>
-                </span>
-                <span class="last-floor-mon-l">看相似</span>
-              </div>
+            <div class="last-floor-price-l">
+              <span class="last-floor-pro-l">
+                ￥
+                <span>{{item.price}}</span>
+              </span>
+              <span class="last-floor-mon-l">看相似</span>
             </div>
           </div>
         </div>
@@ -430,7 +349,8 @@
         <img src="../assets/home/s5.png" alt />
       </div>
       <div class="switch-btn-item-l" @click="changeBtn(5)">
-        <img src="../assets/home/s8.png" alt />
+        <img src="../assets/home/s8.png" v-if="landing" alt />
+        <img src="../assets/home/s8.png" v-else alt />
       </div>
     </div>
   </div>
@@ -571,6 +491,15 @@ export default {
       ]
     };
   },
+  computed: {
+    orderList() {
+      return this.$store.state.orderList;
+    },
+    landing(){
+      return this.$store.state.landing;
+
+    }
+  },
   methods: {
     changeBtn(index) {
       this.page = index;
@@ -587,8 +516,14 @@ export default {
     onChange(index) {
       this.current = index;
     },
-    goodpage(){
-      this.$router.push("part-main")
+    goodpage(index) {
+     
+      this.$router.push({
+        path: "part-main",
+        query: {
+          num: index
+        }
+      });
     }
   }
 };
@@ -1192,7 +1127,6 @@ export default {
 /* 末尾猜你喜欢栏目 */
 .last-floor-l {
   width: 100%;
-  height: 800px;
   background-color: rgb(240, 242, 245);
   padding: 0 11px;
 }
@@ -1209,18 +1143,15 @@ export default {
   margin-top: 2px;
   width: 100%;
   height: 500px;
-}
-.last-floor-item-l {
-  width: 100%;
-  height: 285px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
-  margin-bottom: 5px;
 }
 .last-floor-page-l {
   width: 49.6%;
-  height: 100%;
+  height: 285px;
   background-color: rgb(255, 255, 255);
+  margin-bottom: 5px;
 }
 .last-floor-page-img img {
   width: 100%;
