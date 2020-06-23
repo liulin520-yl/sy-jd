@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     landing: false,
     allcheck: false,
+    showEmptyCart:true,
     // zongji:"",
     orderList: [
       {
@@ -135,6 +136,13 @@ export default new Vuex.Store({
 
         });
       }
+      state.showEmptyCart=false;
+      // if(this.gwcList.length>0){
+      //   this.showEmptyCart=false;
+      // }else{
+      //   this.showEmptyCart=true;
+      // }
+      
       
 
     },

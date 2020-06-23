@@ -27,14 +27,17 @@
         <div class="shopcart-login-bar-btn">登录</div>
       </div>
       <!-- 登录后可同步购物车中的商品 -->
-      <div class="empty-cart" v-if="showEmptyCart">
+      <div v-if="!landing">
+         <div class="empty-cart" v-if="showEmptyCart">
         <div class="empty-warp">
           <div class="empty-icon"></div>
           <p>登录后可同步购物车中商品</p>
         </div>
       </div>
+      </div>
+     
       <!-- 商品详情 -->
-      <div id="jdtab-m" class="section-list" v-if="showCartList">
+      <div id="jdtab-m" class="section-list" >
         <div class="section" v-for="(item,index) in gwcList" :key="index">
           <div class="head-wrap">
             <div class="head-fixbar">
@@ -299,8 +302,7 @@ export default {
       result: [],
       show: false,
       number: "",
-      showEmptyCart: true,
-      showCartList: false,
+      // showEmptyCart: true,
       showSale: false,
       specifyIndex: 0,
       gglist: "",
@@ -315,7 +317,12 @@ export default {
     },
     gwcList() {
       return this.$store.state.gwcList;
+      
     },
+    showEmptyCart(){
+      return this.$store.state.showEmptyCart;
+    },
+    
     landing() {
       return this.$store.state.landing;
     },
@@ -396,8 +403,7 @@ export default {
         // pricenum:number.price
       });
       this.show = false;
-      this.showEmptyCart = false;
-      this.showCartList = true;
+      // showEmptyCart = false;
     },
     btnMinute(index) {
       this.$store.commit("btnMinute", index);
