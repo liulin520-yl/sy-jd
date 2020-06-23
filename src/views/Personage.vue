@@ -255,27 +255,15 @@
 
 <script>
 export default {
-  data() {
-    return {
-      a: 2
-    };
-  },
-   beforeRouteLeave(to, from, next) {
-               if(to.path == '/noload-page'){
-                // console.log("11")
-                // next('/')
-                // this. perReturn()
-                // this.$router.go(-1);
-            }
-            },
-    computed: {
+  computed: {
     landing() {
       return this.$store.state.landing;
     }
   },
+
   methods: {
     perReturn() {
-      this.$router.go(-1);
+      this.$router.go(-2);
     },
     changeBtn(index) {
       if (index == 1) {
@@ -288,7 +276,7 @@ export default {
         this.$router.push("shopping-page");
       }
     }
-  }
+  },
 };
 </script>
 
