@@ -3,7 +3,7 @@
     <div class="wx-wrap-m">
       <!-- 购物车 -->
       <div class="header-bar">
-        <div class="header-bar-back"></div>
+        <div class="header-bar-back" @click="gwcReturn"></div>
         <div class="header-bar-title">购物车</div>
         <div class="header-bar-menu"></div>
       </div>
@@ -22,26 +22,33 @@
         </div>
       </div>
       <!-- 登录 -->
-      <div class="shopcart-login-bar">
+      <div class="shopcart-login-bar" v-if="!landing">
         登录后可同步账户购物车中的商品
         <div class="shopcart-login-bar-btn">登录</div>
       </div>
       <!-- 登录后可同步购物车中的商品 -->
-      <div class="empty-cart" v-if="showEmptyCart">
+      <div v-if="!landing">
+         <div class="empty-cart" v-if="showEmptyCart">
         <div class="empty-warp">
           <div class="empty-icon"></div>
           <p>登录后可同步购物车中商品</p>
         </div>
       </div>
+      </div>
+     
       <!-- 商品详情 -->
-      <div id="jdtab-m" class="section-list" v-if="showCartList">
+      <div id="jdtab-m" class="section-list" >
         <div class="section" v-for="(item,index) in gwcList" :key="index">
           <div class="head-wrap">
             <div class="head-fixbar">
-              <van-checkbox-group v-model="result" ref="checkboxGroup" checked-color="red">
-                <van-checkbox name="a" icon-size="20px"></van-checkbox>
-              </van-checkbox-group>
-              <!-- <i class="icon-select"></i> -->
+              <van-checkbox
+                bind:change="onChange"
+                v-model="item.checked" checked-color="rgb(234,59,61)"
+                @click="isAllChecked(index)"
+              ></van-checkbox>
+              <!-- <van-checkbox  value="checked" bind:change="onChange"></van-checkbox> -->
+              <!-- <i class="icon-select2" v-if="true" @click="itemClick(index)"></i>
+              <i class="icon-select" v-if="item.checked" @click="itemClick(index)"></i>-->
               <i class="icon-shop"></i>
               <div class="title">
                 {{item.storename}}
@@ -51,15 +58,17 @@
           </div>
           <div class="item">
             <div class="goods">
-              <van-checkbox-group v-model="result" ref="checkboxGroup" checked-color="red">
-                <van-checkbox name="b" icon-size="20px"></van-checkbox>
-              </van-checkbox-group>
+              <van-checkbox
+                bind:change="onChange"
+                v-model="item.checked" checked-color="rgb(234,59,61)"
+                @click="isAllChecked(index)"
+              ></van-checkbox>
               <img :src="item.img1" alt />
 
               <div class="content">
                 <div class="name">{{item.title}}</div>
                 <div class="sku">
-                  <div class="skuu">黑色，标准版</div>
+                  <div class="skuu">{{gglist}}</div>
                   <div class="service">选服务</div>
                 </div>
                 <div class="price-line">
@@ -222,14 +231,18 @@
             </p>
             <p class="prop">
               <span>已选</span>
-              黑色, 标准版 1个
+              {{gglist}}
             </p>
           </div>
         </div>
         <div class="switch-body">
           <div class="kind">{{number.specificationName}}</div>
           <div class="choose" v-for="(item, index) of number.specification" :key="index">
-            <span class="choice">{{item}}</span>
+            <span
+              class="choice"
+              :class="{red:index==specifyIndex}"
+              @click="chooseitem(index,item)"
+            >{{item}}</span>
           </div>
         </div>
         <div class="switch-footer">
@@ -239,6 +252,24 @@
         </div>
       </div>
     </van-popup>
+    <!-- 提交订单 -->
+    <div class="fixbar" v-for="(item,index) in gwcList" :key="index">
+      <i class="icon-select" v-if="allcheck" @click="radios(index)">全选</i>
+      <i class="icon-select2" v-else @click="radios(item)">全选</i>
+      <!-- <van-checkbox value="checked" bind:change="onChange" v-model="item.checked">全选</van-checkbox> -->
+      <div class="total">
+        <div class="detail">
+          <p class="t-main">
+            总计：
+            <span class="t-price">¥{{goodssum}}.00</span>
+          </p>
+        </div>
+        <div class="buy">
+          去结算
+          <span class="num">({{goodscount}}件)</span>
+        </div>
+      </div>
+    </div>
     <!-- 底部导航 -->
     <div class="switch-btn-m">
       <div class="switch-btn-item-m" @click="changeBtn(1)">
@@ -254,10 +285,10 @@
         <img src="../assets/home/s6.png" alt />
       </div>
       <div class="switch-btn-item-m" @click="changeBtn(5)">
-        <img src="../assets/home/s8.png" alt />
+        <img src="../assets/home/s10.png" v-if="landing" alt />
+        <img src="../assets/home/s8.png" v-else alt />
       </div>
     </div>
-    
   </div>
 </template>
 
@@ -271,9 +302,12 @@ export default {
       result: [],
       show: false,
       number: "",
-      showEmptyCart: true,
-      showCartList: false,
-      showSale: false
+      // showEmptyCart: true,
+      showSale: false,
+      specifyIndex: 0,
+      gglist: "",
+      // sum:""
+      // pricenum:0
     };
   },
 
@@ -283,14 +317,53 @@ export default {
     },
     gwcList() {
       return this.$store.state.gwcList;
+      
+    },
+    showEmptyCart(){
+      return this.$store.state.showEmptyCart;
+    },
+    
+    landing() {
+      return this.$store.state.landing;
+    },
+    allcheck(){
+      return this.$store.state.allcheck;
+    },
+    zongji(){
+      return this.$store.state.zongji;
+    },
+    goodscount(){
+      let sum=0;
+      for(let i=0;i<this.gwcList.length;i++){
+        if(this.gwcList[i].checked==true){
+          sum+=this.gwcList[i].count;
+        }     
+      }
+      return sum
+    },
+    goodssum(){
+      let zongji=0;
+      for(let i=0;i<this.gwcList.length;i++){
+        if(this.gwcList[i].checked==true){
+          zongji+=this.gwcList[i].price*this.gwcList[i].count;
+        }     
+      }
+      return zongji
     }
   },
+  
   //  mounted() {
   //   this.$toast('提示文案');
   // },
   methods: {
+    isAllChecked (index) {
+     this.$store.commit("isAllChecked",index)
+    },
     deltopbanner() {
       this.get = false;
+    },
+    gwcReturn() {
+      this.$router.go(-1);
     },
     changeBtn(index) {
       this.page = index;
@@ -302,7 +375,11 @@ export default {
         this.$router.push("/");
       }
       if (index == 5) {
-        this.$router.push("noload-page");
+        if (this.landing == false) {
+          this.$router.push("noload-page");
+        } else {
+          this.$router.push("personage-page");
+        }
       }
     },
     checkAll() {
@@ -318,24 +395,40 @@ export default {
     enterGwc(number) {
       this.$store.commit("enterGwc", {
         title: number.title,
-        count: number.count,
+        count: number.count, 
         price: number.price,
         img1: number.img1,
+        checked: number.checked,
         storename: number.storename
+        // pricenum:number.price
       });
       this.show = false;
-      this.showEmptyCart = false;
-      this.showCartList = true;
+      // showEmptyCart = false;
     },
     btnMinute(index) {
-       this.$store.commit("btnMinute",index)
+      this.$store.commit("btnMinute", index);
     },
     btnAdd(index) {
-      this.$store.commit("btnAdd",index)
+      this.$store.commit("btnAdd", index);
     },
-    delCart(index){
-      this.$store.commit("delCart",index)
+    delCart(index) {
+      this.$store.commit("delCart", index);
+    },
+    chooseitem(index, item) {
+      this.specifyIndex = index;
+      this.gglist = item;
+    },
+    onChange(event) {
+      this.setData({
+        result: event.detail
+      });
+    },
+    radios() {
+      this.$store.commit("allSelect");
     }
+    // itemClick(){
+    //   console.log(index);
+    // }
   }
 };
 </script>
@@ -976,23 +1069,53 @@ ul {
   min-height: 46px;
   z-index: 1;
 }
-.van-checkbox__icon {
+.section .head-wrap .head-fixbar .van-checkbox {
+  top: 13px;
+  width: 20px;
+  height: 20px;
+  z-index: 1;
+  display: block;
+  font-style: normal;
+  position: absolute;
+  left: 3%;
+}
+.section .head-wrap .head-fixbar .icon-select::after {
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  background-image: url(../assets/cart/zong.png);
+  background-size: 133px 112px;
+  width: 20px;
+  height: 20px;
+  background-position: -98px -40px;
+  position: absolute;
+  left: 50%;
+  content: "";
+  margin-left: -10px;
+}
+.section .head-wrap .head-fixbar .icon-select2 {
   position: absolute;
   top: 0;
   left: 0;
   width: 42px;
   height: 100%;
-  height: 100%;
-}
-.van-icon-success {
-  position: absolute;
-  left: 33%;
-  top: 28%;
-  width: 42px;
-  height: 100%;
   z-index: 1;
   display: block;
   font-style: normal;
+}
+.section .head-wrap .head-fixbar .icon-select2::after {
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  background-image: url(../assets/cart/zong.png);
+  background-size: 133px 112px;
+  width: 20px;
+  height: 20px;
+  background-position: -78px -20px;
+  position: absolute;
+  left: 50%;
+  content: "";
+  margin-left: -10px;
 }
 .section .head-wrap .head-fixbar .icon-shop {
   background-image: url(../assets/cart/zong.png);
@@ -1036,9 +1159,19 @@ ul {
   z-index: 1;
   position: relative;
   min-height: 100px;
-  padding: 20px 0 20px 150px;
+  padding: 0px 0 20px 150px;
   background: #fff;
   transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+.section .item .goods .van-checkbox {
+  top: 40px;
+  width: 20px;
+  height: 20px;
+  z-index: 1;
+  display: block;
+  font-style: normal;
+  position: absolute;
+  left: 10px;
 }
 .section .item .goods img {
   position: absolute;
@@ -1335,8 +1468,8 @@ ul {
   overflow: hidden;
 }
 .mod-sku-switch .switch-body .choose .choice {
-  background-color: #f2270c;
-  color: #fff;
+  color: #333;
+  background-color: #f3f2f8;
   padding: 0 15px;
   min-width: 20px;
   max-width: 270px;
@@ -1378,6 +1511,143 @@ ul {
   background-color: #f2270c;
   box-shadow: 0 3px 6px 0 rgba(255, 65, 66, 0.2);
 }
+/* 提交订单 */
+.fixbar {
+  bottom: 13.33333vw;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  height: 50px;
+  background: hsla(0, 0%, 100%, 0.95);
+  color: #333;
+  position: fixed;
+  z-index: 120;
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: 40px;
+}
+.fixbar::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  background-color: #ddd;
+  height: 1px;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+.fixbar .icon-select {
+  width: 40px;
+  padding-top: 32px;
+  font-size: 0.5rem;
+  line-height: 0.5rem;
+  text-align: center;
+  height: 15px;
+  color: #999;
+  z-index: 1;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-style: normal;
+}
+.fixbar .icon-select::after {
+  top: 7px;
+  background-image: url(../assets/cart/zong.png);
+  background-size: 133px 112px;
+  width: 20px;
+  height: 20px;
+  background-position: -98px -40px;
+  position: absolute;
+  left: 50%;
+  content: "";
+  margin-left: -10px;
+}
+.fixbar .icon-select2 {
+  width: 40px;
+  padding-top: 32px;
+  font-size: 0.5rem;
+  line-height: 0.5rem;
+  text-align: center;
+  height: 15px;
+  color: #999;
+  z-index: 1;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-style: normal;
+}
+.fixbar .icon-select2::after {
+  top: 7px;
+  background-image: url(../assets/cart/zong.png);
+  background-size: 133px 112px;
+  width: 20px;
+  height: 20px;
+  background-position: -78px -20px;
+  position: absolute;
+  left: 50%;
+  content: "";
+  margin-left: -10px;
+}
+.fixbar .total {
+  display: flex;
+  font-size: 12px;
+}
+.fixbar .total .detail {
+  -webkit-box-flex: 1;
+  flex: 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-pack: center;
+  justify-content: center;
+  height: 50px;
+  text-align: right;
+  position: relative;
+  font-family: JDZH-Regular;
+  display: flex;
+}
+.fixbar .total .detail .t-main {
+  font-weight: 700;
+  font-size: 0.8rem;
+  line-height: 0.8rem;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+  text-align: right;
+}
+.fixbar .total .detail .t-main span.t-price {
+  color: #f2270c;
+  font-weight: 700;
+  font-size: 0.8rem;
+  line-height: 0.8rem;
+}
+.fixbar .total .buy {
+  margin: 5px 5px 0 10px;
+  font-weight: 700;
+  display: block;
+  width: 110px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-size: 16px;
+  border-radius: 20px;
+  background-color: #f2270c;
+  color: #fff;
+  /* font-size: .8rem; */
+  background-image: linear-gradient(135deg, #f2270c, #f2270c 70%, #f24d0c);
+  box-shadow: 0 6px 12px 0 rgba(255, 65, 66, 0.2);
+}
+.fixbar .total .buy .num {
+  font-weight: 400;
+  font-size: 0.6rem;
+  font-family: none;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+}
+
 /* 底部 */
 .switch-btn-m {
   z-index: 5;
@@ -1417,4 +1687,15 @@ ul {
   text-align: center;
   border-radius: 10px;
 }
+.mod-sku-switch .switch-body .choose .choice.red {
+  background-color: #f2270c;
+  color: #fff;
+}
+/* .icon-select{
+  position: relative;
+  width: 20px !important;
+  height: 20px !important;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+} */
 </style>

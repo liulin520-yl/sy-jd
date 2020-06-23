@@ -1,23 +1,41 @@
 <template>
   <div class="box-l">
-    <div class="frist-page-head-l">
-      <div class="header-left-l">
-        <div class="head-icon-l"></div>
-      </div>
-      <div class="header-form-l">
-        <div class="header-input-l">
-          <div class="input-jd-l"></div>
-          <i></i>
-          <div class="input-fdj-l"></div>
-          <div class="search-input-l">鲁花花生油</div>
+    <div class="main-content-l" @scroll="handleScroll">
+      <div class="content-fir-l" id="content-fir-l">
+        <div class="frist-page-head-l2"  :style="mystyle">
+          <div class="header-left-l">
+            <div class="head-icon-l"></div>
+          </div>
+          <div class="header-form-l">
+            <div class="header-input-l">
+              <div class="input-jd-l"></div>
+              <i></i>
+              <div class="input-fdj-l"></div>
+              <div class="search-input-l">鲁花花生油</div>
+            </div>
+          </div>
+          <div class="header-load-l">
+            <span v-if="landing" class="already-load-l"></span>
+            <span v-else class="no-load-l">登录</span>
+          </div>
         </div>
-      </div>
-      <div class="header-load-l">
-        <span>登录</span>
-      </div>
-    </div>
-    <div class="main-content-l">
-      <div class="content-fir-l">
+        <div class="frist-page-head-l">
+          <div class="header-left-l">
+            <div class="head-icon-l"></div>
+          </div>
+          <div class="header-form-l">
+            <div class="header-input-l">
+              <div class="input-jd-l"></div>
+              <i></i>
+              <div class="input-fdj-l"></div>
+              <div class="search-input-l">鲁花花生油</div>
+            </div>
+          </div>
+          <div class="header-load-l">
+            <span v-if="landing" class="already-load-l"></span>
+            <span v-else class="no-load-l">登录</span>
+          </div>
+        </div>
         <van-swipe class="my-swipe" :autoplay="3000" indicator-color="white">
           <van-swipe-item>
             <img src="../assets/page-first/brand1.jpg" alt />
@@ -311,7 +329,8 @@
           <img src="../assets/page-first/foryou.png" alt />
         </div>
         <div class="last-floor-love-l">
-          <div class="last-floor-page-l"
+          <div
+            class="last-floor-page-l"
             v-for="(item,index) in orderList"
             :key="index"
             @click="goodpage(index)"
@@ -353,6 +372,7 @@
         <img src="../assets/home/s8.png" v-else alt />
       </div>
     </div>
+    <div class="scoll-out-l" :style="outstyle" @click="outchange"></div>
   </div>
 </template>
 
@@ -360,6 +380,9 @@
 export default {
   data() {
     return {
+      outstyle:[],
+      mystyle:[],
+      scrollchange: true,
       page: 1,
       current: 0,
       time: 30 * 60 * 60 * 1000,
@@ -495,12 +518,34 @@ export default {
     orderList() {
       return this.$store.state.orderList;
     },
-    landing(){
+    landing() {
       return this.$store.state.landing;
-
     }
   },
   methods: {
+    handleScroll(e) {
+      this.scrollTop = event.target.scrollTop;
+      let obj={
+        opacity:0
+      }
+      let obj1={
+        display:"none"
+      }
+      this.mystyle.push(obj);
+      this.outstyle.push(obj1);
+      if(this.scrollTop>700){
+        obj1.display = "block"
+      }
+      else if(this.scrollTop>40){
+        obj.opacity = 1;
+      }
+      else if(this.scrollTop<2){
+        obj.opacity = 0;
+      }
+      else{
+        obj.opacity+=0.5
+      }
+    },
     changeBtn(index) {
       this.page = index;
       if (index == 2) {
@@ -510,12 +555,10 @@ export default {
         this.$router.push("shopping-page");
       }
       if (index == 5) {
-        if(this.landing ==false){
-        this.$router.push("noload-page");
-        }
-        else{
-        this.$router.push("personage-page");
-
+        if (this.landing == false) {
+          this.$router.push("noload-page");
+        } else {
+          this.$router.push("personage-page");
         }
       }
     },
@@ -529,31 +572,50 @@ export default {
           num: index
         }
       });
+    },
+    outchange(){
+      console.log(88)
+      document.querySelector("#content-fir-l").scrollIntoView(true);
     }
   }
 };
 </script>
 
-<style>
-.frist-page-head-l {
+<style scoped>
+.frist-page-head-l2{
+   background-color: rgb(228, 49, 48);
+
+  opacity: 1;
+  position: fixed;
+  top: 0;
+}
+.frist-page-head-l,.frist-page-head-l2 {
   width: 100%;
   height: 44px;
-  background-color: rgb(228, 49, 48);
   display: flex;
+
   justify-content: space-between;
+  z-index: 100;
 }
 .frist-page-head-l .header-left-l {
   width: 40px;
   height: 44px;
   padding: 15px 0 0 14px;
 }
-.header-left-l .head-icon-l {
-  background-color: rgb(228, 49, 48);
+.frist-page-head-l .head-icon-l {
   width: 20px;
   height: 18px;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   /* margin: 14px 0 0 15px; */
+  background-image: url("../assets/page-first/head-i.png");
+}
+.frist-page-head-l2 .head-icon-l {
+  width: 20px;
+  height: 18px;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  margin: 14px 0 0 15px;
   background-image: url("../assets/page-first/head-i.png");
 }
 .header-form-l {
@@ -610,10 +672,18 @@ export default {
   line-height: 30px;
 }
 .header-load-l {
-  width: 40px;
+  width: 45px;
   height: 44px;
 }
-.header-load-l span {
+.already-load-l{
+  display: inline-block;
+    margin: 10px 12px 12px 10px;
+    width: 20px;
+    height: 22px;
+    background: url("../assets/home/loader.png") no-repeat 50%;
+    background-size: 20px;
+}
+.header-load-l .no-load-l {
   display: inline-block;
   margin: 10px 0;
   color: #fff;
@@ -628,15 +698,16 @@ export default {
   margin: 0 auto;
 }
 .main-content-l .content-fir-l {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
   text-align: center;
   width: 100%;
-  height: 160px;
   background-image: url("../assets/page-first/bg2.jpg");
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
   overflow: hidden;
-  padding-top: 7px;
 }
 /* 第一个轮播图 */
 
@@ -1147,7 +1218,6 @@ export default {
 .last-floor-love-l {
   margin-top: 2px;
   width: 100%;
-  height: 500px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -1244,5 +1314,18 @@ export default {
   height: 46px;
   display: inline-block;
   margin-top: 2px;
+}
+.scoll-out-l{
+  display: none;
+  position: fixed;
+    bottom: 80px;
+    right: 9px;
+    width: 38px;
+    height: 38px;
+    background-image: url("../assets/home/out.png");
+    background-size: 38px 38px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    z-index: 20;
 }
 </style>
