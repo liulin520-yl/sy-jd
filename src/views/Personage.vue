@@ -238,10 +238,10 @@
         <img src="../assets/home/s2.png" alt />
       </div>
       <div class="switch-btn-item-y">
-        <img src="../assets/home/s7.png" @click="changeBtn(2)">
+        <img src="../assets/home/s7.png" @click="changeBtn(2)" />
       </div>
       <div class="switch-btn-item-y">
-        <img src="../assets/home/s4.png" @click="changeBtn(3)">
+        <img src="../assets/home/s4.png" @click="changeBtn(3)" />
       </div>
       <div class="switch-btn-item-y" @click="changeBtn(4)">
         <img src="../assets/home/s5.png" alt />
@@ -255,17 +255,29 @@
 
 <script>
 export default {
-   computed: {
-        landing() {
-            return this.$store.state.landing
-        },
+  data() {
+    return {
+      a: 2
+    };
+  },
+   beforeRouteLeave(to, from, next) {
+               if(to.path == '/noload-page'){
+                // console.log("11")
+                // next('/')
+                // this. perReturn()
+                // this.$router.go(-1);
+            }
+            },
+    computed: {
+    landing() {
+      return this.$store.state.landing;
+    }
+  },
+  methods: {
+    perReturn() {
+      this.$router.go(-1);
     },
-  methods:{
-    
-    perReturn(){
-       this.$router.go(-2)
-    },
-   changeBtn(index) {
+    changeBtn(index) {
       if (index == 1) {
         this.$router.push("/");
       }
@@ -275,11 +287,8 @@ export default {
       if (index == 4) {
         this.$router.push("shopping-page");
       }
-      if (index == 5) {
-        this.$router.push("noload-page");
-      }
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -703,7 +712,7 @@ export default {
   height: 14px;
   margin-left: 5px;
 }
-.me-price{
+.me-price {
   font-size: 14px;
   color: #e93b3d;
 }
