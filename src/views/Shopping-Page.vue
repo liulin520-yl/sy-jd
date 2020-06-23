@@ -18,32 +18,33 @@
           <div class="address">
             <div class="text">朝阳区三环到四环之间</div>
           </div>
-          <div class="btn">编辑商品</div>
+          <!-- <div class="btn">编辑商品</div> -->
         </div>
       </div>
       <!-- 登录 -->
       <div class="shopcart-login-bar" v-if="!landing">
         登录后可同步账户购物车中的商品
-        <div class="shopcart-login-bar-btn">登录</div>
+        <div class="shopcart-login-bar-btn" @click="loaderpage">登录</div>
       </div>
       <!-- 登录后可同步购物车中的商品 -->
       <div v-if="!landing">
-         <div class="empty-cart" v-if="showEmptyCart">
-        <div class="empty-warp">
-          <div class="empty-icon"></div>
-          <p>登录后可同步购物车中商品</p>
+        <div class="empty-cart" v-if="showEmptyCart">
+          <div class="empty-warp">
+            <div class="empty-icon"></div>
+            <p>登录后可同步购物车中商品</p>
+          </div>
         </div>
       </div>
-      </div>
-     
+
       <!-- 商品详情 -->
-      <div id="jdtab-m" class="section-list" >
+      <div id="jdtab-m" class="section-list">
         <div class="section" v-for="(item,index) in gwcList" :key="index">
           <div class="head-wrap">
             <div class="head-fixbar">
               <van-checkbox
                 bind:change="onChange"
-                v-model="item.checked" checked-color="rgb(234,59,61)"
+                v-model="item.checked"
+                checked-color="rgb(234,59,61)"
                 @click="isAllChecked(index)"
               ></van-checkbox>
               <!-- <van-checkbox  value="checked" bind:change="onChange"></van-checkbox> -->
@@ -60,7 +61,8 @@
             <div class="goods">
               <van-checkbox
                 bind:change="onChange"
-                v-model="item.checked" checked-color="rgb(234,59,61)"
+                v-model="item.checked"
+                checked-color="rgb(234,59,61)"
                 @click="isAllChecked(index)"
               ></van-checkbox>
               <img :src="item.img1" alt />
@@ -94,7 +96,7 @@
         </div>
       </div>
       <!-- 京东秒杀 -->
-      <div class="shopchat-mod">
+      <div class="shopchat-mod" v-if="msshow">
         <div class="shopchat-mod-title">
           <span>京东秒杀</span>
         </div>
@@ -163,7 +165,7 @@
         </div>
       </div>
       <!-- 新用户福利领劵 -->
-      <div class="coupon">
+      <div class="coupon" v-if="msshow">
         <div class="coupon-head">
           <div class="title">
             新用户福利
@@ -194,7 +196,7 @@
         <div class="mod-recommend2">
           <ul class="list">
             <li class="li" v-for="(item,index) in orderList" :key="index">
-              <div class="cover">
+              <div class="cover" @click="goodpage(index)">
                 <img :src="item.img1" alt />
               </div>
               <div class="info">
@@ -208,7 +210,7 @@
                   <div class="price-info">
                     <div class="price">
                       ¥
-                      <em>99</em>
+                      <em>{{item.price}}</em>
                     </div>
                   </div>
                   <div class="rec-cart" @click="bottomPopup(item,index)"></div>
@@ -289,6 +291,10 @@
         <img src="../assets/home/s8.png" v-else alt />
       </div>
     </div>
+    <!-- 该商品1件起售 -->
+    <div class="mask-m" v-if="maskshow">
+      <div class="mask-box">该商品1件起售</div>
+    </div>
   </div>
 </template>
 
@@ -297,17 +303,15 @@ export default {
   data() {
     return {
       get: true,
+      msshow:true,
       page: 1,
       time: 30 * 60 * 60 * 1000,
       result: [],
       show: false,
       number: "",
-      // showEmptyCart: true,
       showSale: false,
       specifyIndex: 0,
-      gglist: "",
-      // sum:""
-      // pricenum:0
+      gglist: ""
     };
   },
 
@@ -315,49 +319,58 @@ export default {
     orderList() {
       return this.$store.state.orderList;
     },
+    maskshow(){
+      return this.$store.state.maskshow;
+    },
     gwcList() {
       return this.$store.state.gwcList;
-      
     },
-    showEmptyCart(){
+    showEmptyCart() {
       return this.$store.state.showEmptyCart;
     },
-    
+
     landing() {
       return this.$store.state.landing;
     },
-    allcheck(){
+    allcheck() {
       return this.$store.state.allcheck;
     },
-    zongji(){
+    zongji() {
       return this.$store.state.zongji;
     },
-    goodscount(){
-      let sum=0;
-      for(let i=0;i<this.gwcList.length;i++){
-        if(this.gwcList[i].checked==true){
-          sum+=this.gwcList[i].count;
-        }     
+    goodscount() {
+      let sum = 0;
+      for (let i = 0; i < this.gwcList.length; i++) {
+        if (this.gwcList[i].checked == true) {
+          sum += this.gwcList[i].count;
+        }
       }
-      return sum
+      return sum;
     },
-    goodssum(){
-      let zongji=0;
-      for(let i=0;i<this.gwcList.length;i++){
-        if(this.gwcList[i].checked==true){
-          zongji+=this.gwcList[i].price*this.gwcList[i].count;
-        }     
+    goodssum() {
+      let zongji = 0;
+      for (let i = 0; i < this.gwcList.length; i++) {
+        if (this.gwcList[i].checked == true) {
+          zongji += this.gwcList[i].price * this.gwcList[i].count;
+        }
       }
-      return zongji
+      return zongji;
     }
   },
-  
-  //  mounted() {
-  //   this.$toast('提示文案');
-  // },
   methods: {
-    isAllChecked (index) {
-     this.$store.commit("isAllChecked",index)
+    goodpage(index) {
+      this.$router.push({
+        path: "part-main",
+        query: {
+          num: index
+        }
+      });
+    },
+    loaderpage() {
+      this.$router.push("noload-page");
+    },
+    isAllChecked(index) {
+      this.$store.commit("isAllChecked", index);
     },
     deltopbanner() {
       this.get = false;
@@ -368,7 +381,6 @@ export default {
     changeBtn(index) {
       this.page = index;
       if (index == 2) {
-        // alert("HAHA ")
         this.$router.push("classify-page");
       }
       if (index == 1) {
@@ -395,15 +407,14 @@ export default {
     enterGwc(number) {
       this.$store.commit("enterGwc", {
         title: number.title,
-        count: number.count, 
+        count: number.count,
         price: number.price,
         img1: number.img1,
         checked: number.checked,
         storename: number.storename
-        // pricenum:number.price
       });
       this.show = false;
-      // showEmptyCart = false;
+      this.msshow=false;
     },
     btnMinute(index) {
       this.$store.commit("btnMinute", index);
@@ -1698,4 +1709,25 @@ ul {
   border: 1px solid #ccc;
   border-radius: 50%;
 } */
+.mask-m{
+  
+  width: 130px;
+  height: 30px;
+  position: fixed;
+  top: 48%;
+    left: 36%;
+  z-index: 999;
+}
+.mask-m .mask-box{
+  border-radius: 10px;
+  text-align: center;
+  width: auto;
+  overflow: hidden;
+  max-width: 270px;
+  padding: 10px 15px;
+  color: #fff;
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 1px 10px 0 rgba(0,0,0,.3);
+}
 </style>
