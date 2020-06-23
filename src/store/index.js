@@ -34,7 +34,7 @@ export default new Vuex.Store({
         price: 69,
         title: "巴朗男士双肩包新款大容量背包时尚潮休闲17寸笔记本电脑包高中大学生书包商务旅行出差包运动USB充电包 黑色 标准版",
         specificationName: "颜色",
-        specification: ["黑色", "灰色", "蓝色", "黑配灰色", "黑配蓝色", "黑配红色"],
+        specification: ["黑色巴朗男士双肩包新款", "灰色巴朗男士双肩包新款", "蓝色巴朗男士双肩包新款", "黑配灰色巴朗男士双肩包新款", ],
         shorter: "【顺丰包邮】【好店认证放心购】【送运费险、支持七天无理由退换货】 ",
         weight: '1.5kg',
         storename: "巴朗旗舰店",
@@ -110,9 +110,9 @@ export default new Vuex.Store({
     btnAdd(state, index) {
       state.gwcList[index].count++;
     },
-    delCart(state,index){
-      state.gwcList.splice(index, 1);
-    },
+    // delCart(state,index){
+    //   state.gwcList.splice(index, 1);
+    // },
 
   },
 
