@@ -61,9 +61,7 @@
             </div>
           </div>
           <div class="part-pro-wrap-l">
-            <div class="part-pro-smore-l">
-              {{orderList[page].title}}
-            </div>
+            <div class="part-pro-smore-l">{{orderList[page].title}}</div>
             <div class="part-pro-bru-l">
               【华为官方直供，官网直降400元】现货当天发！
               【赠】两年保修+运费险退换货无忧【华为P40】
@@ -328,8 +326,8 @@
         </div>
       </div>
       <div class="part-pro-image-l">
-        <img src="../assets/partmain/good11.jpg" alt="">
-        <img src="../assets/partmain/good22.jpg" alt="">
+        <img src="../assets/partmain/good11.jpg" alt />
+        <img src="../assets/partmain/good22.jpg" alt />
       </div>
     </div>
     <!-- 底部 -->
@@ -337,7 +335,7 @@
       <van-goods-action-icon icon="chat-o" text="客服" dot />
       <van-goods-action-icon icon="cart-o" text="购物车" badge="5" />
       <van-goods-action-icon icon="shop-o" text="店铺" badge="12" />
-      <van-goods-action-button type="warning" @click="addCratl()" text="加入购物车" />
+      <van-goods-action-button type="warning" @click="addCratl(page)" text="加入购物车" />
       <van-goods-action-button type="danger" text="立即购买" />
     </van-goods-action>
   </div>
@@ -347,12 +345,12 @@
 export default {
   data() {
     return {
-      page:'',
+      page: "",
       scrollTop: "",
-      current: 0,
+      current: 0
     };
   },
-  created () {
+  created() {
     this.page = this.$route.query.num;
   },
   computed: {
@@ -368,15 +366,21 @@ export default {
     onChange(index) {
       this.current = index;
     },
-    addCratl(){
-
-    this.$toast.success('加入购物车成功');
-  },
-  getReturn() {
-      this.$router.go(-1);
+    addCratl(page) {
+      this.$toast.success("加入购物车成功");
+      this.$store.commit("enterGwc", {
+        title: this.orderList[page].title,
+        count: this.orderList[page].count,
+        price: this.orderList[page].price,
+        img1: this.orderList[page].img1,
+        storename: this.orderList[page].storename
+      });
     },
-  },
-  
+    getReturn() {
+      this.$router.go(-1);
+      this.$destroy(true);
+    }
+  }
 };
 </script>
 
@@ -1132,13 +1136,13 @@ ul {
   left: 0;
 }
 .detail_cmt .cmt_user .credit span {
-    width: 10px;
-    height: 10px;
-    margin-right: 2px;
-    position: absolute;
-    top: 0;
-    left: 22px;
-    background-size: cover;
+  width: 10px;
+  height: 10px;
+  margin-right: 2px;
+  position: absolute;
+  top: 0;
+  left: 22px;
+  background-size: cover;
   background-image: url("../assets/partmain/start.png");
 }
 .detail_cmt .cmt_user .credit::after,
@@ -1155,136 +1159,138 @@ ul {
   background-size: cover;
 }
 .detail_cmt .cmt_user .credit span::after {
-    right: -13px;
+  right: -13px;
 }
 .detail_cmt .cmt_user .credit::after {
-    right: 0;
+  right: 0;
 }
 .detail_cmt .cmt_user .date {
-    float: right;
-    color: #999;
-    margin-left: -60px;
+  float: right;
+  color: #999;
+  margin-left: -60px;
 }
 #evalDet_main .cmt_cnt {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 .detail_cmt .cmt_cnt {
-    position: relative;
-    line-height: 1.5;
-    font-size: 13px;
-    margin: 18px 0;
-    word-break: break-all;
-    overflow: hidden;
-    white-space: normal;
-    max-height: 126px;
+  position: relative;
+  line-height: 1.5;
+  font-size: 13px;
+  margin: 18px 0;
+  word-break: break-all;
+  overflow: hidden;
+  white-space: normal;
+  max-height: 126px;
 }
-.detail_cmt .cmt_att .img, .detail_cmt .cmt_att .video {
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-    margin-right: 6px;
-    border-radius: 6px;
-    overflow: hidden;
-    text-align: center;
-    background: #f3f3f3;
-    vertical-align: middle;
+.detail_cmt .cmt_att .img,
+.detail_cmt .cmt_att .video {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  margin-right: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  text-align: center;
+  background: #f3f3f3;
+  vertical-align: middle;
 }
 .detail_cmt .cmt_att .img img {
-    width: auto;
-    display: inline-block;
-    height: auto;
-    min-width: 80px;
-    max-height: 80px;
+  width: auto;
+  display: inline-block;
+  height: auto;
+  min-width: 80px;
+  max-height: 80px;
 }
-.detail_cmt .cmt_att:after, .detail_cmt .cmt_sku:after {
-    clear: both;
-    content: "\20";
-    display: block;
+.detail_cmt .cmt_att:after,
+.detail_cmt .cmt_sku:after {
+  clear: both;
+  content: "\20";
+  display: block;
 }
 .cmt_more .cmt_more_lnk {
-    height: 25px;
-    line-height: 25px;
-    font-size: 12px;
-    text-align: center;
-    color: #262626;
-    padding: 0 5px 0 10px;
-    margin-bottom: 18px;
-    position: relative;
-    display: inline-block;
+  height: 25px;
+  line-height: 25px;
+  font-size: 12px;
+  text-align: center;
+  color: #262626;
+  padding: 0 5px 0 10px;
+  margin-bottom: 18px;
+  position: relative;
+  display: inline-block;
 }
 .cmt_more .cmt_more_lnk:before {
-    border-color: #8c8c8c;
-    border-radius: 40px;
-    border-width: .5px;
+  border-color: #8c8c8c;
+  border-radius: 40px;
+  border-width: 0.5px;
 }
 .cmt_more .cmt_more_lnk:before {
-    bottom: -100%;
-    right: -100%;
+  bottom: -100%;
+  right: -100%;
 }
 .cmt_more .cmt_more_lnk:before {
-    content: "";
-    display: block;
-    border: 1px solid #ddd;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    pointer-events: none;
+  content: "";
+  display: block;
+  border: 1px solid #ddd;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
 }
 .mod_fix_wrap .mod_tab {
-    max-width: 640px;
-    margin: 0 auto;
-    background: #fff;
+  max-width: 640px;
+  margin: 0 auto;
+  background: #fff;
 }
 .mod_tab {
-    height: 40px;
-    width: 100%;
-    overflow: hidden;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+  height: 40px;
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 .mod_tab .item.cur {
-    position: relative;
-    font-weight: 700;
-    color: #262626;
+  position: relative;
+  font-weight: 700;
+  color: #262626;
 }
-.mod_tab .item:first-child, .mod_tab span:first-child {
-    border-left: 0;
+.mod_tab .item:first-child,
+.mod_tab span:first-child {
+  border-left: 0;
 }
 .mod_tab .item {
-    height: 61px;
-    line-height: 13px;
-    padding-top: 24px;
-    border: none;
-    color: #262626;
-    font-size: 13px;
+  height: 61px;
+  line-height: 13px;
+  padding-top: 24px;
+  border: none;
+  color: #262626;
+  font-size: 13px;
 }
 .mod_tab .item.cur::after {
-    position: absolute;
-    left: 50%;
-    bottom: 15px;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
-    content: "";
-    display: block;
-    width: 26px;
-    height: 3px;
-    background-image: linear-gradient(90deg,#f5503a,#fad1cb);
+  position: absolute;
+  left: 50%;
+  bottom: 15px;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  content: "";
+  display: block;
+  width: 26px;
+  height: 3px;
+  background-image: linear-gradient(90deg, #f5503a, #fad1cb);
 }
-.part-pro-image-l{
+.part-pro-image-l {
   width: 100%;
   margin-top: 20px;
-
 }
-.part-pro-image-l img{
+.part-pro-image-l img {
   width: 100%;
 }
 .van-toast__text {
-    margin: 55px 10px 0;
+  margin: 55px 10px 0;
 }
 </style>

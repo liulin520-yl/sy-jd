@@ -110,9 +110,9 @@ export default new Vuex.Store({
     btnAdd(state, index) {
       state.gwcList[index].count++;
     },
-    delCart(state,index){
-      state.gwcList.splice(index, 1);
-    },
+    // delCart(state,index){
+    //   state.gwcList.splice(index, 1);
+    // },
 
   },
 

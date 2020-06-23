@@ -523,7 +523,6 @@ export default {
       this.current = index;
     },
     goodpage(index) {
-     
       this.$router.push({
         path: "part-main",
         query: {
