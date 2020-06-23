@@ -1081,7 +1081,7 @@ ul {
   box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.05);
   border-radius: 6px;
   border: 0;
-  vertical-align: top;
+  /* vertical-align: top; */
 }
 .section .item .content .name {
   font-size: 14px;

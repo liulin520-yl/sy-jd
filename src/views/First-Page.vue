@@ -349,7 +349,7 @@
         <img src="../assets/home/s5.png" alt />
       </div>
       <div class="switch-btn-item-l" @click="changeBtn(5)">
-        <img src="../assets/home/s8.png" v-if="landing" alt />
+        <img src="../assets/home/s10.png" v-if="landing" alt />
         <img src="../assets/home/s8.png" v-else alt />
       </div>
     </div>
@@ -510,14 +510,19 @@ export default {
         this.$router.push("shopping-page");
       }
       if (index == 5) {
+        if(this.landing ==false){
         this.$router.push("noload-page");
+        }
+        else{
+        this.$router.push("personage-page");
+
+        }
       }
     },
     onChange(index) {
       this.current = index;
     },
     goodpage(index) {
-     
       this.$router.push({
         path: "part-main",
         query: {
