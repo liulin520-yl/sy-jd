@@ -318,7 +318,7 @@ export default {
     enterGwc(number) {
       this.$store.commit("enterGwc", {
         title: number.title,
-        count: number.count,
+        count: number.count, 
         price: number.price,
         img1: number.img1,
         storename: number.storename
