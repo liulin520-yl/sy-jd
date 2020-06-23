@@ -4,7 +4,7 @@
       <div class="header">
         <div class="header-box">
           <div class="headerbox-left">
-            <span></span>
+            <span @click="getReturn()"></span>
           </div>
           <div class="headerbox-middle"></div>
           <div class="headerbox-right">
@@ -14,23 +14,23 @@
       </div>
       <div class="swipe-m">
         <van-swipe @change="onChange" class="swipe-img">
-          <van-swipe-item class="child" style="width: 414px;">
-            <img src="../assets/partmain/1.webp" alt />
+          <van-swipe-item class="child" style="width: 375px;">
+            <img :src="orderList[page].img1" alt />
           </van-swipe-item>
           <van-swipe-item class="child">
-            <img src="../assets/partmain/2.webp" alt />
+            <img :src="orderList[page].img2" alt />
           </van-swipe-item>
           <van-swipe-item class="child">
-            <img src="../assets/partmain/3.webp" alt />
+            <img :src="orderList[page].img3" alt />
           </van-swipe-item>
           <van-swipe-item class="child">
-            <img src="../assets/partmain/4.webp" alt />
+            <img :src="orderList[page].img4" alt />
           </van-swipe-item>
           <van-swipe-item class="child">
-            <img src="../assets/partmain/5.webp" alt />
+            <img :src="orderList[page].img5" alt />
           </van-swipe-item>
           <van-swipe-item class="child">
-            <img src="../assets/partmain/6.webp" alt />
+            <img :src="orderList[page].img6" alt />
           </van-swipe-item>
           <template #indicator>
             <div class="custom-indicator">{{ current + 1 }}/6</div>
@@ -45,7 +45,7 @@
           <div class="part-price-l">
             <div class="part-pro-price-l">
               <span>￥</span>
-              <span>{{partlist.price}}</span>
+              <span>{{orderList[page].price}}</span>
               <span>.00</span>
             </div>
             <div class="part-pro-icon-l">
@@ -61,12 +61,7 @@
             </div>
           </div>
           <div class="part-pro-wrap-l">
-            <h1>
-              <i>
-                <img src="../assets/partmain/618.png" alt />
-              </i>
-              华为p30 手机 赤茶橘 8GB+128GB 全网通
-            </h1>
+            <div class="part-pro-smore-l">{{orderList[page].title}}</div>
             <div class="part-pro-bru-l">
               【华为官方直供，官网直降400元】现货当天发！
               【赠】两年保修+运费险退换货无忧【华为P40】
@@ -331,8 +326,8 @@
         </div>
       </div>
       <div class="part-pro-image-l">
-        <img src="../assets/partmain/good11.jpg" alt="">
-        <img src="../assets/partmain/good22.jpg" alt="">
+        <img src="../assets/partmain/good11.jpg" alt />
+        <img src="../assets/partmain/good22.jpg" alt />
       </div>
     </div>
     <!-- 底部 -->
@@ -340,7 +335,7 @@
       <van-goods-action-icon icon="chat-o" text="客服" dot />
       <van-goods-action-icon icon="cart-o" text="购物车" badge="5" />
       <van-goods-action-icon icon="shop-o" text="店铺" badge="12" />
-      <van-goods-action-button type="warning" text="加入购物车" />
+      <van-goods-action-button type="warning" @click="addCratl(page)" text="加入购物车" />
       <van-goods-action-button type="danger" text="立即购买" />
     </van-goods-action>
   </div>
@@ -350,20 +345,40 @@
 export default {
   data() {
     return {
+      page: "",
       scrollTop: "",
-      current: 0,
-      partlist: {
-        price: 2999
-      }
+      current: 0
     };
+  },
+  created() {
+    this.page = this.$route.query.num;
+  },
+  computed: {
+    orderList() {
+      return this.$store.state.orderList;
+    }
   },
   methods: {
     handleScroll() {
       this.scrollTop = event.target.scrollTop;
-      console.log(event.target.scrollTop);
+      // console.log(event.target.scrollTop);
     },
     onChange(index) {
       this.current = index;
+    },
+    addCratl(page) {
+      this.$toast.success("加入购物车成功");
+      this.$store.commit("enterGwc", {
+        title: this.orderList[page].title,
+        count: this.orderList[page].count,
+        price: this.orderList[page].price,
+        img1: this.orderList[page].img1,
+        storename: this.orderList[page].storename
+      });
+    },
+    getReturn() {
+      this.$router.go(-1);
+      this.$destroy(true);
     }
   }
 };
@@ -534,15 +549,14 @@ export default {
 /* 产品介绍 */
 .part-pro-wrap-l {
   width: 100%;
-  height: 108px;
   padding: 12px 18px;
   color: #262626;
 }
-.part-pro-wrap-l h1 {
+.part-pro-wrap-l .part-pro-smore-l {
   width: 100%;
-  height: 36px;
+  /* height: 36px; */
   font-size: 16px;
-  line-height: 36px;
+  /* line-height: 36px; */
 }
 .part-pro-wrap-l h1 img {
   width: 31.56px;
@@ -550,7 +564,6 @@ export default {
 }
 .part-pro-bru-l {
   width: 378px;
-  height: 48px;
   padding: 18px 0 0;
   font-size: 12px;
   color: #666;
@@ -1123,13 +1136,13 @@ ul {
   left: 0;
 }
 .detail_cmt .cmt_user .credit span {
-    width: 10px;
-    height: 10px;
-    margin-right: 2px;
-    position: absolute;
-    top: 0;
-    left: 22px;
-    background-size: cover;
+  width: 10px;
+  height: 10px;
+  margin-right: 2px;
+  position: absolute;
+  top: 0;
+  left: 22px;
+  background-size: cover;
   background-image: url("../assets/partmain/start.png");
 }
 .detail_cmt .cmt_user .credit::after,
@@ -1146,135 +1159,138 @@ ul {
   background-size: cover;
 }
 .detail_cmt .cmt_user .credit span::after {
-    right: -13px;
+  right: -13px;
 }
 .detail_cmt .cmt_user .credit::after {
-    right: 0;
+  right: 0;
 }
 .detail_cmt .cmt_user .date {
-    float: right;
-    color: #999;
-    margin-left: -60px;
+  float: right;
+  color: #999;
+  margin-left: -60px;
 }
 #evalDet_main .cmt_cnt {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }
 .detail_cmt .cmt_cnt {
-    position: relative;
-    line-height: 1.5;
-    font-size: 13px;
-    margin: 18px 0;
-    word-break: break-all;
-    overflow: hidden;
-    white-space: normal;
-    max-height: 126px;
+  position: relative;
+  line-height: 1.5;
+  font-size: 13px;
+  margin: 18px 0;
+  word-break: break-all;
+  overflow: hidden;
+  white-space: normal;
+  max-height: 126px;
 }
-.detail_cmt .cmt_att .img, .detail_cmt .cmt_att .video {
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-    margin-right: 6px;
-    border-radius: 6px;
-    overflow: hidden;
-    text-align: center;
-    background: #f3f3f3;
-    vertical-align: middle;
+.detail_cmt .cmt_att .img,
+.detail_cmt .cmt_att .video {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+  margin-right: 6px;
+  border-radius: 6px;
+  overflow: hidden;
+  text-align: center;
+  background: #f3f3f3;
+  vertical-align: middle;
 }
 .detail_cmt .cmt_att .img img {
-    width: auto;
-    display: inline-block;
-    height: auto;
-    min-width: 80px;
-    max-height: 80px;
+  width: auto;
+  display: inline-block;
+  height: auto;
+  min-width: 80px;
+  max-height: 80px;
 }
-.detail_cmt .cmt_att:after, .detail_cmt .cmt_sku:after {
-    clear: both;
-    content: "\20";
-    display: block;
+.detail_cmt .cmt_att:after,
+.detail_cmt .cmt_sku:after {
+  clear: both;
+  content: "\20";
+  display: block;
 }
 .cmt_more .cmt_more_lnk {
-    height: 25px;
-    line-height: 25px;
-    font-size: 12px;
-    text-align: center;
-    color: #262626;
-    padding: 0 5px 0 10px;
-    margin-bottom: 18px;
-    position: relative;
-    display: inline-block;
+  height: 25px;
+  line-height: 25px;
+  font-size: 12px;
+  text-align: center;
+  color: #262626;
+  padding: 0 5px 0 10px;
+  margin-bottom: 18px;
+  position: relative;
+  display: inline-block;
 }
 .cmt_more .cmt_more_lnk:before {
-    border-color: #8c8c8c;
-    border-radius: 40px;
-    border-width: .5px;
+  border-color: #8c8c8c;
+  border-radius: 40px;
+  border-width: 0.5px;
 }
 .cmt_more .cmt_more_lnk:before {
-    -webkit-transform: scale(.5);
-    -webkit-transform-origin: 0 0;
-    bottom: -100%;
-    right: -100%;
+  bottom: -100%;
+  right: -100%;
 }
 .cmt_more .cmt_more_lnk:before {
-    content: "";
-    display: block;
-    border: 1px solid #ddd;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    pointer-events: none;
+  content: "";
+  display: block;
+  border: 1px solid #ddd;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
 }
 .mod_fix_wrap .mod_tab {
-    max-width: 640px;
-    margin: 0 auto;
-    background: #fff;
+  max-width: 640px;
+  margin: 0 auto;
+  background: #fff;
 }
 .mod_tab {
-    height: 40px;
-    width: 100%;
-    overflow: hidden;
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+  height: 40px;
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
 }
 .mod_tab .item.cur {
-    position: relative;
-    font-weight: 700;
-    color: #262626;
+  position: relative;
+  font-weight: 700;
+  color: #262626;
 }
-.mod_tab .item:first-child, .mod_tab span:first-child {
-    border-left: 0;
+.mod_tab .item:first-child,
+.mod_tab span:first-child {
+  border-left: 0;
 }
 .mod_tab .item {
-    height: 61px;
-    line-height: 13px;
-    padding-top: 24px;
-    border: none;
-    color: #262626;
-    font-size: 13px;
+  height: 61px;
+  line-height: 13px;
+  padding-top: 24px;
+  border: none;
+  color: #262626;
+  font-size: 13px;
 }
 .mod_tab .item.cur::after {
-    position: absolute;
-    left: 50%;
-    bottom: 15px;
-    -webkit-transform: translateX(-50%);
-    transform: translateX(-50%);
-    content: "";
-    display: block;
-    width: 26px;
-    height: 3px;
-    background-image: linear-gradient(90deg,#f5503a,#fad1cb);
+  position: absolute;
+  left: 50%;
+  bottom: 15px;
+  -webkit-transform: translateX(-50%);
+  transform: translateX(-50%);
+  content: "";
+  display: block;
+  width: 26px;
+  height: 3px;
+  background-image: linear-gradient(90deg, #f5503a, #fad1cb);
 }
-.part-pro-image-l{
+.part-pro-image-l {
   width: 100%;
   margin-top: 20px;
-
 }
-.part-pro-image-l img{
+.part-pro-image-l img {
   width: 100%;
+}
+.van-toast__text {
+  margin: 55px 10px 0;
 }
 </style>

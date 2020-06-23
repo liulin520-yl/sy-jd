@@ -77,7 +77,7 @@
                   </div>
                 </div>
                 <div class="action">
-                  <span class="delt">删除</span>
+                  <span class="delt" @click="delCart(index)">删除</span>
                 </div>
               </div>
             </div>
@@ -257,8 +257,7 @@
         <img src="../assets/home/s8.png" alt />
       </div>
     </div>
-    <!-- 该商品一件起售 -->
-    <!-- <div class="asale" v-if="showSale">该商品1件起售</div> -->
+    
   </div>
 </template>
 
@@ -333,6 +332,9 @@ export default {
     },
     btnAdd(index) {
       this.$store.commit("btnAdd",index)
+    },
+    delCart(index){
+      this.$store.commit("delCart",index)
     }
   }
 };
@@ -1047,7 +1049,7 @@ ul {
   box-shadow: 0 0 18px 0 rgba(0, 0, 0, 0.05);
   border-radius: 6px;
   border: 0;
-  vertical-align: top;
+  /* vertical-align: top; */
 }
 .section .item .content .name {
   font-size: 14px;
