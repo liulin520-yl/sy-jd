@@ -22,7 +22,7 @@
         </div>
       </div>
       <!-- 登录 -->
-      <div class="shopcart-login-bar">
+      <div class="shopcart-login-bar" v-if="!landing">
         登录后可同步账户购物车中的商品
         <div class="shopcart-login-bar-btn">登录</div>
       </div>
@@ -38,9 +38,10 @@
         <div class="section" v-for="(item,index) in gwcList" :key="index">
           <div class="head-wrap">
             <div class="head-fixbar">
-              <van-checkbox value="checked" bind:change="onChange"></van-checkbox>
-
-              <!-- <i class="icon-select"></i> -->
+              <van-checkbox  bind:change="onChange" v-model="item.checked" @click="isAllChecked(index)"></van-checkbox>
+              <!-- <van-checkbox  value="checked" bind:change="onChange"></van-checkbox> -->
+              <!-- <i class="icon-select2" v-if="true" @click="itemClick(index)"></i>
+              <i class="icon-select" v-if="item.checked" @click="itemClick(index)"></i>-->
               <i class="icon-shop"></i>
               <div class="title">
                 {{item.storename}}
@@ -50,7 +51,7 @@
           </div>
           <div class="item">
             <div class="goods">
-              <van-checkbox value=" checked " bind:change="onChange">复选框</van-checkbox>
+              <van-checkbox  bind:change="onChange" v-model="item.checked"></van-checkbox>
               <img :src="item.img1" alt />
 
               <div class="content">
@@ -241,13 +242,15 @@
       </div>
     </van-popup>
     <!-- 提交订单 -->
-    <div class="fixbar">
-      <i class="icon-select" >全选</i>
+    <div class="fixbar" v-for="(item,index) in gwcList" :key="index">
+      <i class="icon-select" v-if="allcheck" @click="radios(index)">全选</i>
+      <i class="icon-select2" v-else @click="radios(item)">全选</i>
+      <!-- <van-checkbox value="checked" bind:change="onChange" v-model="item.checked">全选</van-checkbox> -->
       <div class="total">
         <div class="detail">
           <p class="t-main">
             总计：
-            <span class="t-price">¥108.00</span>
+            <span class="t-price">¥.00</span>
           </p>
         </div>
         <div class="buy">
@@ -271,7 +274,8 @@
         <img src="../assets/home/s6.png" alt />
       </div>
       <div class="switch-btn-item-m" @click="changeBtn(5)">
-        <img src="../assets/home/s8.png" alt />
+        <img src="../assets/home/s10.png" v-if="landing" alt />
+        <img src="../assets/home/s8.png" v-else alt />
       </div>
     </div>
   </div>
@@ -281,7 +285,6 @@
 export default {
   data() {
     return {
-      checked: true,
       get: true,
       page: 1,
       time: 30 * 60 * 60 * 1000,
@@ -293,6 +296,8 @@ export default {
       showSale: false,
       specifyIndex: 0,
       gglist: ""
+
+      // pricenum:0
     };
   },
 
@@ -302,12 +307,21 @@ export default {
     },
     gwcList() {
       return this.$store.state.gwcList;
+    },
+    landing() {
+      return this.$store.state.landing;
+    },
+    allcheck(){
+      return this.$store.state.allcheck;
     }
   },
   //  mounted() {
   //   this.$toast('提示文案');
   // },
   methods: {
+    isAllChecked (index) {
+     this.$store.commit("isAllChecked",index)
+    },
     deltopbanner() {
       this.get = false;
     },
@@ -324,7 +338,11 @@ export default {
         this.$router.push("/");
       }
       if (index == 5) {
-        this.$router.push("noload-page");
+        if (this.landing == false) {
+          this.$router.push("noload-page");
+        } else {
+          this.$router.push("personage-page");
+        }
       }
     },
     checkAll() {
@@ -343,11 +361,15 @@ export default {
         count: number.count,
         price: number.price,
         img1: number.img1,
+        checked: number.checked,
         storename: number.storename
+        // pricenum:number.price
       });
       this.show = false;
       this.showEmptyCart = false;
       this.showCartList = true;
+      // console.log(pricenum);
+      // this.pricenum=price*count
     },
     btnMinute(index) {
       this.$store.commit("btnMinute", index);
@@ -364,10 +386,15 @@ export default {
     },
     onChange(event) {
       this.setData({
-        checked: event.detail
+        result: event.detail
       });
     },
-    
+    radios() {
+      this.$store.commit("allSelect");
+    }
+    // itemClick(){
+    //   console.log(index);
+    // }
   }
 };
 </script>
@@ -1008,23 +1035,53 @@ ul {
   min-height: 46px;
   z-index: 1;
 }
-.van-checkbox__icon {
+.section .head-wrap .head-fixbar .van-checkbox {
+  top: 13px;
+  width: 20px;
+  height: 20px;
+  z-index: 1;
+  display: block;
+  font-style: normal;
+  position: absolute;
+  left: 3%;
+}
+.section .head-wrap .head-fixbar .icon-select::after {
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  background-image: url(../assets/cart/zong.png);
+  background-size: 133px 112px;
+  width: 20px;
+  height: 20px;
+  background-position: -98px -40px;
+  position: absolute;
+  left: 50%;
+  content: "";
+  margin-left: -10px;
+}
+.section .head-wrap .head-fixbar .icon-select2 {
   position: absolute;
   top: 0;
   left: 0;
   width: 42px;
   height: 100%;
-  height: 100%;
-}
-.van-icon-success {
-  position: absolute;
-  left: 33%;
-  top: 28%;
-  width: 42px;
-  height: 100%;
   z-index: 1;
   display: block;
   font-style: normal;
+}
+.section .head-wrap .head-fixbar .icon-select2::after {
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  background-image: url(../assets/cart/zong.png);
+  background-size: 133px 112px;
+  width: 20px;
+  height: 20px;
+  background-position: -78px -20px;
+  position: absolute;
+  left: 50%;
+  content: "";
+  margin-left: -10px;
 }
 .section .head-wrap .head-fixbar .icon-shop {
   background-image: url(../assets/cart/zong.png);
@@ -1068,9 +1125,19 @@ ul {
   z-index: 1;
   position: relative;
   min-height: 100px;
-  padding: 20px 0 20px 150px;
+  padding: 0px 0 20px 150px;
   background: #fff;
   transition: transform 0.2s linear, -webkit-transform 0.2s linear;
+}
+.section .item .goods .van-checkbox {
+  top: 40px;
+  width: 20px;
+  height: 20px;
+  z-index: 1;
+  display: block;
+  font-style: normal;
+  position: absolute;
+  left: 10px;
 }
 .section .item .goods img {
   position: absolute;
@@ -1462,6 +1529,33 @@ ul {
   content: "";
   margin-left: -10px;
 }
+.fixbar .icon-select2 {
+  width: 40px;
+  padding-top: 32px;
+  font-size: 0.5rem;
+  line-height: 0.5rem;
+  text-align: center;
+  height: 15px;
+  color: #999;
+  z-index: 1;
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-style: normal;
+}
+.fixbar .icon-select2::after {
+  top: 7px;
+  background-image: url(../assets/cart/zong.png);
+  background-size: 133px 112px;
+  width: 20px;
+  height: 20px;
+  background-position: -78px -20px;
+  position: absolute;
+  left: 50%;
+  content: "";
+  margin-left: -10px;
+}
 .fixbar .total {
   display: flex;
   font-size: 12px;
@@ -1563,4 +1657,11 @@ ul {
   background-color: #f2270c;
   color: #fff;
 }
+/* .icon-select{
+  position: relative;
+  width: 20px !important;
+  height: 20px !important;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+} */
 </style>

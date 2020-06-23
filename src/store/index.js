@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     landing: false,
+    allcheck: false,
     orderList: [
       {
         img1: require("../assets/com-store/1.webp"),
@@ -23,6 +24,8 @@ export default new Vuex.Store({
         weight: '0.28kg',
         storename: "京东自营",
         count: 1,
+        pricenum: 1,
+        checked:false
       },
       {
         img1: require("../assets/com-store/pk1.webp"),
@@ -34,11 +37,13 @@ export default new Vuex.Store({
         price: 69,
         title: "巴朗男士双肩包新款大容量背包时尚潮休闲17寸笔记本电脑包高中大学生书包商务旅行出差包运动USB充电包 黑色 标准版",
         specificationName: "颜色",
-        specification: ["黑色巴朗男士双肩包新款", "灰色巴朗男士双肩包新款", "蓝色巴朗男士双肩包新款", "黑配灰色巴朗男士双肩包新款", ],
+        specification: ["黑色巴朗男士双肩包新款", "灰色巴朗男士双肩包新款", "蓝色巴朗男士双肩包新款", "黑配灰色巴朗男士双肩包新款",],
         shorter: "【顺丰包邮】【好店认证放心购】【送运费险、支持七天无理由退换货】 ",
         weight: '1.5kg',
         storename: "巴朗旗舰店",
         count: 1,
+        pricenum: 0,
+        checked:false
       },
       {
         img1: require("../assets/com-store/ly1.webp"),
@@ -55,6 +60,8 @@ export default new Vuex.Store({
         weight: '0.73kg',
         storename: "京东自营",
         count: 1,
+        pricenum: 0,
+        checked:false
       },
       {
         img1: require("../assets/com-store/sj1.webp"),
@@ -71,12 +78,35 @@ export default new Vuex.Store({
         weight: '0.35kg',
         storename: "三星旗舰店",
         count: 1,
+        pricenum: 0,
+        checked:false
       },
     ],
     gwcList: [],
 
   },
   mutations: {
+    allSelect(state) {
+      state.allcheck = !state.allcheck;
+      for (let i = 0; i < state.gwcList.length; i++) {
+        state.gwcList[i].checked = state.allcheck;
+      }
+    },
+    isAllChecked(state,index) {
+      let counts=0;
+      let hh=state.gwcList[index].checked
+      for (let i = 0; i < state.gwcList.length; i++) {
+        if(state.gwcList[i].checked==true){
+          counts++;
+        }      
+      }
+      if(counts == state.gwcList.length){        
+        state.allcheck = true;
+      }else{
+        state.allcheck = false;
+      }
+    
+    },
     enterGwc(state, goods) {
       let x = -1;
       for (let i = 0; i < state.gwcList.length; i++) {
@@ -91,9 +121,13 @@ export default new Vuex.Store({
         state.gwcList.push({
           title: goods.title,
           count: 1,
+          pricenum: 0,
           price: goods.price,
           img1: goods.img1,
           storename: goods.storename,
+          checked: goods.checked,
+
+
         });
       }
 
@@ -113,8 +147,15 @@ export default new Vuex.Store({
     // delCart(state,index){
     //   state.gwcList.splice(index, 1);
     // },
+    // radios(state,index) {
+    //   var list = state.gwcList;
+    //   allcheck= !list[index].checked;
+
+
+    // }
 
   },
+
 
 
 
