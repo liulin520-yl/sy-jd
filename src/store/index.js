@@ -8,6 +8,7 @@ export default new Vuex.Store({
   state: {
     landing: false,
     allcheck: false,
+    // zongji:"",
     orderList: [
       {
         img1: require("../assets/com-store/1.webp"),
@@ -79,7 +80,7 @@ export default new Vuex.Store({
         storename: "三星旗舰店",
         count: 1,
         pricenum: 0,
-        checked:false
+        checked:false,
       },
     ],
     gwcList: [],
@@ -98,6 +99,10 @@ export default new Vuex.Store({
       for (let i = 0; i < state.gwcList.length; i++) {
         if(state.gwcList[i].checked==true){
           counts++;
+          // state.gwcList[i].pricenum=state.gwcList[i].price*state.gwcList[i].count
+          // console.log(state.gwcList[i].pricenum)
+          // this.zongji=state.gwcList[i].pricenum
+          // console.log(this.zongji)
         }      
       }
       if(counts == state.gwcList.length){        
@@ -130,6 +135,7 @@ export default new Vuex.Store({
 
         });
       }
+      
 
     },
     btnMinute(state, index) {

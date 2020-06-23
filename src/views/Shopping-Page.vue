@@ -38,7 +38,11 @@
         <div class="section" v-for="(item,index) in gwcList" :key="index">
           <div class="head-wrap">
             <div class="head-fixbar">
-              <van-checkbox  bind:change="onChange" v-model="item.checked" @click="isAllChecked(index)"></van-checkbox>
+              <van-checkbox
+                bind:change="onChange"
+                v-model="item.checked" checked-color="rgb(234,59,61)"
+                @click="isAllChecked(index)"
+              ></van-checkbox>
               <!-- <van-checkbox  value="checked" bind:change="onChange"></van-checkbox> -->
               <!-- <i class="icon-select2" v-if="true" @click="itemClick(index)"></i>
               <i class="icon-select" v-if="item.checked" @click="itemClick(index)"></i>-->
@@ -51,7 +55,11 @@
           </div>
           <div class="item">
             <div class="goods">
-              <van-checkbox  bind:change="onChange" v-model="item.checked"></van-checkbox>
+              <van-checkbox
+                bind:change="onChange"
+                v-model="item.checked" checked-color="rgb(234,59,61)"
+                @click="isAllChecked(index)"
+              ></van-checkbox>
               <img :src="item.img1" alt />
 
               <div class="content">
@@ -250,12 +258,12 @@
         <div class="detail">
           <p class="t-main">
             总计：
-            <span class="t-price">¥.00</span>
+            <span class="t-price">¥{{goodssum}}.00</span>
           </p>
         </div>
         <div class="buy">
           去结算
-          <span class="num">(1件)</span>
+          <span class="num">({{goodscount}}件)</span>
         </div>
       </div>
     </div>
@@ -295,8 +303,8 @@ export default {
       showCartList: false,
       showSale: false,
       specifyIndex: 0,
-      gglist: ""
-
+      gglist: "",
+      // sum:""
       // pricenum:0
     };
   },
@@ -313,8 +321,30 @@ export default {
     },
     allcheck(){
       return this.$store.state.allcheck;
+    },
+    zongji(){
+      return this.$store.state.zongji;
+    },
+    goodscount(){
+      let sum=0;
+      for(let i=0;i<this.gwcList.length;i++){
+        if(this.gwcList[i].checked==true){
+          sum+=this.gwcList[i].count;
+        }     
+      }
+      return sum
+    },
+    goodssum(){
+      let zongji=0;
+      for(let i=0;i<this.gwcList.length;i++){
+        if(this.gwcList[i].checked==true){
+          zongji+=this.gwcList[i].price*this.gwcList[i].count;
+        }     
+      }
+      return zongji
     }
   },
+  
   //  mounted() {
   //   this.$toast('提示文案');
   // },
@@ -368,8 +398,6 @@ export default {
       this.show = false;
       this.showEmptyCart = false;
       this.showCartList = true;
-      // console.log(pricenum);
-      // this.pricenum=price*count
     },
     btnMinute(index) {
       this.$store.commit("btnMinute", index);
