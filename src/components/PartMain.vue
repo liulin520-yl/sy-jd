@@ -1,12 +1,36 @@
 <template>
   <div class="partmain-m" @scroll="handleScroll">
     <div class="partmain-content">
-      <div class="header">
+      <div class="header-l">
         <div class="header-box">
           <div class="headerbox-left">
             <span @click="getReturn()"></span>
           </div>
           <div class="headerbox-middle"></div>
+          <div class="headerbox-right">
+            <span></span>
+          </div>
+        </div>
+      </div>
+      <div class="header" :style="mystyle">
+        <div class="header-box">
+          <div class="headerbox-left">
+            <span @click="getReturn()"></span>
+          </div>
+          <div class="headerbox-middle">
+            <div class="headerbox-m-item" @click="llselect(1)">
+              商品
+              <span :class="{active:num==1}"></span>
+            </div>
+            <div class="headerbox-m-item" @click="llselect(2)">
+              评价
+              <span :class="{active:num==2}"></span>
+            </div>
+            <div class="headerbox-m-item" @click="llselect(3)">
+              详情
+              <span :class="{active:num==3}"></span>
+            </div>
+          </div>
           <div class="headerbox-right">
             <span></span>
           </div>
@@ -338,6 +362,7 @@
       <van-goods-action-button type="warning" @click="addCratl(page)" text="加入购物车" />
       <van-goods-action-button type="danger" text="立即购买" />
     </van-goods-action>
+    <div class="scoll-out-l" :style="outstyle" @click="outchange"></div>
   </div>
 </template>
 
@@ -345,6 +370,9 @@
 export default {
   data() {
     return {
+      outstyle: [],
+      num: 1,
+      mystyle: [],
       page: "",
       scrollTop: "",
       current: 0
@@ -359,9 +387,46 @@ export default {
     }
   },
   methods: {
+    llselect(index) {
+      this.num = index;
+      if (index == 1) {
+        document.querySelector(".partmain-content").scrollIntoView(true);
+      }
+      if (index == 2) {
+        document.querySelector(".part-pro-appraise-l").scrollIntoView(true);
+      }
+      if (index == 3) {
+        document.querySelector(".part-pro-image-l").scrollIntoView(true);
+      }
+    },
+    // 滚轮事件
     handleScroll() {
       this.scrollTop = event.target.scrollTop;
-      // console.log(event.target.scrollTop);
+      let obj = {
+        opacity: 0
+      };
+      let obj1 = {
+        display: "none"
+      };
+      this.outstyle.push(obj1);
+      this.mystyle.push(obj);
+      if (this.scrollTop > 700) {
+        obj1.display = "block";
+      }
+      if (this.scrollTop > 40) {
+        obj.opacity = 1;
+      } else if (this.scrollTop < 2) {
+        obj.opacity = 0;
+      } else {
+        obj.opacity += 0.1;
+      }
+      if (this.scrollTop > 0 && this.scrollTop <= 1012) {
+        this.num = 1;
+      } else if (this.scrollTop > 1012 && this.scrollTop <= 1727) {
+        this.num = 2;
+      } else if (this.scrollTop > 1727) {
+        this.num = 3;
+      }
     },
     onChange(index) {
       this.current = index;
@@ -379,12 +444,16 @@ export default {
     getReturn() {
       this.$router.go(-1);
       this.$destroy(true);
+    },
+    outchange() {
+      console.log(88);
+      document.querySelector(".partmain-content").scrollIntoView(true);
     }
   }
 };
 </script>
 
-<style>
+<style scoped>
 * {
   padding: 0;
   margin: 0;
@@ -401,6 +470,15 @@ export default {
   width: 100%;
   margin-bottom: 100px;
 }
+.partmain-content .header-l {
+  z-index: 1;
+  position: fixed;
+  width: 100%;
+  font-size: 16px;
+  text-decoration: none;
+  color: #252525;
+  min-height: 44px;
+}
 .partmain-content .header {
   z-index: 10;
   position: fixed;
@@ -409,12 +487,43 @@ export default {
   text-decoration: none;
   color: #252525;
   min-height: 44px;
+  background-color: #fff;
 }
-.partmain-content .header .header-box {
+.header-l .header-box {
   position: relative;
   min-height: 44px;
+  /* display: flex; */
 }
-.partmain-content .header .header-box .headerbox-left {
+.header .header-box {
+  position: relative;
+  min-height: 44px;
+  display: flex;
+  justify-content: space-between;
+}
+.header .headerbox-middle {
+  width: 70%;
+  height: 44px;
+  display: flex;
+  line-height: 44px;
+  text-align: center;
+}
+.headerbox-m-item {
+  width: 33%;
+  height: 100%;
+  position: relative;
+}
+.active {
+  display: block;
+  position: absolute;
+  content: "";
+  width: 28px;
+  height: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-image: linear-gradient(90deg, #f5503a, #fad1cb);
+  bottom: 6px;
+}
+.header-l .header-box .headerbox-left {
   float: left;
   background-color: #666;
   padding: 5px;
@@ -424,7 +533,16 @@ export default {
   margin: 7px 0 0 5px;
   opacity: 1;
 }
-.partmain-content .header .header-box .headerbox-left span {
+.header .header-box .headerbox-left {
+  float: left;
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  border-radius: 20px;
+  margin: 7px 0 0 5px;
+  opacity: 1;
+}
+.header-l .header-box .headerbox-left span {
   display: inline-block;
   background: url(../assets/partmain/left-arrows.png) no-repeat 50%;
   background-size: 20px 20px;
@@ -432,7 +550,15 @@ export default {
   width: 20px;
   height: 20px;
 }
-.partmain-content .header .header-box .headerbox-right {
+.header .header-box .headerbox-left span {
+  display: inline-block;
+  background: url(../assets/partmain/left-arr.png) no-repeat 50%;
+  background-size: 20px 20px;
+  margin: 0;
+  width: 20px;
+  height: 20px;
+}
+.header-l .header-box .headerbox-right {
   background-color: #666;
   padding: 5px;
   width: 30px;
@@ -443,17 +569,35 @@ export default {
   overflow: hidden;
   float: right;
 }
-.partmain-content .header .header-box .headerbox-right .leave {
+.header .header-box .headerbox-right {
+  padding: 5px;
+  width: 30px;
+  height: 30px;
+  margin: 7px 5px 0 0;
+  opacity: 1;
+  overflow: hidden;
+  float: right;
+}
+.header-box .headerbox-right .leave {
   background-color: #fff;
   color: #666;
 }
-.partmain-content .header .header-box .headerbox-right span {
+.header .header-box .headerbox-right span {
   display: inline-block;
-  background: url(../assets/partmain/dian.png) no-repeat 50%;
-  background-size: 20px 20px;
+  background: url(../assets/partmain/dian1.png) no-repeat 100%;
+  background-size: 20px;
   margin: 0;
   width: 20px;
   height: 20px;
+}
+.header-l .header-box .headerbox-right span {
+  background: url(../assets/partmain/dian.png) no-repeat 50%;
+  display: inline-block;
+  /* margin: 12px 12px 12px 10px; */
+  width: 20px;
+  height: 20px;
+  background-size: 20px 20px;
+  margin: 0;
 }
 .partmain-content .swipe-m {
   background: rgb(255, 255, 255);
@@ -1292,5 +1436,18 @@ ul {
 }
 .van-toast__text {
   margin: 55px 10px 0;
+}
+.scoll-out-l {
+  display: none;
+  position: fixed;
+  bottom: 80px;
+  right: 9px;
+  width: 38px;
+  height: 38px;
+  background-image: url("../assets/home/out.png");
+  background-size: 38px 38px;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  z-index: 20;
 }
 </style>
