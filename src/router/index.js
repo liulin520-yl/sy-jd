@@ -33,13 +33,13 @@ const routes = [
   {
     path:'/noload-page',
     name:'Noload-page',
-    component:NoloadPage
+    component:NoloadPage,
   },
   // 登录的路由
   {
     path:'/personage-page',
     name:'Personage-page',
-    component:Personage
+    component:Personage,
   },
   // 聚焦的路由
   {
@@ -61,5 +61,4 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes:routes,
 })
-
 export default router
