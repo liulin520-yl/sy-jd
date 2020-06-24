@@ -7,9 +7,9 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     landing: false,
-    allcheck: false,
-    showEmptyCart:true,
-    // zongji:"",
+    allcheck: true,
+    showEmptyCart: true,
+    maskshow:false,
     orderList: [
       {
         img1: require("../assets/com-store/1.webp"),
@@ -27,7 +27,7 @@ export default new Vuex.Store({
         storename: "京东自营",
         count: 1,
         pricenum: 1,
-        checked:false
+        checked: true
       },
       {
         img1: require("../assets/com-store/pk1.webp"),
@@ -45,7 +45,7 @@ export default new Vuex.Store({
         storename: "巴朗旗舰店",
         count: 1,
         pricenum: 0,
-        checked:false
+        checked: true
       },
       {
         img1: require("../assets/com-store/ly1.webp"),
@@ -63,7 +63,7 @@ export default new Vuex.Store({
         storename: "京东自营",
         count: 1,
         pricenum: 0,
-        checked:false
+        checked: true
       },
       {
         img1: require("../assets/com-store/sj1.webp"),
@@ -81,7 +81,7 @@ export default new Vuex.Store({
         storename: "三星旗舰店",
         count: 1,
         pricenum: 0,
-        checked:false,
+        checked: true,
       },
     ],
     gwcList: [],
@@ -94,24 +94,19 @@ export default new Vuex.Store({
         state.gwcList[i].checked = state.allcheck;
       }
     },
-    isAllChecked(state,index) {
-      let counts=0;
-      let hh=state.gwcList[index].checked
+    isAllChecked(state, index) {
+      let counts = 0;
+      let hh = state.gwcList[index].checked
       for (let i = 0; i < state.gwcList.length; i++) {
-        if(state.gwcList[i].checked==true){
+        if (state.gwcList[i].checked == true) {
           counts++;
-          // state.gwcList[i].pricenum=state.gwcList[i].price*state.gwcList[i].count
-          // console.log(state.gwcList[i].pricenum)
-          // this.zongji=state.gwcList[i].pricenum
-          // console.log(this.zongji)
-        }      
+        }
       }
-      if(counts == state.gwcList.length){        
+      if (counts == state.gwcList.length) {
         state.allcheck = true;
-      }else{
+      } else{
         state.allcheck = false;
       }
-    
     },
     enterGwc(state, goods) {
       let x = -1;
@@ -136,24 +131,21 @@ export default new Vuex.Store({
 
         });
       }
-      state.showEmptyCart=false;
-      // if(this.gwcList.length>0){
-      //   this.showEmptyCart=false;
-      // }else{
-      //   this.showEmptyCart=true;
-      // }
-      
-      
-
+      state.showEmptyCart = false;
     },
     btnMinute(state, index) {
       if (state.gwcList[index].count > 0) {
         state.gwcList[index].count--;
         if (state.gwcList[index].count == 0) {
+         
           state.gwcList[index].count = 1;
-          this.$toast("该商品1件起售", 100);
+          state.maskshow=true
+          setTimeout(function(){
+            state.maskshow=false
+            },1500)
         }
       }
+     
     },
     btnAdd(state, index) {
       state.gwcList[index].count++;
@@ -161,12 +153,7 @@ export default new Vuex.Store({
     // delCart(state,index){
     //   state.gwcList.splice(index, 1);
     // },
-    // radios(state,index) {
-    //   var list = state.gwcList;
-    //   allcheck= !list[index].checked;
-
-
-    // }
+    
 
   },
 
