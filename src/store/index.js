@@ -75,7 +75,7 @@ export default new Vuex.Store({
         img4: require("../assets/com-store/sj4.webp"),
         img5: require("../assets/com-store/sj5.webp"),
         img6: require("../assets/com-store/sj3.webp"),
-        price: 69,
+        price: 7999,
         title: "三星 Galaxy S20 Ultra 5G 少量现货【白条分期0首付6期免息】5G手机 遐想灰 白条分期 12GB+256GB",
         specificationName: "版本",
         specification: ["12GB+256GB", "白条分期 12GB+256GB"],
@@ -104,6 +104,7 @@ export default new Vuex.Store({
         count: 1,
         pricenum: 0,
         checked: true,
+        key: "黑色44毫米",
       },
       {
         img1: require("../assets/com-store/w7.jpg"),
@@ -122,6 +123,7 @@ export default new Vuex.Store({
         count: 1,
         pricenum: 0,
         checked: true,
+        key:"RTX2060 OC，i7 16G 1TSSD 144 眼动 黑"
       },
     ],
     gwcList: [],
