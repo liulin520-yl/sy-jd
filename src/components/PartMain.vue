@@ -87,8 +87,7 @@
           <div class="part-pro-wrap-l">
             <div class="part-pro-smore-l">{{orderList[page].title}}</div>
             <div class="part-pro-bru-l">
-              【华为官方直供，官网直降400元】现货当天发！
-              【赠】两年保修+运费险退换货无忧【华为P40】
+              {{orderList[page].specification}}
               <span>查看></span>
             </div>
           </div>

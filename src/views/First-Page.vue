@@ -2,7 +2,7 @@
   <div class="box-l">
     <div class="main-content-l" @scroll="handleScroll">
       <div class="content-fir-l" id="content-fir-l">
-        <div class="frist-page-head-l2"  :style="mystyle">
+        <div class="frist-page-head-l2" :style="mystyle">
           <div class="header-left-l">
             <div class="head-icon-l"></div>
           </div>
@@ -24,7 +24,7 @@
             <div class="head-icon-l"></div>
           </div>
           <div class="header-form-l">
-            <div class="header-input-l">
+            <div class="header-input-l" @click="enterserach">
               <div class="input-jd-l"></div>
               <i></i>
               <div class="input-fdj-l"></div>
@@ -361,9 +361,11 @@
       <div class="switch-btn-item-l" @click="changeBtn(2)">
         <img src="../assets/home/s7.png" alt />
       </div>
-      <div class="switch-btn-item-l">
-        <img src="../assets/home/s4.png" alt />
-      </div>
+      <a href="https://wq.jd.com/mcoss/wxmall/home?ptype=2&ptag=138097.1.6&sceneval=2&fromM=1">
+        <div class="switch-btn-item-l">
+          <img src="../assets/home/s4.png" alt />
+        </div>
+      </a>
       <div class="switch-btn-item-l" @click="changeBtn(4)">
         <img src="../assets/home/s5.png" alt />
       </div>
@@ -380,8 +382,8 @@
 export default {
   data() {
     return {
-      outstyle:[],
-      mystyle:[],
+      outstyle: [],
+      mystyle: [],
       scrollchange: true,
       page: 1,
       current: 0,
@@ -523,27 +525,27 @@ export default {
     }
   },
   methods: {
+    enterserach() {
+      this.$router.push("focus-page");
+    },
     handleScroll(e) {
       this.scrollTop = event.target.scrollTop;
-      let obj={
-        opacity:0
-      }
-      let obj1={
-        display:"none"
-      }
+      let obj = {
+        opacity: 0
+      };
+      let obj1 = {
+        display: "none"
+      };
       this.mystyle.push(obj);
       this.outstyle.push(obj1);
-      if(this.scrollTop>700){
-        obj1.display = "block"
-      }
-      else if(this.scrollTop>40){
+      if (this.scrollTop > 700) {
+        obj1.display = "block";
+      } else if (this.scrollTop > 40) {
         obj.opacity = 1;
-      }
-      else if(this.scrollTop<2){
+      } else if (this.scrollTop < 2) {
         obj.opacity = 0;
-      }
-      else{
-        obj.opacity+=0.5
+      } else {
+        obj.opacity += 0.5;
       }
     },
     changeBtn(index) {
@@ -573,8 +575,8 @@ export default {
         }
       });
     },
-    outchange(){
-      console.log(88)
+    outchange() {
+      console.log(88);
       document.querySelector("#content-fir-l").scrollIntoView(true);
     }
   }
@@ -582,14 +584,15 @@ export default {
 </script>
 
 <style scoped>
-.frist-page-head-l2{
-   background-color: rgb(228, 49, 48);
+.frist-page-head-l2 {
+  background-color: rgb(228, 49, 48);
 
   opacity: 1;
   position: fixed;
   top: 0;
 }
-.frist-page-head-l,.frist-page-head-l2 {
+.frist-page-head-l,
+.frist-page-head-l2 {
   width: 100%;
   height: 44px;
   display: flex;
@@ -675,13 +678,13 @@ export default {
   width: 45px;
   height: 44px;
 }
-.already-load-l{
+.already-load-l {
   display: inline-block;
-    margin: 10px 12px 12px 10px;
-    width: 20px;
-    height: 22px;
-    background: url("../assets/home/loader.png") no-repeat 50%;
-    background-size: 20px;
+  margin: 10px 12px 12px 10px;
+  width: 20px;
+  height: 22px;
+  background: url("../assets/home/loader.png") no-repeat 50%;
+  background-size: 20px;
 }
 .header-load-l .no-load-l {
   display: inline-block;
@@ -1315,17 +1318,17 @@ export default {
   display: inline-block;
   margin-top: 2px;
 }
-.scoll-out-l{
+.scoll-out-l {
   display: none;
   position: fixed;
-    bottom: 80px;
-    right: 9px;
-    width: 38px;
-    height: 38px;
-    background-image: url("../assets/home/out.png");
-    background-size: 38px 38px;
-    background-repeat: no-repeat;
-    background-position: 50%;
-    z-index: 20;
+  bottom: 80px;
+  right: 9px;
+  width: 38px;
+  height: 38px;
+  background-image: url("../assets/home/out.png");
+  background-size: 38px 38px;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  z-index: 20;
 }
 </style>

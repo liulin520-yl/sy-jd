@@ -17,4 +17,8 @@ body,
   margin: 0;
   box-sizing: border-box;
 }
+a{
+  display: inline-block;
+  text-decoration-style: none;
+}
 </style>
