@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { turn } from 'core-js/fn/array'
 
 Vue.use(Vuex)
 
@@ -9,7 +8,8 @@ export default new Vuex.Store({
     landing: false,
     allcheck: true,
     showEmptyCart: true,
-    maskshow:false,
+    maskshow: false,
+    maskshow2: false,
     orderList: [
       {
         img1: require("../assets/com-store/1.webp"),
@@ -27,7 +27,8 @@ export default new Vuex.Store({
         storename: "京东自营",
         count: 1,
         pricenum: 1,
-        checked: true
+        checked: true,
+        key: "（2级定型）OSIS发胶2号300ml",
       },
       {
         img1: require("../assets/com-store/pk1.webp"),
@@ -45,7 +46,8 @@ export default new Vuex.Store({
         storename: "巴朗旗舰店",
         count: 1,
         pricenum: 0,
-        checked: true
+        checked: true,
+        key: "黑色巴朗男士双肩包新款",
       },
       {
         img1: require("../assets/com-store/ly1.webp"),
@@ -63,7 +65,8 @@ export default new Vuex.Store({
         storename: "京东自营",
         count: 1,
         pricenum: 0,
-        checked: true
+        checked: true,
+        key: "DIR-822+ 11AC 1200M双频百兆",
       },
       {
         img1: require("../assets/com-store/sj1.webp"),
@@ -72,7 +75,7 @@ export default new Vuex.Store({
         img4: require("../assets/com-store/sj4.webp"),
         img5: require("../assets/com-store/sj5.webp"),
         img6: require("../assets/com-store/sj3.webp"),
-        price: 69,
+        price: 7999,
         title: "三星 Galaxy S20 Ultra 5G 少量现货【白条分期0首付6期免息】5G手机 遐想灰 白条分期 12GB+256GB",
         specificationName: "版本",
         specification: ["12GB+256GB", "白条分期 12GB+256GB"],
@@ -82,6 +85,45 @@ export default new Vuex.Store({
         count: 1,
         pricenum: 0,
         checked: true,
+        key: "12GB+256GB",
+      },
+      {
+        img1: require("../assets/com-store/w1.jpg"),
+        img2: require("../assets/com-store/w2.jpg"),
+        img3: require("../assets/com-store/w3.jpg"),
+        img4: require("../assets/com-store/w4.jpg"),
+        img5: require("../assets/com-store/w5.jpg"),
+        img6: require("../assets/com-store/w6.jpg"),
+        price: 3299,
+        title: "Apple Watch Series 5智能手表（GPS款 44毫米深空灰色铝金属表壳 黑色运动型表带 MWVF2CH/A)",
+        specificationName: "颜色",
+        specification: ["黑色44毫米"],
+        shorter: "【由 京东 发货, 并提供售后服务. 12:00前下单，预计今天(06月24日)送达】【【宅出健康，安全出行！】【AppleWatch低至1499！】【AppleMusic新用户再享3个月试用！】库存紧张，马上抢购！】 ",
+        weight: '0.35kg',
+        storename: "iphone旗舰店",
+        count: 1,
+        pricenum: 0,
+        checked: true,
+        key: "黑色44毫米",
+      },
+      {
+        img1: require("../assets/com-store/w7.jpg"),
+        img2: require("../assets/com-store/w8.jpg"),
+        img3: require("../assets/com-store/w9.jpg"),
+        img4: require("../assets/com-store/w10.jpg"),
+        img5: require("../assets/com-store/w11.jpg"),
+        img6: require("../assets/com-store/w12.jpg"),
+        price: 22355,
+        title: "外星人Alienware area-51m 17.3英寸游戏笔记本电脑九代i7 RTX2060OC 144Hz 戴尔dell R1735DB",
+        specificationName: "颜色",
+        specification: ["RTX2060 OC，i7 16G 1TSSD 144 眼动 黑"],
+        shorter: "【由 京东 发货, 并提供售后服务. 12:00前下单，预计今天(06月24日)送达】【【宅出健康，安全出行！】【外星人m15/m17全新升级10代处理器！指定产品钜惠千元，白条24期免息，晒单返千元好礼！超轻悍游戏本献给玩家立即查看】库存紧张，马上抢购！】 ",
+        weight: '2.0kg',
+        storename: "外星人京东自营旗舰店",
+        count: 1,
+        pricenum: 0,
+        checked: true,
+        key:"RTX2060 OC，i7 16G 1TSSD 144 眼动 黑"
       },
     ],
     gwcList: [],
@@ -104,7 +146,7 @@ export default new Vuex.Store({
       }
       if (counts == state.gwcList.length) {
         state.allcheck = true;
-      } else{
+      } else {
         state.allcheck = false;
       }
     },
@@ -112,7 +154,6 @@ export default new Vuex.Store({
       let x = -1;
       for (let i = 0; i < state.gwcList.length; i++) {
         if (goods.title == state.gwcList[i].title) {
-
           x = i
         }
       }
@@ -127,8 +168,7 @@ export default new Vuex.Store({
           img1: goods.img1,
           storename: goods.storename,
           checked: goods.checked,
-
-
+          key: goods.key
         });
       }
       state.showEmptyCart = false;
@@ -137,23 +177,33 @@ export default new Vuex.Store({
       if (state.gwcList[index].count > 0) {
         state.gwcList[index].count--;
         if (state.gwcList[index].count == 0) {
-         
+
           state.gwcList[index].count = 1;
-          state.maskshow=true
-          setTimeout(function(){
-            state.maskshow=false
-            },1500)
+          state.maskshow = true
+          setTimeout(function () {
+            state.maskshow = false
+          }, 1500)
         }
       }
-     
+
     },
     btnAdd(state, index) {
       state.gwcList[index].count++;
     },
-    // delCart(state,index){
-    //   state.gwcList.splice(index, 1);
-    // },
-    
+    delCart(state, index) {
+      state.gwcList.splice(index, 1);
+      state.maskshow2 = true
+      setTimeout(function () {
+        state.maskshow2 = false
+      }, 500)
+      if(state.gwcList.length<1){
+        console.log("123");
+        
+        state.showEmptyCart = true;
+      }
+      
+    },
+
 
   },
 

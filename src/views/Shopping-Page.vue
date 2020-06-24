@@ -47,9 +47,6 @@
                 checked-color="rgb(234,59,61)"
                 @click="isAllChecked(index)"
               ></van-checkbox>
-              <!-- <van-checkbox  value="checked" bind:change="onChange"></van-checkbox> -->
-              <!-- <i class="icon-select2" v-if="true" @click="itemClick(index)"></i>
-              <i class="icon-select" v-if="item.checked" @click="itemClick(index)"></i>-->
               <i class="icon-shop"></i>
               <div class="title">
                 {{item.storename}}
@@ -69,8 +66,8 @@
 
               <div class="content">
                 <div class="name">{{item.title}}</div>
-                <div class="sku">
-                  <div class="skuu">{{gglist}}</div>
+                <div class="sku" >
+                  <div class="skuu">{{item.key}}</div>
                   <div class="service">选服务</div>
                 </div>
                 <div class="price-line">
@@ -223,7 +220,7 @@
     </div>
     <!-- 加入购物车弹框 -->
     <van-popup v-model="show" round position="bottom" :style="{ height: '60%' }" closeable>
-      <div class="mod-sku-switch">
+      <div class="mod-sku-switch" >
         <div class="switch-header">
           <img :src="number.img1" alt />
           <div class="switch-header-content">
@@ -231,7 +228,7 @@
               ¥
               <em>{{number.price}}</em>
             </p>
-            <p class="prop">
+            <p class="prop" >
               <span>已选</span>
               {{gglist}}
             </p>
@@ -295,6 +292,11 @@
     <div class="mask-m" v-if="maskshow">
       <div class="mask-box">该商品1件起售</div>
     </div>
+    <!-- 删除成功 -->
+    <div class="mask-m" v-if="maskshow2">
+      <i></i>
+      <div class="mask-box">删除成功</div>
+    </div>
   </div>
 </template>
 
@@ -311,7 +313,7 @@ export default {
       number: "",
       showSale: false,
       specifyIndex: 0,
-      gglist: ""
+      gglist: "",
     };
   },
 
@@ -321,6 +323,9 @@ export default {
     },
     maskshow(){
       return this.$store.state.maskshow;
+    },
+    maskshow2(){
+      return this.$store.state.maskshow2;
     },
     gwcList() {
       return this.$store.state.gwcList;
@@ -403,6 +408,7 @@ export default {
     bottomPopup(item, index) {
       this.show = true;
       this.number = item;
+      this.gglist=item.key
     },
     enterGwc(number) {
       this.$store.commit("enterGwc", {
@@ -411,7 +417,8 @@ export default {
         price: number.price,
         img1: number.img1,
         checked: number.checked,
-        storename: number.storename
+        storename: number.storename,
+        key:this.gglist
       });
       this.show = false;
       this.msshow=false;
@@ -427,7 +434,10 @@ export default {
     },
     chooseitem(index, item) {
       this.specifyIndex = index;
-      this.gglist = item;
+      this.gglist =this.number.specification[index]
+      ;
+      // this.ggindex=index
+      // console.log(this.gglist)
     },
     onChange(event) {
       this.setData({

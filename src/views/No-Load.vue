@@ -212,6 +212,8 @@ export default {
         if(this.textpass.test(this.pass)==true){
           this.$router.push("personage-page");
           this.$store.state.landing=true
+          localStorage.setItem("tel", JSON.stringify(this.tel))
+          localStorage.setItem("pass", JSON.stringify(this.pass))
         }else{
           this.shade=true
           let that=this
@@ -234,7 +236,19 @@ export default {
     pass: function() {
       this.bgcevent();
     }
-  }
+  },
+    created() {
+        let a = localStorage.getItem("tel")
+        if (a) {
+            a = JSON.parse(a)
+            this.tel = a
+        }
+        let b = localStorage.getItem("pass")
+        if (b) {
+            b = JSON.parse(b)
+            this.pass = b
+        }
+    }
 };
 </script>
 

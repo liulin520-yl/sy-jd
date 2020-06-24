@@ -179,58 +179,21 @@
       </div>
       <!-- 商品 -->
       <div class="recomment-pro">
-        <div class="recomment-pro-item">
+        <div class="recomment-pro-item" v-for="(item,index) in orderList" :key="index" @click="perRouter(index)">
           <div class="pro-item-img">
-            <img src="../assets/classify-img/watch.jpg" alt />
+            <img :src="item.img1" alt />
           </div>
           <div class="pro-item-introduce">
             <p>
               <img class="pro-one" src="../assets/classify-img/pro-one.png" alt />
               <img class="pro-two" src="../assets/classify-img/pro-two.png" alt />
-              <span>华为（HUAWEI） 智能手表Watch GT男运动女成人蓝牙计步心率NFC支付 华为watch GT-运动款-黑色-送大礼包</span>
+              <span>{{item.title}}</span>
             </p>
           </div>
-          <p class="me-price">￥900</p>
+          <p class="me-price">￥{{item.price}}</p>
         </div>
-        <div class="recomment-pro-item">
-          <div class="pro-item-img">
-            <img src="../assets/classify-img/er.jpg" alt />
-          </div>
-          <div class="pro-item-introduce">
-            <p>
-              <img class="pro-one" src="../assets/classify-img/pro-one.png" alt />
-              <img class="pro-two" src="../assets/classify-img/pro-two.png" alt />
-              <span>戈斯拉 G2pro真无线air蓝牙耳机适用苹果Xs/11/华为vivo/oppo入耳式2代安卓双耳塞 1:1新款（千元HiFi音效+改名定位）</span>
-            </p>
-          </div>
-          <p class="me-price">￥900</p>
-        </div>
-        <div class="recomment-pro-item">
-          <div class="pro-item-img">
-            <img src="../assets/classify-img/shou.jpg" alt />
-          </div>
-          <div class="pro-item-introduce">
-            <p>
-              <img class="pro-one" src="../assets/classify-img/pro-one.png" alt />
-              <img class="pro-two" src="../assets/classify-img/pro-two.png" alt />
-              <span>Apple iPhone XS 苹果Xs 手机 金色 4G全网通 64GB</span>
-            </p>
-          </div>
-          <p class="me-price">￥900</p>
-        </div>
-        <div class="recomment-pro-item">
-          <div class="pro-item-img">
-            <img src="../assets/classify-img/ji.jpg" alt />
-          </div>
-          <div class="pro-item-introduce">
-            <p>
-              <img class="pro-one" src="../assets/classify-img/pro-one.png" alt />
-              <img class="pro-two" src="../assets/classify-img/pro-two.png" alt />
-              <span>Apple 苹果 iPhone 11 移动联通电信4G手机 双卡双待 绿色 64GB</span>
-            </p>
-          </div>
-          <p class="me-price">￥900</p>
-        </div>
+        
+       
       </div>
     </div>
     <div class="switch-btn-y">
@@ -238,10 +201,10 @@
         <img src="../assets/home/s2.png" alt />
       </div>
       <div class="switch-btn-item-y">
-        <img src="../assets/home/s7.png" @click="changeBtn(2)">
+        <img src="../assets/home/s7.png" @click="changeBtn(2)" />
       </div>
       <div class="switch-btn-item-y">
-        <img src="../assets/home/s4.png" @click="changeBtn(3)">
+        <img src="../assets/home/s4.png" @click="changeBtn(3)" />
       </div>
       <div class="switch-btn-item-y" @click="changeBtn(4)">
         <img src="../assets/home/s5.png" alt />
@@ -255,17 +218,20 @@
 
 <script>
 export default {
-   computed: {
-        landing() {
-            return this.$store.state.landing
-        },
+  computed: {
+    landing() {
+      return this.$store.state.landing;
+    },    
+    orderList() {
+      return this.$store.state.orderList;
     },
-  methods:{
-    
-    perReturn(){
-       this.$router.go(-2)
+  },
+
+  methods: {
+    perReturn() {
+      this.$router.go(-2);
     },
-   changeBtn(index) {
+    changeBtn(index) {
       if (index == 1) {
         this.$router.push("/");
       }
@@ -275,10 +241,15 @@ export default {
       if (index == 4) {
         this.$router.push("shopping-page");
       }
-      if (index == 5) {
-        this.$router.push("noload-page");
-      }
     },
+    perRouter(index){
+      this.$router.push({
+        path: "part-main",
+        query: {
+          num: index
+        }
+      });
+    }
   },
 };
 </script>
@@ -703,7 +674,7 @@ export default {
   height: 14px;
   margin-left: 5px;
 }
-.me-price{
+.me-price {
   font-size: 14px;
   color: #e93b3d;
 }

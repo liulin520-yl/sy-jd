@@ -207,8 +207,8 @@ export default {
   padding: 2.5px 0px;
 }
 .classify-head-return-y img {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
 }
 .classify-head-input-y {
   padding-left: 10px;
