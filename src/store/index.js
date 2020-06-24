@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { turn } from 'core-js/fn/array'
 
 Vue.use(Vuex)
 
@@ -9,7 +8,8 @@ export default new Vuex.Store({
     landing: false,
     allcheck: true,
     showEmptyCart: true,
-    maskshow:false,
+    maskshow: false,
+    maskshow2: false,
     orderList: [
       {
         img1: require("../assets/com-store/1.webp"),
@@ -27,7 +27,8 @@ export default new Vuex.Store({
         storename: "京东自营",
         count: 1,
         pricenum: 1,
-        checked: true
+        checked: true,
+        key: "（2级定型）OSIS发胶2号300ml",
       },
       {
         img1: require("../assets/com-store/pk1.webp"),
@@ -45,7 +46,8 @@ export default new Vuex.Store({
         storename: "巴朗旗舰店",
         count: 1,
         pricenum: 0,
-        checked: true
+        checked: true,
+        key: "黑色巴朗男士双肩包新款",
       },
       {
         img1: require("../assets/com-store/ly1.webp"),
@@ -63,7 +65,8 @@ export default new Vuex.Store({
         storename: "京东自营",
         count: 1,
         pricenum: 0,
-        checked: true
+        checked: true,
+        key: "DIR-822+ 11AC 1200M双频百兆",
       },
       {
         img1: require("../assets/com-store/sj1.webp"),
@@ -82,6 +85,7 @@ export default new Vuex.Store({
         count: 1,
         pricenum: 0,
         checked: true,
+        key: "12GB+256GB",
       },
     ],
     gwcList: [],
@@ -104,7 +108,7 @@ export default new Vuex.Store({
       }
       if (counts == state.gwcList.length) {
         state.allcheck = true;
-      } else{
+      } else {
         state.allcheck = false;
       }
     },
@@ -112,7 +116,6 @@ export default new Vuex.Store({
       let x = -1;
       for (let i = 0; i < state.gwcList.length; i++) {
         if (goods.title == state.gwcList[i].title) {
-
           x = i
         }
       }
@@ -127,8 +130,7 @@ export default new Vuex.Store({
           img1: goods.img1,
           storename: goods.storename,
           checked: goods.checked,
-
-
+          key: goods.key
         });
       }
       state.showEmptyCart = false;
@@ -137,23 +139,33 @@ export default new Vuex.Store({
       if (state.gwcList[index].count > 0) {
         state.gwcList[index].count--;
         if (state.gwcList[index].count == 0) {
-         
+
           state.gwcList[index].count = 1;
-          state.maskshow=true
-          setTimeout(function(){
-            state.maskshow=false
-            },1500)
+          state.maskshow = true
+          setTimeout(function () {
+            state.maskshow = false
+          }, 1500)
         }
       }
-     
+
     },
     btnAdd(state, index) {
       state.gwcList[index].count++;
     },
-    // delCart(state,index){
-    //   state.gwcList.splice(index, 1);
-    // },
-    
+    delCart(state, index) {
+      state.gwcList.splice(index, 1);
+      state.maskshow2 = true
+      setTimeout(function () {
+        state.maskshow2 = false
+      }, 500)
+      if(state.gwcList.length<1){
+        console.log("123");
+        
+        state.showEmptyCart = true;
+      }
+      
+    },
+
 
   },
 
