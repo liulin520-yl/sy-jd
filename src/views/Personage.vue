@@ -203,9 +203,11 @@
       <div class="switch-btn-item-y">
         <img src="../assets/home/s7.png" @click="changeBtn(2)" />
       </div>
+      <a href="https://wq.jd.com/mcoss/wxmall/home?ptype=2&ptag=138097.1.6&sceneval=2&fromM=1">
       <div class="switch-btn-item-y">
         <img src="../assets/home/s4.png" @click="changeBtn(3)" />
       </div>
+      </a>
       <div class="switch-btn-item-y" @click="changeBtn(4)">
         <img src="../assets/home/s5.png" alt />
       </div>
