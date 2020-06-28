@@ -1,6 +1,6 @@
 <template>
-  <div class="box-m">
-    <div class="wx-wrap-m">
+  <div class="box-m" @scroll=" handleScroll()">
+    <div class="wx-wrap-m" >
       <!-- 购物车 -->
       <div class="header-bar">
         <div class="header-bar-back" @click="gwcReturn"></div>
@@ -112,50 +112,14 @@
             </div>
             <div class="header-link">查看更多</div>
           </div>
-          <div class="slider">
-            <div class="item">
+          <div class="slider" >
+            <div class="item" v-for="(item,index) in seckilllist" :key="index">
               <div class="image">
-                <img src="../assets/cart/bigwcard.webp" alt />
+                <img :src="item.src" alt />
               </div>
               <p class="price">
-                ¥1.00
-                <span class="del">¥3.00</span>
-              </p>
-            </div>
-            <div class="item">
-              <div class="image">
-                <img src="../assets/cart/bigwcard.webp" alt />
-              </div>
-              <p class="price">
-                ¥1.00
-                <span class="del">¥3.00</span>
-              </p>
-            </div>
-            <div class="item">
-              <div class="image">
-                <img src="../assets/cart/bigwcard.webp" alt />
-              </div>
-              <p class="price">
-                ¥1.00
-                <span class="del">¥3.00</span>
-              </p>
-            </div>
-            <div class="item">
-              <div class="image">
-                <img src="../assets/cart/bigwcard.webp" alt />
-              </div>
-              <p class="price">
-                ¥1.00
-                <span class="del">¥3.00</span>
-              </p>
-            </div>
-            <div class="item">
-              <div class="image">
-                <img src="../assets/cart/bigwcard.webp" alt />
-              </div>
-              <p class="price">
-                ¥1.00
-                <span class="del">¥3.00</span>
+                ¥{{item.newprice}}
+                <span class="del">¥{{item.oldprice}}</span>
               </p>
             </div>
           </div>
@@ -277,9 +241,11 @@
       <div class="switch-btn-item-m" @click="changeBtn(2)">
         <img src="../assets/home/s7.png" alt />
       </div>
+        <a href="https://wq.jd.com/mcoss/wxmall/home?ptype=2&ptag=138097.1.6&sceneval=2&fromM=1">
       <div class="switch-btn-item-m">
         <img src="../assets/home/s4.png" alt />
       </div>
+        </a>
       <div class="switch-btn-item-m">
         <img src="../assets/home/s6.png" alt />
       </div>
@@ -297,6 +263,10 @@
       <i></i>
       <div class="mask-box">删除成功</div>
     </div>
+
+    <!-- 向上 -->
+    <div class="scoll-out-l" :style="outstyle" @click="outchange"></div>
+
   </div>
 </template>
 
@@ -304,6 +274,8 @@
 export default {
   data() {
     return {
+      outstyle: [],
+
       get: true,
       msshow:true,
       page: 1,
@@ -314,6 +286,38 @@ export default {
       showSale: false,
       specifyIndex: 0,
       gglist: "",
+      seckilllist:[
+        {
+          src:require("../assets/cart/seckill1.jpg"),
+          newprice:49.9,
+          oldprice:59.9
+        },
+        {
+          src:require("../assets/cart/seckill2.jpg"),
+          newprice:919,
+          oldprice:1099
+        },
+        {
+          src:require("../assets/cart/seckill3.jpg"),
+          newprice:15.9,
+          oldprice:39
+        },
+        {
+          src:require("../assets/cart/seckill3.png"),
+          newprice:12.9,
+          oldprice:24.9
+        },
+        {
+          src:require("../assets/cart/seckill4.jpg"),
+          newprice:219,
+          oldprice:288
+        },
+        {
+          src:require("../assets/cart/seckill5.jpg"),
+          newprice:999,
+          oldprice:1299
+        },
+      ],
     };
   },
 
@@ -363,6 +367,21 @@ export default {
     }
   },
   methods: {
+    handleScroll(){
+      this.scrollTop = event.target.scrollTop;
+      console.log(this.scrollTop)
+       let obj1 = {
+        display: "none"
+      };
+       if (this.scrollTop > 400) {
+        obj1.display = "block";
+      }
+    },
+    // 向上
+     outchange() {
+      console.log(88);
+      document.querySelector(".wx-wrap-m").scrollIntoView(true);
+    },
     goodpage(index) {
       this.$router.push({
         path: "part-main",
@@ -472,6 +491,7 @@ ul {
 .wx-wrap-m {
   padding-bottom: calc(70px + 13.33333vw);
   overflow: auto;
+  /* height: 1800px; */
   font-size: 12px;
   color: #333;
   width: 100%;
@@ -1739,5 +1759,19 @@ ul {
   font-size: 14px;
   background: rgba(0, 0, 0, 0.7);
   box-shadow: 0 1px 10px 0 rgba(0,0,0,.3);
+}
+/* 向上 */
+.scoll-out-l {
+  display: none;
+  position: fixed;
+  bottom: 80px;
+  right: 9px;
+  width: 38px;
+  height: 38px;
+  background-image: url("../assets/home/out.png");
+  background-size: 38px 38px;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  z-index: 20;
 }
 </style>
